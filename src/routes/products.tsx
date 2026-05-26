@@ -34,7 +34,7 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-32 pb-24 text-right">
+      <main className="pt-24 sm:pt-28 lg:pt-32 pb-24 text-start">
         <Container
           clean
           className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop"

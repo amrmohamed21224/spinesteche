@@ -74,7 +74,7 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-20 text-right">
+      <main className="pt-24 sm:pt-28 lg:pt-32 text-start">
         {/* Hero Section */}
         <section
           className="relative min-h-[614px] flex items-center overflow-hidden bg-surface-container-low border-b border-outline-variant/20"

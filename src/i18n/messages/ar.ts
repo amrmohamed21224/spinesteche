@@ -15,6 +15,8 @@ export const ar = {
     english: "English",
     arabic: "العربية",
     mainNav: "القائمة الرئيسية",
+    openMenu: "فتح القائمة",
+    closeMenu: "إغلاق القائمة",
     homeAria: "الرئيسية SpinesTech",
   },
   footer: {

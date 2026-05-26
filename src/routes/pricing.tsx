@@ -59,7 +59,7 @@ function PricingPage() {
 
   return (
     <PageLayout>
-      <main className="pt-32 pb-24 relative overflow-hidden text-start">
+      <main className="pt-24 sm:pt-28 lg:pt-32 pb-24 relative overflow-hidden text-start">
         {/* Background Decorations */}
         <div className="absolute inset-0 grid-pattern pointer-events-none" aria-hidden="true"></div>
         <div

@@ -29,7 +29,7 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-20 text-start">
+      <main className="pt-24 sm:pt-28 lg:pt-32 text-start">
         {/* Hero Section: Who We Are */}
         <section className="relative min-h-[716px] flex items-center overflow-hidden geometric-pattern border-b border-outline-variant/20">
           <Container clean>

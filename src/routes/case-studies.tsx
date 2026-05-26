@@ -65,7 +65,7 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-32 pb-24 text-start">
+      <main className="pt-24 sm:pt-28 lg:pt-32 pb-24 text-start">
         {/* Hero Section */}
         <section
           className="px-margin-desktop mb-20 relative overflow-hidden"

@@ -33,7 +33,7 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-32 pb-20 text-start">
+      <main className="pt-24 sm:pt-28 lg:pt-32 pb-20 text-start">
         <section className="px-margin-desktop mb-24 relative" aria-label={t("services.introAria")}>
           <Container clean>
             <div className="max-w-4xl mx-auto">

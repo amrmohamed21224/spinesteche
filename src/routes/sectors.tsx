@@ -47,7 +47,7 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-20 text-start">
+      <main className="pt-24 sm:pt-28 lg:pt-32 text-start">
         {/* Hero Section */}
         <section
           className="relative py-24 px-margin-desktop overflow-hidden bg-surface"

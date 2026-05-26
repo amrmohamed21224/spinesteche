@@ -15,6 +15,8 @@ export const en = {
     english: "English",
     arabic: "العربية",
     mainNav: "Main navigation",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
     homeAria: "SpinesTech Home",
   },
   footer: {
