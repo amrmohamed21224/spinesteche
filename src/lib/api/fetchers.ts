@@ -11,50 +11,49 @@ import {
   CMSSiteSettings,
   CMSSector,
   CMSProduct,
-  CMSCoreValue,
-  CMSDifferentiator,
-  CMSMarketPresence,
-  CMSStat,
   CMSNavigationLink,
 } from "../../types/cms";
-
-// Import mock datasets for fallback/simulation mode
-import { mockServices } from "../../data/services";
-import { mockCaseStudies } from "../../data/caseStudies";
-import { mockPricingPlans, mockFaqs } from "../../data/pricing";
-import { mockCareers } from "../../data/careers";
-import { mockTestimonials, mockTeamMembers } from "../../data/testimonials";
-import { mockSectors } from "../../data/sectors";
-import { mockProducts } from "../../data/products";
-import { mockNavigation, mockSiteSettings } from "../../data/navigation";
+import type { Locale } from "../../i18n/types";
 import {
-  mockCoreValues,
-  mockDifferentiators,
-  mockMarkets,
-  mockAboutStats,
-  mockMission,
-  mockVision,
-} from "../../data/about";
+  localizeServices,
+  localizePricing,
+  localizeFaqs,
+  localizeSectors,
+  localizeProducts,
+  localizeCaseStudies,
+  localizeCareers,
+  getLocalizedAboutPage,
+} from "../../data/localized";
+import { mockTestimonials, mockTeamMembers } from "../../data/testimonials";
+import { mockNavigation, mockSiteSettings } from "../../data/navigation";
 
 // Helper to determine if we should bypass network and use mocks directly
 const USE_MOCKS = true; // Set to true to simulate loading state and client logic offline
 
+const MOCK_DELAY_MS = 400;
+
+async function mockDelay(ms = MOCK_DELAY_MS) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 /**
  * Services Fetchers
  */
-export async function getServices(): Promise<CMSService[]> {
+export async function getServices(locale: Locale = "ar"): Promise<CMSService[]> {
   if (USE_MOCKS) {
-    // Simulate API fetch delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    return mockServices;
+    await mockDelay(500);
+    return localizeServices(locale);
   }
   return cmsClient.get<CMSService[]>(ENDPOINTS.SERVICES);
 }
 
-export async function getServiceBySlug(slug: string): Promise<CMSService | null> {
+export async function getServiceBySlug(
+  slug: string,
+  locale: Locale = "ar",
+): Promise<CMSService | null> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return mockServices.find((s) => s.slug === slug) || null;
+    await mockDelay(300);
+    return localizeServices(locale).find((s) => s.slug === slug) || null;
   }
   try {
     return await cmsClient.get<CMSService>(`${ENDPOINTS.SERVICES}/${slug}`);
@@ -66,18 +65,21 @@ export async function getServiceBySlug(slug: string): Promise<CMSService | null>
 /**
  * Case Studies Fetchers
  */
-export async function getCaseStudies(): Promise<CMSCaseStudy[]> {
+export async function getCaseStudies(locale: Locale = "ar"): Promise<CMSCaseStudy[]> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    return mockCaseStudies;
+    await mockDelay(600);
+    return localizeCaseStudies(locale);
   }
   return cmsClient.get<CMSCaseStudy[]>(ENDPOINTS.CASE_STUDIES);
 }
 
-export async function getCaseStudyBySlug(slug: string): Promise<CMSCaseStudy | null> {
+export async function getCaseStudyBySlug(
+  slug: string,
+  locale: Locale = "ar",
+): Promise<CMSCaseStudy | null> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return mockCaseStudies.find((cs) => cs.slug === slug) || null;
+    await mockDelay(300);
+    return localizeCaseStudies(locale).find((cs) => cs.slug === slug) || null;
   }
   try {
     return await cmsClient.get<CMSCaseStudy>(`${ENDPOINTS.CASE_STUDIES}/${slug}`);
@@ -89,18 +91,18 @@ export async function getCaseStudyBySlug(slug: string): Promise<CMSCaseStudy | n
 /**
  * Pricing & FAQ Fetchers
  */
-export async function getPricingPlans(): Promise<CMSPricingPlan[]> {
+export async function getPricingPlans(locale: Locale = "ar"): Promise<CMSPricingPlan[]> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    return mockPricingPlans;
+    await mockDelay(400);
+    return localizePricing(locale);
   }
   return cmsClient.get<CMSPricingPlan[]>(ENDPOINTS.PRICING);
 }
 
-export async function getFaqs(): Promise<CMSFaq[]> {
+export async function getFaqs(locale: Locale = "ar"): Promise<CMSFaq[]> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return mockFaqs;
+    await mockDelay(300);
+    return localizeFaqs(locale);
   }
   return cmsClient.get<CMSFaq[]>(ENDPOINTS.FAQS);
 }
@@ -108,18 +110,21 @@ export async function getFaqs(): Promise<CMSFaq[]> {
 /**
  * Careers / Job Position Fetchers
  */
-export async function getCareers(): Promise<CMSJobPosition[]> {
+export async function getCareers(locale: Locale = "ar"): Promise<CMSJobPosition[]> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    return mockCareers;
+    await mockDelay(500);
+    return localizeCareers(locale);
   }
   return cmsClient.get<CMSJobPosition[]>(ENDPOINTS.CAREERS);
 }
 
-export async function getJobBySlug(slug: string): Promise<CMSJobPosition | null> {
+export async function getJobBySlug(
+  slug: string,
+  locale: Locale = "ar",
+): Promise<CMSJobPosition | null> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return mockCareers.find((job) => job.slug === slug) || null;
+    await mockDelay(300);
+    return localizeCareers(locale).find((job) => job.slug === slug) || null;
   }
   try {
     return await cmsClient.get<CMSJobPosition>(`${ENDPOINTS.CAREERS}/${slug}`);
@@ -150,16 +155,25 @@ export async function getTeamMembers(): Promise<CMSTeamMember[]> {
 /**
  * Form Submission Fetchers (API preparation)
  */
-export async function submitContactForm(data: {
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  message: string;
-}): Promise<{ success: boolean; message: string }> {
+export async function submitContactForm(
+  data: {
+    name: string;
+    email: string;
+    phone?: string;
+    company?: string;
+    message: string;
+  },
+  locale: Locale = "ar",
+): Promise<{ success: boolean; message: string }> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    return { success: true, message: "تم استلام رسالتك بنجاح! وسنتواصل معك قريباً." };
+    await mockDelay(1000);
+    return {
+      success: true,
+      message:
+        locale === "en"
+          ? "Your message was received! We will contact you soon."
+          : "تم استلام رسالتك بنجاح! وسنتواصل معك قريباً.",
+    };
   }
   return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.CONTACT_SUBMISSION, data);
 }
@@ -197,10 +211,10 @@ export async function submitQuoteRequest(data: {
 /**
  * Sectors Fetchers
  */
-export async function getSectors(): Promise<CMSSector[]> {
+export async function getSectors(locale: Locale = "ar"): Promise<CMSSector[]> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    return mockSectors;
+    await mockDelay(400);
+    return localizeSectors(locale);
   }
   return cmsClient.get<CMSSector[]>("/sectors");
 }
@@ -208,10 +222,10 @@ export async function getSectors(): Promise<CMSSector[]> {
 /**
  * Products Fetchers
  */
-export async function getProducts(): Promise<CMSProduct[]> {
+export async function getProducts(locale: Locale = "ar"): Promise<CMSProduct[]> {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    return mockProducts;
+    await mockDelay(400);
+    return localizeProducts(locale);
   }
   return cmsClient.get<CMSProduct[]>("/products");
 }
@@ -219,24 +233,10 @@ export async function getProducts(): Promise<CMSProduct[]> {
 /**
  * About Page Fetchers
  */
-export async function getAboutPageData(): Promise<{
-  mission: string;
-  vision: string;
-  coreValues: CMSCoreValue[];
-  differentiators: CMSDifferentiator[];
-  markets: CMSMarketPresence[];
-  stats: CMSStat[];
-}> {
+export async function getAboutPageData(locale: Locale = "ar") {
   if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    return {
-      mission: mockMission,
-      vision: mockVision,
-      coreValues: mockCoreValues,
-      differentiators: mockDifferentiators,
-      markets: mockMarkets,
-      stats: mockAboutStats,
-    };
+    await mockDelay(400);
+    return getLocalizedAboutPage(locale);
   }
   return cmsClient.get("/about");
 }

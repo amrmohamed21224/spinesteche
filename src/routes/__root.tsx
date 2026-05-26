@@ -15,22 +15,22 @@ import { initGA } from "../lib/analytics/ga";
 import { useAnalytics } from "../hooks/useAnalytics";
 import { validateEnv } from "../config/env";
 import { monitoringClient } from "../lib/monitoring/client";
+import { LocaleProvider, LocaleHtmlSync, useTranslation } from "../i18n";
 
 function NotFoundComponent() {
+  const { t, dir } = useTranslation();
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4" dir={dir}>
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-primary">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-on-surface">الصفحة غير موجودة</h2>
-        <p className="mt-2 text-sm text-on-surface-variant">
-          الصفحة التي تبحث عنها غير موجودة أو تم نقلها.
-        </p>
+        <h2 className="mt-4 text-xl font-semibold text-on-surface">{t("errors.notFoundTitle")}</h2>
+        <p className="mt-2 text-sm text-on-surface-variant">{t("errors.notFoundMessage")}</p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-lg bg-secondary px-6 py-3 text-sm font-medium text-on-secondary transition-colors hover:bg-secondary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
           >
-            العودة للرئيسية
+            {t("errors.backHome")}
           </Link>
         </div>
       </div>
@@ -41,16 +41,15 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const { t, dir } = useTranslation();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4" dir={dir}>
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-primary">
-          حدث خطأ أثناء تحميل الصفحة
+          {t("errors.pageErrorTitle")}
         </h1>
-        <p className="mt-2 text-sm text-on-surface-variant">
-          حدث خطأ من طرفنا. يمكنك محاولة تحديث الصفحة أو العودة للرئيسية.
-        </p>
+        <p className="mt-2 text-sm text-on-surface-variant">{t("errors.pageErrorMessage")}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
@@ -59,13 +58,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-lg bg-secondary px-6 py-3 text-sm font-medium text-on-secondary transition-colors hover:bg-secondary/90 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
           >
-            إعادة المحاولة
+            {t("common.retry")}
           </button>
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-lg border border-outline-variant bg-background px-6 py-3 text-sm font-medium text-on-surface transition-colors hover:bg-surface-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           >
-            العودة للرئيسية
+            {t("errors.backHome")}
           </Link>
         </div>
       </div>
@@ -114,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ar" dir="rtl" className="scroll-smooth">
+    <html lang="ar" dir="rtl" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
@@ -149,8 +148,11 @@ function RootComponent() {
   }, [location.pathname, trackPageView]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Outlet />
-    </QueryClientProvider>
+    <LocaleProvider>
+      <LocaleHtmlSync />
+      <QueryClientProvider client={queryClient}>
+        <Outlet />
+      </QueryClientProvider>
+    </LocaleProvider>
   );
 }

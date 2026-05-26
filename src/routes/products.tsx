@@ -7,6 +7,7 @@ import { Grid } from "../components/layout/Grid";
 import { PageHeader } from "../components/layout/PageHeader";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getProducts } from "../lib/api/fetchers";
+import { useTranslation } from "../i18n";
 
 export const Route = createFileRoute("/products")({
   head: () =>
@@ -20,14 +21,15 @@ export const Route = createFileRoute("/products")({
 });
 
 function Page() {
+  const { locale } = useTranslation();
   const {
     data: products,
     isLoading,
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
+    queryKey: ["products", locale],
+    queryFn: () => getProducts(locale),
   });
 
   return (

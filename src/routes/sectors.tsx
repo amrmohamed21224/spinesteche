@@ -6,6 +6,7 @@ import { Container } from "../components/layout/Container";
 import { Section } from "../components/layout/Section";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getSectors } from "../lib/api/fetchers";
+import { useTranslation } from "../i18n";
 
 export const Route = createFileRoute("/sectors")({
   head: () =>
@@ -19,14 +20,15 @@ export const Route = createFileRoute("/sectors")({
 });
 
 function Page() {
+  const { locale } = useTranslation();
   const {
     data: sectors,
     isLoading,
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["sectors"],
-    queryFn: getSectors,
+    queryKey: ["sectors", locale],
+    queryFn: () => getSectors(locale),
   });
 
   // Determine grid classes based on layout hint

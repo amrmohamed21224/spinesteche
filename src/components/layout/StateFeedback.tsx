@@ -1,5 +1,6 @@
 import React from "react";
 import { Container } from "./Container";
+import { useTranslation } from "../../i18n";
 
 interface StateFeedbackProps {
   type: "loading" | "error" | "empty";
@@ -8,25 +9,31 @@ interface StateFeedbackProps {
   onRetry?: () => void;
 }
 
-export const StateFeedback: React.FC<StateFeedbackProps> = ({ type, title, message, onRetry }) => {
+export const StateFeedback: React.FC<StateFeedbackProps> = ({
+  type,
+  title,
+  message,
+  onRetry,
+}) => {
+  const { t } = useTranslation();
+
   const getDefaults = () => {
     switch (type) {
       case "loading":
         return {
-          title: title || "جاري تحميل البيانات...",
-          message:
-            message || "نعمل على جلب المحتوى من خوادم السحابة الخاصة بنا، يرجى الانتظار ثوانٍ.",
+          title: title || t("feedback.loadingTitle"),
+          message: message || t("feedback.loadingMessage"),
         };
       case "error":
         return {
-          title: title || "حدث خطأ غير متوقع",
-          message: message || "فشل الاتصال بالخادم. يرجى التحقق من اتصال الشبكة وإعادة المحاولة.",
+          title: title || t("feedback.errorTitle"),
+          message: message || t("feedback.errorMessage"),
         };
       case "empty":
       default:
         return {
-          title: title || "لا يوجد محتوى حالياً",
-          message: message || "لم نجد أي عناصر تتطابق مع طلبك في الوقت الحالي.",
+          title: title || t("feedback.emptyTitle"),
+          message: message || t("feedback.emptyMessage"),
         };
     }
   };
@@ -38,7 +45,7 @@ export const StateFeedback: React.FC<StateFeedbackProps> = ({ type, title, messa
       <div
         role="status"
         aria-live="polite"
-        className="max-w-md p-8 bg-white border border-outline-variant/30 rounded-2xl shadow-sm text-right flex flex-col items-center text-center"
+        className="max-w-md p-8 bg-white border border-outline-variant/30 rounded-2xl shadow-sm text-start flex flex-col items-center text-center"
       >
         {type === "loading" && (
           <div className="w-16 h-16 border-4 border-secondary/20 border-t-secondary rounded-full animate-spin mb-6"></div>
@@ -68,7 +75,7 @@ export const StateFeedback: React.FC<StateFeedbackProps> = ({ type, title, messa
             onClick={onRetry}
             className="px-6 py-2.5 bg-secondary text-on-secondary rounded-lg font-bold hover:bg-secondary/90 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
           >
-            إعادة المحاولة
+            {t("common.retry")}
           </button>
         )}
       </div>

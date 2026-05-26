@@ -7,6 +7,7 @@ import { Container } from "../components/layout/Container";
 import { Section } from "../components/layout/Section";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getCaseStudies } from "../lib/api/fetchers";
+import { useTranslation } from "../i18n";
 
 export const Route = createFileRoute("/case-studies")({
   head: () =>
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/case-studies")({
 });
 
 function Page() {
+  const { locale } = useTranslation();
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const {
@@ -28,8 +30,8 @@ function Page() {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["case-studies"],
-    queryFn: getCaseStudies,
+    queryKey: ["case-studies", locale],
+    queryFn: () => getCaseStudies(locale),
   });
 
   const getCategoryKey = (sector: string) => {

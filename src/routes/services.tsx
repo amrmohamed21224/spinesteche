@@ -6,6 +6,7 @@ import { Section } from "../components/layout/Section";
 import { Container } from "../components/layout/Container";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getServices } from "../lib/api/fetchers";
+import { useTranslation } from "../i18n";
 
 export const Route = createFileRoute("/services")({
   head: () =>
@@ -19,33 +20,33 @@ export const Route = createFileRoute("/services")({
 });
 
 function Page() {
+  const { t, locale } = useTranslation();
   const {
     data: services,
     isLoading,
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["services"],
-    queryFn: getServices,
+    queryKey: ["services", locale],
+    queryFn: () => getServices(locale),
   });
 
   return (
     <PageLayout>
-      <main className="pt-32 pb-20 text-right">
-        {/* Hero Section */}
-        <section className="px-margin-desktop mb-24 relative" aria-label="مقدمة الخدمات">
+      <main className="pt-32 pb-20 text-start">
+        <section className="px-margin-desktop mb-24 relative" aria-label={t("services.introAria")}>
           <Container clean>
             <div className="max-w-4xl mx-auto">
               <span className="text-secondary font-label-md text-label-md tracking-wider mb-4 block">
-                حلولنا التقنية
+                {t("services.badge")}
               </span>
               <h1 className="font-display-lg text-display-lg mb-6 leading-tight text-primary font-bold">
-                نحوّل التحديات الرقمية إلى <br />
-                <span className="text-secondary">فرص استراتيجية</span> نمو.
+                {t("services.heroTitle")} <br />
+                <span className="text-secondary">{t("services.heroHighlight")}</span>{" "}
+                {t("services.heroGrowth")}
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
-                نقدم في SpinesTech منظومة متكاملة من الخدمات التقنية المصممة خصيصاً لتلبية طموحات
-                القطاع الحكومي والخاص في المملكة، بمعايير عالمية وخبرة محلية رائدة.
+                {t("services.heroSubtitle")}
               </p>
             </div>
             {/* Atmospheric Pattern */}
@@ -63,12 +64,12 @@ function Page() {
             {isError && (
               <StateFeedback
                 type="error"
-                message="فشل تحميل قائمة الخدمات المعروضة. يرجى التحقق من الاتصال بالإنترنت."
+                message={t("services.loadError")}
                 onRetry={refetch}
               />
             )}
             {!isLoading && !isError && (!services || services.length === 0) && (
-              <StateFeedback type="empty" title="لا توجد خدمات متاحة" />
+              <StateFeedback type="empty" title={t("services.empty")} />
             )}
 
             {!isLoading && !isError && services && services.length > 0 && (

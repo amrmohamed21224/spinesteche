@@ -83,7 +83,8 @@ export function useSubmitContact() {
       phone?: string;
       company?: string;
       message: string;
-    }) => submitContactForm(data),
+      locale?: import("../../i18n/types").Locale;
+    }) => submitContactForm(data, data.locale ?? "ar"),
   });
 }
 

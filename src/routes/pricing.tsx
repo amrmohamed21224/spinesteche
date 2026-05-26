@@ -9,6 +9,7 @@ import { PageHeader } from "../components/layout/PageHeader";
 import { Section } from "../components/layout/Section";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getPricingPlans, getFaqs } from "../lib/api/fetchers";
+import { useTranslation } from "../i18n";
 
 export const Route = createFileRoute("/pricing")({
   head: () =>
@@ -22,6 +23,7 @@ export const Route = createFileRoute("/pricing")({
 });
 
 function PricingPage() {
+  const { locale } = useTranslation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
@@ -34,8 +36,8 @@ function PricingPage() {
     isError: isErrorPlans,
     refetch: refetchPlans,
   } = useQuery({
-    queryKey: ["pricing-plans"],
-    queryFn: getPricingPlans,
+    queryKey: ["pricing-plans", locale],
+    queryFn: () => getPricingPlans(locale),
   });
 
   const {
@@ -44,8 +46,8 @@ function PricingPage() {
     isError: isErrorFaqs,
     refetch: refetchFaqs,
   } = useQuery({
-    queryKey: ["faqs"],
-    queryFn: getFaqs,
+    queryKey: ["faqs", locale],
+    queryFn: () => getFaqs(locale),
   });
 
   // Dynamic icon based on Tier name/type

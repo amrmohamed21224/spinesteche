@@ -8,6 +8,7 @@ import { Grid } from "../components/layout/Grid";
 import { Section } from "../components/layout/Section";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getCareers, submitCareerApplication } from "../lib/api/fetchers";
+import { useTranslation } from "../i18n";
 
 export const Route = createFileRoute("/careers")({
   head: () =>
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/careers")({
 });
 
 function Page() {
+  const { locale } = useTranslation();
   const handleScrollToApply = (e: React.MouseEvent) => {
     e.preventDefault();
     const element = document.getElementById("apply-form");
@@ -35,8 +37,8 @@ function Page() {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["careers"],
-    queryFn: getCareers,
+    queryKey: ["careers", locale],
+    queryFn: () => getCareers(locale),
   });
 
   const mutation = useMutation({

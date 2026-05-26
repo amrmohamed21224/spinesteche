@@ -7,6 +7,7 @@ import { Container } from "../components/layout/Container";
 import { Grid } from "../components/layout/Grid";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getAboutPageData } from "../lib/api/fetchers";
+import { useTranslation } from "../i18n";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -20,9 +21,10 @@ export const Route = createFileRoute("/about")({
 });
 
 function Page() {
+  const { locale } = useTranslation();
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["about-page"],
-    queryFn: getAboutPageData,
+    queryKey: ["about-page", locale],
+    queryFn: () => getAboutPageData(locale),
   });
 
   return (
