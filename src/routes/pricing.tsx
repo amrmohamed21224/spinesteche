@@ -23,7 +23,7 @@ export const Route = createFileRoute("/pricing")({
 });
 
 function PricingPage() {
-  const { locale } = useTranslation();
+  const { t, locale } = useTranslation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
@@ -59,7 +59,7 @@ function PricingPage() {
 
   return (
     <PageLayout>
-      <main className="pt-32 pb-24 relative overflow-hidden text-right">
+      <main className="pt-32 pb-24 relative overflow-hidden text-start">
         {/* Background Decorations */}
         <div className="absolute inset-0 grid-pattern pointer-events-none" aria-hidden="true"></div>
         <div
@@ -70,8 +70,8 @@ function PricingPage() {
         <Container clean className="max-w-container-max mx-auto px-margin-desktop relative">
           {/* Hero Header */}
           <PageHeader
-            title="استثمر في مستقبلك الرقمي بشفافية كاملة"
-            description="نقدم نماذج تسعير مرنة مصممة لتناسب تطلعات الشركات السعودية، من الحلول الجاهزة السريعة إلى الأنظمة المعقدة المخصصة."
+            title={t("pricing.headerTitle")}
+            description={t("pricing.headerDescription")}
           />
 
           {/* Pricing Grid */}
@@ -79,20 +79,20 @@ function PricingPage() {
           {isErrorPlans && (
             <StateFeedback
               type="error"
-              message="فشل تحميل خطط الأسعار المتوفرة حالياً."
+              message={t("pricing.loadPlansError")}
               onRetry={refetchPlans}
             />
           )}
           {!isLoadingPlans && !isErrorPlans && (!pricingPlans || pricingPlans.length === 0) && (
-            <StateFeedback type="empty" title="لا توجد باقات معروضة" />
+            <StateFeedback type="empty" title={t("pricing.emptyPlansTitle")} />
           )}
 
           {!isLoadingPlans && !isErrorPlans && pricingPlans && pricingPlans.length > 0 && (
             <Grid cols={3} className="items-stretch mb-16">
               {pricingPlans.map((plan) => {
                 const isRecommended = plan.recommended;
-                const priceText = plan.id === "p1" ? "$100" : "اقتباس مخصص";
-                const subText = plan.id === "p1" ? "تبدأ من / شهرياً" : "";
+                const priceText = plan.id === "p1" ? "$100" : t("pricing.customQuote");
+                const subText = plan.id === "p1" ? t("pricing.startsFromMonthly") : "";
 
                 return (
                   <article
@@ -105,7 +105,7 @@ function PricingPage() {
                   >
                     {isRecommended && (
                       <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-secondary text-on-secondary px-6 py-1 rounded-full font-label-md text-label-md">
-                        الأكثر طلباً
+                        {t("common.mostPopular")}
                       </div>
                     )}
                     <div className="mb-8">
@@ -191,31 +191,31 @@ function PricingPage() {
           <Section bg="none" noContainer>
             <div className="p-12 bg-white border border-outline-variant rounded-xl text-center shadow-sm">
               <h2 className="font-headline-xl text-headline-xl mb-8 font-bold text-primary">
-                لماذا SpinesTech؟
+                {t("pricing.whyTitle")}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 <div className="space-y-2">
                   <div className="text-secondary font-bold text-3xl">99.9%</div>
                   <div className="font-label-md text-label-md text-on-surface-variant">
-                    ضمان استمرارية الخدمة
+                    {t("pricing.trust1Label")}
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="text-secondary font-bold text-3xl">24/7</div>
                   <div className="font-label-md text-label-md text-on-surface-variant">
-                    دعم فني محلي
+                    {t("pricing.trust2Label")}
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="text-secondary font-bold text-3xl">ISO</div>
                   <div className="font-label-md text-label-md text-on-surface-variant">
-                    معايير أمان عالمية
+                    {t("pricing.trust3Label")}
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="text-secondary font-bold text-3xl">2030</div>
                   <div className="font-label-md text-label-md text-on-surface-variant">
-                    رؤية وطنية متوافقة
+                    {t("pricing.trust4Label")}
                   </div>
                 </div>
               </div>
@@ -226,19 +226,19 @@ function PricingPage() {
           <Section bg="none" noContainer>
             <div className="max-w-4xl mx-auto mb-16">
               <h2 className="font-headline-xl text-headline-xl mb-12 text-center text-primary font-bold">
-                الأسئلة الشائعة
+                {t("pricing.faqTitle")}
               </h2>
 
               {isLoadingFaqs && <StateFeedback type="loading" />}
               {isErrorFaqs && (
                 <StateFeedback
                   type="error"
-                  message="فشل تحميل الأسئلة الشائعة."
+                  message={t("pricing.loadFaqError")}
                   onRetry={refetchFaqs}
                 />
               )}
               {!isLoadingFaqs && !isErrorFaqs && (!faqs || faqs.length === 0) && (
-                <StateFeedback type="empty" message="لا توجد أسئلة شائعة حالياً." />
+                <StateFeedback type="empty" message={t("pricing.emptyFaqMessage")} />
               )}
 
               {!isLoadingFaqs && !isErrorFaqs && faqs && faqs.length > 0 && (

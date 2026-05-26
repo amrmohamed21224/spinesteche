@@ -21,7 +21,7 @@ export const Route = createFileRoute("/case-studies")({
 });
 
 function Page() {
-  const { locale } = useTranslation();
+  const { t, locale } = useTranslation();
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const {
@@ -35,10 +35,25 @@ function Page() {
   });
 
   const getCategoryKey = (sector: string) => {
-    if (sector.includes("تجزئة") || sector.includes("إلكترونية") || sector.includes("التجارة"))
+    const s = sector.toLowerCase();
+    if (
+      sector.includes("تجزئة") ||
+      sector.includes("إلكترونية") ||
+      sector.includes("التجارة") ||
+      s.includes("retail") ||
+      s.includes("e-commerce") ||
+      s.includes("ecommerce")
+    )
       return "retail";
-    if (sector.includes("عقارات") || sector.includes("العقارات")) return "real-estate";
-    if (sector.includes("ذكاء") || sector.includes("الذكاء")) return "ai";
+    if (sector.includes("عقارات") || sector.includes("العقارات") || s.includes("real estate"))
+      return "real-estate";
+    if (
+      sector.includes("ذكاء") ||
+      sector.includes("الذكاء") ||
+      s.includes("artificial intelligence") ||
+      s.includes("ai")
+    )
+      return "ai";
     return "other";
   };
 
@@ -50,11 +65,11 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-32 pb-24 text-right">
+      <main className="pt-32 pb-24 text-start">
         {/* Hero Section */}
         <section
           className="px-margin-desktop mb-20 relative overflow-hidden"
-          aria-label="مقدمة دراسات الحالة"
+          aria-label={t("caseStudies.heroTitle")}
         >
           <div
             className="absolute top-0 right-0 w-full h-full geometric-pattern opacity-40 pointer-events-none"
@@ -63,11 +78,10 @@ function Page() {
           <Container clean>
             <div className="max-w-3xl mx-auto">
               <h1 className="font-display-lg text-display-lg mb-6 leading-tight text-primary font-bold">
-                سجل الإنجازات وابتكارات التحول الرقمي
+                {t("caseStudies.heroTitle")}
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
-                نحن لا نبني برمجيات فحسب، بل نصمم حلولاً تقنية تدفع عجلة النمو. اكتشف كيف ساعدت
-                SpinesTech المؤسسات الرائدة في تجاوز تحدياتها التشغيلية.
+                {t("caseStudies.heroSubtitle")}
               </p>
               <div className="bg-primary-container/10 border-r-4 border-secondary p-6 rounded-lg glass-panel">
                 <div className="flex items-start gap-4 flex-row-reverse text-right">
@@ -79,8 +93,7 @@ function Page() {
                     lock
                   </span>
                   <p className="font-body-md text-body-md text-on-primary-container">
-                    نظرًا لاتفاقيات السرية، لا يتم عرض بعض أسماء العملاء في هذا العرض العام. نحن
-                    نلتزم بأعلى معايير الخصوصية لشركائنا في قطاعات الحوكمة والتجارة الكبرى.
+                    {t("caseStudies.privacyText")}
                   </p>
                 </div>
               </div>
@@ -91,7 +104,7 @@ function Page() {
         {/* Filters & Stats Section */}
         <section
           className="px-margin-desktop mb-12 max-w-container-max mx-auto"
-          aria-label="تصفية دراسات الحالة"
+          aria-label={t("caseStudies.filtersAll")}
         >
           <Container clean>
             <div className="flex flex-wrap items-center justify-between gap-6 pb-8 border-b border-outline-variant/30 flex-row-reverse">
@@ -104,7 +117,7 @@ function Page() {
                       : "bg-surface-container-high text-on-surface-variant hover:bg-outline-variant/20"
                   }`}
                 >
-                  الكل
+                  {t("caseStudies.filtersAll")}
                 </button>
                 <button
                   onClick={() => setActiveFilter("retail")}
@@ -114,7 +127,7 @@ function Page() {
                       : "bg-surface-container-high text-on-surface-variant hover:bg-outline-variant/20"
                   }`}
                 >
-                  تجارة التجزئة والتجارة الإلكترونية
+                  {t("caseStudies.filtersRetail")}
                 </button>
                 <button
                   onClick={() => setActiveFilter("real-estate")}
@@ -124,7 +137,7 @@ function Page() {
                       : "bg-surface-container-high text-on-surface-variant hover:bg-outline-variant/20"
                   }`}
                 >
-                  عقارات
+                  {t("caseStudies.filtersRealEstate")}
                 </button>
                 <button
                   onClick={() => setActiveFilter("ai")}
@@ -134,11 +147,13 @@ function Page() {
                       : "bg-surface-container-high text-on-surface-variant hover:bg-outline-variant/20"
                   }`}
                 >
-                  الذكاء الاصطناعي
+                  {t("caseStudies.filtersAi")}
                 </button>
               </div>
               <div className="text-on-surface-variant font-label-md">
-                عرض {filteredStudies.length} دراسات حالة مختارة
+                {locale === "ar"
+                  ? `عرض ${filteredStudies.length} دراسات حالة مختارة`
+                  : `Showing ${filteredStudies.length} selected case studies`}
               </div>
             </div>
           </Container>
@@ -149,14 +164,10 @@ function Page() {
           <Container clean className="max-w-container-max mx-auto px-margin-desktop">
             {isLoading && <StateFeedback type="loading" />}
             {isError && (
-              <StateFeedback
-                type="error"
-                message="فشل تحميل دراسات الحالة. يرجى التحقق من اتصال الشبكة وإعادة المحاولة."
-                onRetry={refetch}
-              />
+              <StateFeedback type="error" message={t("caseStudies.loadError")} onRetry={refetch} />
             )}
             {!isLoading && !isError && filteredStudies.length === 0 && (
-              <StateFeedback type="empty" message="لا توجد مشاريع مطابقة للتصنيف المختار حالياً." />
+              <StateFeedback type="empty" message={t("caseStudies.emptyMessage")} />
             )}
 
             {!isLoading && !isError && filteredStudies.length > 0 && (
@@ -185,7 +196,7 @@ function Page() {
                         <div className="space-y-4 mb-8">
                           <div>
                             <span className="block font-label-md text-label-md text-secondary mb-1">
-                              التحدي:
+                              {t("caseStudies.challengeLabel")}
                             </span>
                             <p className="font-body-md text-body-md text-on-surface-variant">
                               {study.challenge}
@@ -193,7 +204,7 @@ function Page() {
                           </div>
                           <div>
                             <span className="block font-label-md text-label-md text-secondary mb-1">
-                              الحل:
+                              {t("caseStudies.solutionLabel")}
                             </span>
                             <p className="font-body-md text-body-md text-on-surface-variant">
                               {study.solution}
@@ -201,7 +212,7 @@ function Page() {
                           </div>
                           <div className="bg-surface-container p-4 rounded-lg">
                             <span className="block font-label-md text-label-md text-primary font-bold mb-1">
-                              النتائج:
+                              {t("caseStudies.resultsLabel")}
                             </span>
                             <p className="font-body-md text-body-md text-secondary font-bold">
                               {study.result}
@@ -212,7 +223,7 @@ function Page() {
                     </div>
                     <div className="p-8 pt-0">
                       <button className="w-full py-3 flex justify-center items-center gap-2 border border-secondary text-secondary font-label-md rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
-                        عرض دراسة الحالة
+                        {t("caseStudies.viewCaseStudyButton")}
                         <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
                           arrow_back
                         </span>
@@ -234,18 +245,17 @@ function Page() {
             ></div>
             <div className="relative z-10 max-w-2xl">
               <h2 className="font-display-lg text-display-lg mb-6 font-bold text-on-primary">
-                هل تبحث عن التحول التقني القادم لمؤسستك؟
+                {t("caseStudies.ctaTitle")}
               </h2>
               <p className="font-body-lg text-body-lg mb-10 text-on-primary-container/80 text-on-primary/80">
-                فريقنا من الخبراء جاهز لتحليل تحدياتك وتقديم الحلول الهندسية التي تضمن لك الريادة في
-                سوقك.
+                {t("caseStudies.ctaSubtitle")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button className="px-10 py-4 bg-secondary text-on-secondary font-headline-sm rounded-lg hover:bg-secondary-fixed-dim transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2">
-                  ابدأ مشروعك اليوم
+                  {t("caseStudies.ctaPrimary")}
                 </button>
                 <button className="px-10 py-4 border border-outline-variant/30 text-on-primary font-headline-sm rounded-lg hover:bg-surface-variant/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
-                  تواصل مع مستشار تقني
+                  {t("caseStudies.ctaSecondary")}
                 </button>
               </div>
             </div>

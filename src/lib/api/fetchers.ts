@@ -180,10 +180,17 @@ export async function submitContactForm(
 
 export async function submitCareerApplication(
   data: FormData,
+  locale: Locale = "ar",
 ): Promise<{ success: boolean; message: string }> {
   if (USE_MOCKS) {
     await new Promise((resolve) => setTimeout(resolve, 1200));
-    return { success: true, message: "تم إرسال طلب التقديم بنجاح! شكراً لاهتمامك." };
+    return {
+      success: true,
+      message:
+        locale === "en"
+          ? "Your application was submitted successfully. Thank you for your interest!"
+          : "تم إرسال طلب التقديم بنجاح! شكراً لاهتمامك.",
+    };
   }
   // Note: FormData POST should let the browser set the boundary headers automatically
   return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.CAREER_SUBMISSION, data);

@@ -22,7 +22,7 @@ export const Route = createFileRoute("/careers")({
 });
 
 function Page() {
-  const { locale } = useTranslation();
+  const { t, locale } = useTranslation();
   const handleScrollToApply = (e: React.MouseEvent) => {
     e.preventDefault();
     const element = document.getElementById("apply-form");
@@ -42,7 +42,7 @@ function Page() {
   });
 
   const mutation = useMutation({
-    mutationFn: submitCareerApplication,
+    mutationFn: (data) => submitCareerApplication(data, locale),
     onSuccess: (data) => {
       alert(data.message);
       // Clear form
@@ -50,7 +50,7 @@ function Page() {
       if (form) form.reset();
     },
     onError: () => {
-      alert("حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.");
+      alert(t("careers.submitError"));
     },
   });
 
@@ -87,14 +87,13 @@ function Page() {
           >
             <div className="text-right">
               <span className="inline-block py-1 px-3 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-full mb-6">
-                انضم إلى فريقنا
+                {t("careers.heroBadge")}
               </span>
               <h1 className="font-display-lg text-display-lg text-primary mb-6 font-bold">
-                ابنِ مستقبل التقنية معنا
+                {t("careers.heroTitle")}
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-xl">
-                نحن نبحث دائمًا عن المواهب الشغوفة بالتقنية والابتكار. في SpinesTech، نؤمن بأن
-                الإنسان هو المحرك الحقيقي للتحول الرقمي في المملكة.
+                {t("careers.heroSubtitle")}
               </p>
               <div className="flex gap-4 flex-row-reverse justify-end">
                 <a
@@ -105,7 +104,7 @@ function Page() {
                     document.getElementById("jobs")?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
-                  تصفح الوظائف المتاحة
+                  {t("careers.jobsButton")}
                 </a>
                 <a
                   className="px-8 py-3 border border-secondary text-secondary rounded-xl font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
@@ -115,7 +114,7 @@ function Page() {
                     document.getElementById("jobs")?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
-                  بيئة العمل
+                  {t("careers.workEnvironmentButton")}
                 </a>
               </div>
             </div>
@@ -141,7 +140,9 @@ function Page() {
                 groups
               </div>
               <div className="font-headline-xl text-headline-xl text-primary font-bold">+١٥٠</div>
-              <div className="font-label-md text-label-md text-on-surface-variant">مبدع ومبدعة</div>
+              <div className="font-label-md text-label-md text-on-surface-variant">
+                {t("careers.stats.creative")}
+              </div>
             </div>
             <div className="text-center p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 transition-colors">
               <div
@@ -152,7 +153,7 @@ function Page() {
               </div>
               <div className="font-headline-xl text-headline-xl text-primary font-bold">٣٠+</div>
               <div className="font-label-md text-label-md text-on-surface-variant">
-                مشروع وطني ضخم
+                {t("careers.stats.nationalProject")}
               </div>
             </div>
             <div className="text-center p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 transition-colors">
@@ -164,7 +165,7 @@ function Page() {
               </div>
               <div className="font-headline-xl text-headline-xl text-primary font-bold">١٠٠٪</div>
               <div className="font-label-md text-label-md text-on-surface-variant">
-                بيئة داعمة للنمو
+                {t("careers.stats.growthEnvironment")}
               </div>
             </div>
             <div className="text-center p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 transition-colors">
@@ -174,8 +175,12 @@ function Page() {
               >
                 verified
               </div>
-              <div className="font-headline-xl text-headline-xl text-primary font-bold">رائد</div>
-              <div className="font-label-md text-label-md text-on-surface-variant">في حلول ERP</div>
+              <div className="font-headline-xl text-headline-xl text-primary font-bold">
+                {locale === "ar" ? "رائد" : "Leader"}
+              </div>
+              <div className="font-label-md text-label-md text-on-surface-variant">
+                {locale === "ar" ? "في حلول ERP" : "in ERP solutions"}
+              </div>
             </div>
           </Grid>
         </Section>
@@ -185,23 +190,19 @@ function Page() {
           <Container clean className="max-w-container-max mx-auto px-margin-desktop" id="jobs">
             <div className="text-center mb-16">
               <h2 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold">
-                الفرص المتاحة حالياً
+                {t("careers.jobsTitle")}
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                اختر المسار الذي يناسب شغفك وخبراتك
+                {t("careers.jobsSubtitle")}
               </p>
             </div>
 
             {isLoading && <StateFeedback type="loading" />}
             {isError && (
-              <StateFeedback
-                type="error"
-                message="فشل تحميل الوظائف المتاحة حالياً. يرجى المحاولة مرة أخرى."
-                onRetry={refetch}
-              />
+              <StateFeedback type="error" message={t("careers.loadError")} onRetry={refetch} />
             )}
             {!isLoading && !isError && (!careers || careers.length === 0) && (
-              <StateFeedback type="empty" message="لا توجد فرص وظيفية شاغرة في الوقت الحالي." />
+              <StateFeedback type="empty" message={t("careers.emptyMessage")} />
             )}
 
             {!isLoading && !isError && careers && careers.length > 0 && (
@@ -217,7 +218,9 @@ function Page() {
                       >
                         <div className="flex justify-between items-start mb-6">
                           <span className="px-4 py-1 bg-secondary/10 text-secondary rounded-full font-label-md text-label-md">
-                            {job.type === "Full-time" ? "دوام كامل" : "دوام مرن/عن بعد"}
+                            {job.type === "Full-time"
+                              ? t("careers.jobTypeFullTime")
+                              : t("careers.jobTypeFlexibleOrRemote")}
                           </span>
                           <div
                             className="material-symbols-outlined text-secondary text-3xl"
@@ -244,7 +247,7 @@ function Page() {
                           onClick={handleScrollToApply}
                           className="text-secondary font-label-md text-label-md flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
                         >
-                          قدم الآن{" "}
+                          {t("careers.applyPrimary")}{" "}
                           <span
                             className="material-symbols-outlined scale-x-[-1]"
                             aria-hidden="true"
@@ -283,7 +286,7 @@ function Page() {
                             onClick={handleScrollToApply}
                             className="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-md text-label-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                           >
-                            التقديم السريع
+                            {t("careers.applyFast")}
                           </button>
                         </div>
                       </div>
@@ -311,7 +314,7 @@ function Page() {
                         onClick={handleScrollToApply}
                         className="text-secondary font-label-md text-label-md flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
                       >
-                        تقديم سريع{" "}
+                        {t("careers.applyQuick")}{" "}
                         <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">
                           chevron_right
                         </span>
@@ -330,10 +333,10 @@ function Page() {
             <div className="grid md:grid-cols-5 gap-16">
               <div className="md:col-span-2 text-right">
                 <h2 className="font-headline-xl text-headline-xl text-primary mb-6 font-bold">
-                  جاهز للبدء؟
+                  {t("careers.applyFormTitle")}
                 </h2>
                 <p className="font-body-lg text-body-lg text-on-surface-variant mb-12">
-                  أرسل لنا سيرتك الذاتية وسنتواصل معك في أقرب وقت لمناقشة مستقبلك معنا.
+                  {t("careers.applyFormSubtitle")}
                 </p>
                 <div className="space-y-8">
                   <div className="flex items-start gap-4 flex-row-reverse text-right">
@@ -347,10 +350,10 @@ function Page() {
                     </div>
                     <div>
                       <h4 className="font-headline-sm text-headline-sm text-primary font-medium">
-                        البريد الإلكتروني
+                        {t("careers.contactEmailLabel")}
                       </h4>
                       <p className="font-body-md text-body-md text-on-surface-variant">
-                        careers@spinestech.sa
+                        {t("careers.careerEmailAddress")}
                       </p>
                     </div>
                   </div>
@@ -365,10 +368,10 @@ function Page() {
                     </div>
                     <div>
                       <h4 className="font-headline-sm text-headline-sm text-primary font-medium">
-                        الموقع
+                        {t("careers.contactLocationLabel")}
                       </h4>
                       <p className="font-body-md text-body-md text-on-surface-variant">
-                        الرياض، حي النخيل، طريق الملك فهد
+                        {t("careers.careerLocationAddress")}
                       </p>
                     </div>
                   </div>
@@ -384,24 +387,24 @@ function Page() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="block text-right font-label-md text-label-md text-on-surface-variant">
-                        الاسم الكامل
+                        {t("careers.fullNameLabel")}
                       </label>
                       <input
                         name="name"
                         className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right"
-                        placeholder="أدخل اسمك الثلاثي"
+                        placeholder={t("careers.namePlaceholder")}
                         type="text"
                         required
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="block text-right font-label-md text-label-md text-on-surface-variant">
-                        البريد الإلكتروني
+                        {t("careers.emailLabel")}
                       </label>
                       <input
                         name="email"
                         className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right"
-                        placeholder="example@domain.com"
+                        placeholder={t("careers.emailPlaceholder")}
                         type="email"
                         required
                       />
@@ -410,37 +413,37 @@ function Page() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="block text-right font-label-md text-label-md text-on-surface-variant">
-                        رقم الجوال
+                        {t("careers.phoneLabel")}
                       </label>
                       <input
                         name="phone"
                         className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right"
-                        placeholder="05xxxxxxxx"
+                        placeholder={t("careers.phonePlaceholder")}
                         type="tel"
                         required
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="block text-right font-label-md text-label-md text-on-surface-variant">
-                        الدور الوظيفي المطلوب
+                        {t("careers.positionLabel")}
                       </label>
                       <select
                         name="position"
                         className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right"
                       >
-                        <option>مطور ويب</option>
-                        <option>مطور جوال</option>
-                        <option>مهندس ذكاء اصطناعي</option>
-                        <option>مصمم UI/UX</option>
-                        <option>أخصائي ERP</option>
-                        <option>مبيعات تقنية</option>
-                        <option>أخرى</option>
+                        <option>{t("careers.positions.web")}</option>
+                        <option>{t("careers.positions.mobile")}</option>
+                        <option>{t("careers.positions.ai")}</option>
+                        <option>{t("careers.positions.ux")}</option>
+                        <option>{t("careers.positions.erp")}</option>
+                        <option>{t("careers.positions.sales")}</option>
+                        <option>{t("careers.positions.other")}</option>
                       </select>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="block text-right font-label-md text-label-md text-on-surface-variant">
-                      تحميل السيرة الذاتية (PDF)
+                      {t("careers.resumeLabel")}
                     </label>
                     <div className="relative group border-2 border-dashed border-outline-variant/50 rounded-xl p-8 transition-colors hover:border-secondary/50 bg-background/50 flex flex-col items-center justify-center gap-2 cursor-pointer">
                       <input
@@ -456,18 +459,18 @@ function Page() {
                         cloud_upload
                       </span>
                       <span className="font-body-md text-body-md text-on-surface-variant">
-                        اسحب الملف هنا أو انقر للاختيار
+                        {t("careers.resumePrompt")}
                       </span>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="block text-right font-label-md text-label-md text-on-surface-variant">
-                      رسالة تعريفية (اختياري)
+                      {t("careers.coverLetterLabel")}
                     </label>
                     <textarea
                       name="cover_letter"
                       className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right"
-                      placeholder="أخبرنا باختصار لماذا تريد الانضمام إلينا..."
+                      placeholder={t("careers.coverLetterPlaceholder")}
                       rows={4}
                     ></textarea>
                   </div>
@@ -476,7 +479,7 @@ function Page() {
                     className="w-full py-4 bg-primary text-on-primary rounded-xl font-headline-sm text-headline-sm hover:bg-primary/90 transition-all flex items-center justify-center gap-3 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:opacity-50"
                     type="submit"
                   >
-                    {mutation.isPending ? "جاري الإرسال..." : "إرسال الطلب"}
+                    {mutation.isPending ? t("careers.submitPending") : t("careers.submitButton")}
                     <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">
                       send
                     </span>

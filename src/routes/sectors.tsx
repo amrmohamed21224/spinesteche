@@ -20,7 +20,7 @@ export const Route = createFileRoute("/sectors")({
 });
 
 function Page() {
-  const { locale } = useTranslation();
+  const { t, locale } = useTranslation();
   const {
     data: sectors,
     isLoading,
@@ -47,22 +47,23 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-20 text-right">
+      <main className="pt-20 text-start">
         {/* Hero Section */}
         <section
           className="relative py-24 px-margin-desktop overflow-hidden bg-surface"
-          aria-label="مقدمة القطاعات"
+          aria-label={t("sectors.introAria")}
         >
           <div className="absolute inset-0 pattern-bg" aria-hidden="true"></div>
           <Container clean>
             <div className="max-w-container-max mx-auto relative z-10 flex flex-col items-center text-center">
-              <span className="text-secondary font-label-md mb-4 block">شركاء التحول الرقمي</span>
+              <span className="text-secondary font-label-md mb-4 block">
+                {t("sectors.heroTagline")}
+              </span>
               <h1 className="font-display-lg text-display-lg mb-6 text-primary font-bold">
-                تمكين الصناعات السعودية بمستقبل رقمي
+                {t("sectors.heroTitle")}
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-                نقدم حلولاً تقنية مخصصة تدفع عجلة النمو والابتكار في مختلف القطاعات الحيوية
-                بالمملكة، بما يتماشى مع رؤية 2030.
+                {t("sectors.heroSubtitle")}
               </p>
             </div>
           </Container>
@@ -73,10 +74,10 @@ function Page() {
           <Container clean className="max-w-container-max mx-auto px-margin-desktop">
             {isLoading && <StateFeedback type="loading" />}
             {isError && (
-              <StateFeedback type="error" message="فشل تحميل بيانات القطاعات." onRetry={refetch} />
+              <StateFeedback type="error" message={t("sectors.loadError")} onRetry={refetch} />
             )}
             {!isLoading && !isError && (!sectors || sectors.length === 0) && (
-              <StateFeedback type="empty" title="لا توجد قطاعات لعرضها" />
+              <StateFeedback type="empty" title={t("sectors.emptyTitle")} />
             )}
 
             {!isLoading && !isError && sectors && sectors.length > 0 && (
@@ -204,14 +205,14 @@ function Page() {
         <section className="py-24 px-margin-desktop bg-surface-container-high relative overflow-hidden max-w-container-max mx-auto rounded-xl mb-16">
           <div className="max-w-container-max mx-auto flex flex-col items-center text-center relative z-10">
             <h2 className="font-headline-xl text-headline-xl mb-8 text-primary font-bold">
-              هل تبحث عن حل مخصص لقطاعك؟
+              {t("sectors.ctaTitle")}
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
               <button className="bg-primary text-on-primary px-10 py-4 rounded-lg font-label-md hover:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
-                تحدث مع خبير تقني
+                {t("sectors.ctaPrimary")}
               </button>
               <button className="border border-secondary text-secondary px-10 py-4 rounded-lg font-label-md hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
-                تحميل بروفايل الشركة
+                {t("sectors.ctaSecondary")}
               </button>
             </div>
           </div>

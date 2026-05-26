@@ -21,7 +21,7 @@ export const Route = createFileRoute("/products")({
 });
 
 function Page() {
-  const { locale } = useTranslation();
+  const { t, locale } = useTranslation();
   const {
     data: products,
     isLoading,
@@ -41,21 +41,17 @@ function Page() {
         >
           {/* Hero Header */}
           <PageHeader
-            title="منتجاتنا الرقمية"
-            description="حلول تقنية متكاملة مصممة لدفع عجلة التحول الرقمي في مؤسستك. نقدم أنظمة جاهزة للاستخدام وقابلة للتخصيص بالكامل لتناسب احتياجات عملك الفريدة، مع الالتزام بالمعايير العالمية والروح السعودية."
+            title={t("products.headerTitle")}
+            description={t("products.headerDescription")}
           />
 
           {/* Product Grid */}
           {isLoading && <StateFeedback type="loading" />}
           {isError && (
-            <StateFeedback
-              type="error"
-              message="فشل تحميل قائمة المنتجات المتاحة."
-              onRetry={refetch}
-            />
+            <StateFeedback type="error" message={t("products.loadError")} onRetry={refetch} />
           )}
           {!isLoading && !isError && (!products || products.length === 0) && (
-            <StateFeedback type="empty" title="لا توجد منتجات لعرضها" />
+            <StateFeedback type="empty" title={t("products.emptyTitle")} />
           )}
 
           {!isLoading && !isError && products && products.length > 0 && (
@@ -138,14 +134,13 @@ function Page() {
             <div className="geometric-pattern absolute inset-0 opacity-10" aria-hidden="true"></div>
             <div className="relative z-10">
               <h2 className="font-headline-xl text-headline-xl text-on-primary mb-6 font-bold">
-                هل تبحث عن شيء فريد تماماً؟
+                {t("products.customCtaTitle")}
               </h2>
               <p className="font-body-lg text-body-lg text-on-primary-container max-w-2xl mx-auto mb-10 opacity-90">
-                نحن لا نقدم أنظمة فحسب، بل نبني أصولاً رقمية. إذا كانت رؤيتك تتطلب حلاً برمجياً
-                مبتكراً غير مدرج أعلاه، فنحن هنا لتحويلها إلى واقع.
+                {t("products.customCtaSubtitle")}
               </p>
               <button className="bg-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2">
-                ابدأ رحلة التطوير الخاص
+                {t("products.customCtaButton")}
               </button>
             </div>
           </section>

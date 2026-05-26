@@ -21,7 +21,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function Page() {
-  const { locale } = useTranslation();
+  const { t, locale } = useTranslation();
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["about-page", locale],
     queryFn: () => getAboutPageData(locale),
@@ -29,22 +29,21 @@ function Page() {
 
   return (
     <PageLayout>
-      <main className="pt-20 text-right">
+      <main className="pt-20 text-start">
         {/* Hero Section: Who We Are */}
         <section className="relative min-h-[716px] flex items-center overflow-hidden geometric-pattern border-b border-outline-variant/20">
           <Container clean>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center py-20">
               <div className="md:col-span-6 z-10">
                 <span className="inline-block bg-secondary/10 text-secondary font-label-md text-label-md px-3 py-1 rounded-full mb-6">
-                  من نحن
+                  {t("about.badge")}
                 </span>
                 <h1 className="font-display-lg text-display-lg text-primary mb-8 leading-tight font-bold">
-                  شريكك الاستراتيجي في <br />
-                  <span className="text-secondary">التحول الرقمي السيادي</span>
+                  {t("about.heroTitle")} <br />
+                  <span className="text-secondary">{t("about.heroHighlight")}</span>
                 </h1>
                 <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
-                  نحن في SpinesTech نؤمن بأن التكنولوجيا هي العمود الفقري لمستقبل المملكة والمنطقة.
-                  نقدم حلولاً تقنية متطورة صممت بـهوية سعودية ومعايير عالمية لدعم رؤية 2030.
+                  {t("about.heroSubtitle")}
                 </p>
                 <div className="flex gap-4 justify-start">
                   <div className="flex items-center gap-2">
@@ -56,7 +55,7 @@ function Page() {
                       verified
                     </span>
                     <span className="font-label-md text-label-md text-on-surface">
-                      موثوقية مؤسسية
+                      {t("about.trustInstitutional")}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -68,7 +67,7 @@ function Page() {
                       security
                     </span>
                     <span className="font-label-md text-label-md text-on-surface">
-                      أمن سيبراني متقدم
+                      {t("about.trustCybersecurity")}
                     </span>
                   </div>
                 </div>
@@ -76,7 +75,7 @@ function Page() {
               <div className="md:col-span-6 relative h-[500px]">
                 <div className="absolute inset-0 bg-secondary/5 rounded-2xl transform rotate-3 scale-105"></div>
                 <img
-                  alt="مكاتب SpinesTech"
+                  alt={t("about.officesAlt")}
                   className="w-full h-full object-cover rounded-xl shadow-lg relative z-10 grayscale-[20%] hover:grayscale-0 transition-all duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9bE2_3UQ9T-YgReuejnvmJ3g0NZNTP2VOTh1ypFY8ApCoDK0oixY7aMf1804miQCC1XQAVFv19e0d-oqW5BFOmQoKxGPgiv8ouUztdcRUeuJof-JMPBAD12ALZjIiEDHE-1LQR55dilHQlDpNo6EZDqaQtLOAINOa7BKQK8_h-Ba8cKyiRm5uo3cjfBW3Gztkv0w9LVpdHm64PCRHlMUXIOf8aA5r9bywgqfSak-i5_4XWUnUc7UvX2prbSjljLB-1sEx0DJemZrJ"
                   loading="lazy"
@@ -94,7 +93,7 @@ function Page() {
         )}
         {isError && (
           <Section bg="surface" className="py-24">
-            <StateFeedback type="error" message="فشل تحميل بيانات صفحة من نحن." onRetry={refetch} />
+            <StateFeedback type="error" message={t("about.loadError")} onRetry={refetch} />
           </Section>
         )}
 
@@ -114,7 +113,7 @@ function Page() {
                     target
                   </span>
                   <h2 className="font-headline-xl text-headline-xl mb-6 text-on-primary font-bold">
-                    رسالتنا
+                    {t("about.missionTitle")}
                   </h2>
                   <p className="font-body-lg text-body-lg text-on-primary-container leading-relaxed">
                     {data.mission}
@@ -130,7 +129,7 @@ function Page() {
                       visibility
                     </span>
                     <h2 className="font-headline-xl text-headline-xl text-primary mb-6 font-bold">
-                      رؤيتنا
+                      {t("about.visionTitle")}
                     </h2>
                     <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
                       {data.vision}
@@ -138,7 +137,7 @@ function Page() {
                   </div>
                   <div className="mt-12 flex justify-end">
                     <span className="text-secondary font-bold text-headline-lg opacity-20 group-hover:opacity-100 transition-opacity">
-                      Vision 2030
+                      {t("about.vision2030Label")}
                     </span>
                   </div>
                 </div>
@@ -150,11 +149,10 @@ function Page() {
               <div className="flex flex-col md:flex-row gap-gutter items-center">
                 <div className="w-full md:w-5/12">
                   <h2 className="font-headline-xl text-headline-xl text-primary mb-6 font-bold">
-                    تواجدنا الجغرافي
+                    {t("about.marketsTitle")}
                   </h2>
                   <p className="font-body-md text-body-md text-on-surface-variant mb-12">
-                    نحن فخورون بجذورنا السعودية وطموحنا العالمي. نمتد عبر القارات لنقدم خبراتنا
-                    العميقة في أسواق متنوعة، ملتزمين بالمعايير المحلية لكل منطقة.
+                    {t("about.marketsSubtitle")}
                   </p>
                   <div className="space-y-6">
                     {data.markets.map((market) => (
@@ -185,7 +183,7 @@ function Page() {
             {/* Core Values */}
             <Section bg="surface" className="py-24 border-t border-outline-variant/20">
               <h2 className="font-headline-xl text-headline-xl text-primary mb-16 text-center font-bold">
-                قيمنا الجوهرية
+                {t("about.coreValuesTitle")}
               </h2>
               <Grid cols={4}>
                 {data.coreValues.map((value) => (
@@ -214,7 +212,7 @@ function Page() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
                   <h2 className="font-headline-xl text-headline-xl mb-8 font-bold text-on-primary">
-                    لماذا SpinesTech؟
+                    {t("about.whyTitle")}
                   </h2>
                   <ul className="space-y-8">
                     {data.differentiators.map((diff) => (
@@ -263,17 +261,17 @@ function Page() {
             <div className="bg-white p-16 rounded-2xl shadow-xl border border-outline-variant/30 text-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-bl-full"></div>
               <h2 className="font-display-lg text-display-lg text-primary mb-6 font-bold">
-                جاهز لتبني المستقبل؟
+                {t("about.ctaTitle")}
               </h2>
               <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto">
-                دعنا نناقش كيف يمكن لـ SpinesTech أن تصبح العمود الفقري لنجاحك الرقمي القادم.
+                {t("about.ctaSubtitle")}
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
                 <button className="px-12 py-4 bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded hover:shadow-lg transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
-                  تواصل معنا الآن
+                  {t("about.ctaPrimary")}
                 </button>
                 <button className="px-12 py-4 border-2 border-secondary text-secondary font-headline-sm text-headline-sm rounded hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
-                  تصفح خدماتنا
+                  {t("about.ctaSecondary")}
                 </button>
               </div>
             </div>

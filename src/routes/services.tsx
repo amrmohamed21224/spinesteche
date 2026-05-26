@@ -62,11 +62,7 @@ function Page() {
           <Container clean className="max-w-container-max mx-auto px-margin-desktop">
             {isLoading && <StateFeedback type="loading" />}
             {isError && (
-              <StateFeedback
-                type="error"
-                message={t("services.loadError")}
-                onRetry={refetch}
-              />
+              <StateFeedback type="error" message={t("services.loadError")} onRetry={refetch} />
             )}
             {!isLoading && !isError && (!services || services.length === 0) && (
               <StateFeedback type="empty" title={t("services.empty")} />
@@ -85,7 +81,7 @@ function Page() {
                       >
                         <div className="flex-1 z-10">
                           <span className="bg-secondary/20 text-secondary-fixed px-3 py-1 rounded-full text-caption mb-4 inline-block">
-                            الأكثر طلباً
+                            {t("common.mostPopular")}
                           </span>
                           <h3 className="font-headline-xl text-headline-xl text-on-primary mb-4 font-bold">
                             {service.title}
@@ -94,7 +90,7 @@ function Page() {
                             {service.description}
                           </p>
                           <button className="bg-secondary text-on-secondary px-8 py-3 rounded-lg flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2">
-                            <span>اعرف المزيد</span>
+                            <span>{t("common.learnMore")}</span>
                             <span
                               className="material-symbols-outlined text-[18px]"
                               aria-hidden="true"
@@ -143,7 +139,7 @@ function Page() {
                         className="mt-8 text-secondary font-label-md text-label-md flex items-center gap-2 group justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
                         href="#"
                       >
-                        <span>اعرف المزيد</span>
+                        <span>{t("common.learnMore")}</span>
                         <span
                           className="material-symbols-outlined text-[16px] group-hover:translate-x-[-4px] transition-transform"
                           aria-hidden="true"
@@ -164,17 +160,17 @@ function Page() {
           <div className="bg-secondary rounded-xl p-12 text-center relative overflow-hidden max-w-container-max mx-auto">
             <div className="relative z-10">
               <h2 className="font-headline-xl text-headline-xl text-on-secondary mb-6 font-bold">
-                هل أنت جاهز للتحول الرقمي؟
+                {t("services.ctaTitle")}
               </h2>
               <p className="text-on-secondary/80 font-body-lg text-body-lg mb-10 max-w-2xl mx-auto">
-                تحدث إلى خبراءنا اليوم لنرسم معاً خريطة طريق لمستقبلك التقني.
+                {t("services.ctaSubtitle")}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <button className="bg-primary text-on-primary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:opacity-90 transition-opacity cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2">
-                  تواصل معنا الآن
+                  {t("services.ctaPrimary")}
                 </button>
                 <button className="bg-transparent border border-on-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
-                  تصفح أعمالنا
+                  {t("services.ctaSecondary")}
                 </button>
               </div>
             </div>
