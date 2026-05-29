@@ -10,6 +10,7 @@ import { Grid } from "../components/layout/Grid";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getServices, getPricingPlans, getFaqs } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
+import { useConsultation } from "../contexts/ConsultationContext";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -39,6 +40,7 @@ function Page() {
 // 1. Hero Section Component
 function HeroSection() {
   const { t, locale } = useTranslation();
+  const { openConsultation } = useConsultation();
   const arrowIcon = locale === "ar" ? "arrow_back" : "arrow_forward";
 
   return (
@@ -54,6 +56,8 @@ function HeroSection() {
             </p>
             <div className="flex flex-wrap gap-3 sm:gap-4 mb-12 justify-start">
               <button
+                type="button"
+                onClick={openConsultation}
                 className="bg-secondary text-on-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-secondary-fixed-variant transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                 aria-label={t("home.bookConsultation")}
               >

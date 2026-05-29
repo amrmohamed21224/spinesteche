@@ -181,6 +181,138 @@
   }
 }
 
+html.scroll-locked,
+body.scroll-locked {
+  overflow: hidden !important;
+  height: 100%;
+}
+
+.consultation-modal-scroll {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+.consultation-overlay[data-state="open"] {
+  animation: consultationFadeIn 0.4s ease-out forwards;
+}
+
+.consultation-overlay[data-state="closed"] {
+  animation: consultationFadeOut 0.25s ease-in forwards;
+}
+
+.consultation-content[data-state="open"] {
+  animation: consultationModalIn 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.consultation-content[data-state="closed"] {
+  animation: consultationModalOut 0.28s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.consultation-step-panel {
+  animation: consultationStepIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.consultation-form label {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.consultation-form input,
+.consultation-form textarea {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.consultation-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-inline-start: 1rem;
+  padding-inline-end: 3.25rem;
+}
+
+.consultation-select-chevron {
+  pointer-events: none;
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  display: flex;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-inline-start: 1px solid color-mix(in srgb, var(--color-outline-variant) 35%, transparent);
+  background: color-mix(in srgb, var(--color-surface-container-low) 80%, transparent);
+  color: var(--color-secondary);
+  border-start-end-radius: 0.75rem;
+  border-end-end-radius: 0.75rem;
+}
+
+@keyframes consultationFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes consultationFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes consultationModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes consultationModalOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+}
+
+@keyframes consultationStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .consultation-overlay[data-state="open"],
+  .consultation-overlay[data-state="closed"],
+  .consultation-content[data-state="open"],
+  .consultation-content[data-state="closed"],
+  .consultation-step-panel {
+    animation: none;
+  }
+}
+
 .btn-motion {
   transform: translateZ(0);
   transition: box-shadow 0.3s ease;

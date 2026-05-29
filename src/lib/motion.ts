@@ -7,6 +7,38 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+let lenisInstance: Lenis | null = null;
+let scrollLockCount = 0;
+
+export function registerLenis(lenis: Lenis): void {
+  lenisInstance = lenis;
+}
+
+/**
+ * Lock page scroll (e.g. when a modal is open). Pauses Lenis so wheel events
+ * scroll the modal body instead of the site behind it.
+ */
+export function setBodyScrollLocked(locked: boolean): void {
+  if (typeof document === "undefined") return;
+
+  if (locked) {
+    scrollLockCount += 1;
+    if (scrollLockCount === 1) {
+      document.documentElement.classList.add("scroll-locked");
+      document.body.classList.add("scroll-locked");
+      lenisInstance?.stop();
+    }
+    return;
+  }
+
+  scrollLockCount = Math.max(0, scrollLockCount - 1);
+  if (scrollLockCount === 0) {
+    document.documentElement.classList.remove("scroll-locked");
+    document.body.classList.remove("scroll-locked");
+    lenisInstance?.start();
+  }
+}
+
 /**
  * Initialize Lenis smooth scroll and connect it to GSAP ScrollTrigger
  */
@@ -20,6 +52,8 @@ export const initSmoothScroll = (): Lenis | null => {
     gestureOrientation: "vertical",
     smoothWheel: true,
   });
+
+  registerLenis(lenis);
 
   // Sync scroll events with ScrollTrigger
   lenis.on("scroll", ScrollTrigger.update);

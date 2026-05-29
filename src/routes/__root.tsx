@@ -16,6 +16,7 @@ import { useAnalytics } from "../hooks/useAnalytics";
 import { validateEnv } from "../config/env";
 import { monitoringClient } from "../lib/monitoring/client";
 import { LocaleProvider, LocaleHtmlSync, useTranslation } from "../i18n";
+import { ConsultationProvider } from "../contexts/ConsultationContext";
 
 function NotFoundComponent() {
   const { t, dir } = useTranslation();
@@ -151,7 +152,9 @@ function RootComponent() {
     <LocaleProvider>
       <LocaleHtmlSync />
       <QueryClientProvider client={queryClient}>
-        <Outlet />
+        <ConsultationProvider>
+          <Outlet />
+        </ConsultationProvider>
       </QueryClientProvider>
     </LocaleProvider>
   );

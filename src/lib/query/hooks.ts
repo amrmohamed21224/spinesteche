@@ -18,7 +18,7 @@ import {
 export function useServices() {
   return useQuery({
     queryKey: queryKeys.services.list(),
-    queryFn: getServices,
+    queryFn: () => getServices(),
   });
 }
 
@@ -28,7 +28,7 @@ export function useServices() {
 export function useSectors() {
   return useQuery({
     queryKey: queryKeys.sectors.list(),
-    queryFn: getSectors,
+    queryFn: () => getSectors(),
   });
 }
 
@@ -38,7 +38,7 @@ export function useSectors() {
 export function useProducts() {
   return useQuery({
     queryKey: queryKeys.products.list(),
-    queryFn: getProducts,
+    queryFn: () => getProducts(),
   });
 }
 
@@ -48,7 +48,7 @@ export function useProducts() {
 export function useCaseStudies() {
   return useQuery({
     queryKey: queryKeys.caseStudies.list(),
-    queryFn: getCaseStudies,
+    queryFn: () => getCaseStudies(),
   });
 }
 
@@ -58,7 +58,7 @@ export function useCaseStudies() {
 export function useCareers() {
   return useQuery({
     queryKey: queryKeys.careers.list(),
-    queryFn: getCareers,
+    queryFn: () => getCareers(),
   });
 }
 
@@ -68,7 +68,7 @@ export function useCareers() {
 export function useTestimonials() {
   return useQuery({
     queryKey: queryKeys.testimonials.list(),
-    queryFn: getTestimonials,
+    queryFn: () => getTestimonials(),
   });
 }
 
@@ -83,6 +83,7 @@ export function useSubmitContact() {
       phone?: string;
       company?: string;
       message: string;
+      source?: string;
       locale?: import("../../i18n/types").Locale;
     }) => submitContactForm(data, data.locale ?? "ar"),
   });
