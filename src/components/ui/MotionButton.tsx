@@ -50,7 +50,11 @@ export function MotionButton({
   }
 
   return (
-    <button type="button" className={classes} {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <button
+      type="button"
+      className={classes}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+    >
       {children}
     </button>
   );

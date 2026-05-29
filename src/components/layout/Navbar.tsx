@@ -99,14 +99,14 @@ export function Navbar() {
                     <button
                       type="button"
                       onClick={toggleLocale}
-                      className="btn-motion w-full py-3 px-4 rounded-xl border border-outline-variant/40 text-on-surface-variant font-body-md hover:text-secondary hover:border-secondary/40 transition-colors cursor-pointer"
+                      className="w-full py-3 px-4 rounded-xl border border-outline-variant/40 text-on-surface-variant font-body-md hover:text-secondary hover:border-secondary/40 transition-colors cursor-pointer"
                     >
                       {locale === "ar" ? t("nav.english") : t("nav.arabic")}
                     </button>
                     <Link
                       to="/contact"
                       onClick={() => setMenuOpen(false)}
-                      className="btn-motion w-full text-center bg-primary-container text-on-primary font-bold py-3.5 px-5 rounded-xl text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                      className="w-full text-center bg-primary-container text-on-primary font-bold py-3.5 px-5 rounded-xl text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                     >
                       {t("nav.bookConsultation")}
                     </Link>
@@ -143,14 +143,14 @@ export function Navbar() {
           <button
             type="button"
             onClick={toggleLocale}
-            className="btn-motion text-on-surface-variant cursor-pointer font-body-md hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded-lg px-3 py-2"
+            className="text-on-surface-variant cursor-pointer font-body-md hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded-lg px-3 py-2"
             aria-label={locale === "ar" ? t("nav.switchToEnglish") : t("nav.switchToArabic")}
           >
             {locale === "ar" ? t("nav.english") : t("nav.arabic")}
           </button>
           <Link
             to="/contact"
-            className="btn-motion bg-primary-container text-on-primary font-bold py-2.5 px-6 rounded-xl text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 whitespace-nowrap"
+            className="bg-primary-container text-on-primary font-bold py-2.5 px-6 rounded-xl text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 whitespace-nowrap"
             aria-label={t("nav.bookConsultation")}
           >
             {t("nav.bookConsultation")}

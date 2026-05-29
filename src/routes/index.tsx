@@ -42,31 +42,19 @@ function HeroSection() {
   const arrowIcon = locale === "ar" ? "arrow_back" : "arrow_forward";
 
   return (
-    <header
-      data-hero
-      className="relative pt-24 sm:pt-28 md:pt-40 lg:pt-48 pb-16 md:pb-32 px-margin-mobile md:px-margin-desktop overflow-hidden"
-    >
+    <header className="relative pt-24 sm:pt-28 md:pt-40 lg:pt-48 pb-16 md:pb-32 px-margin-mobile md:px-margin-desktop overflow-hidden">
       <Container clean>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-start">
           <div className="z-10 order-2 lg:order-1">
-            <h1
-              data-hero-item
-              className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight text-primary font-bold"
-            >
+            <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight text-primary font-bold">
               {t("home.heroTitle")}
             </h1>
-            <p
-              data-hero-item
-              className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl"
-            >
+            <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
               {t("home.heroSubtitle")}
             </p>
-            <div
-              data-hero-item
-              className="flex flex-wrap gap-3 sm:gap-4 mb-12 justify-start"
-            >
+            <div className="flex flex-wrap gap-3 sm:gap-4 mb-12 justify-start">
               <button
-                className="btn-motion bg-secondary text-on-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-secondary-fixed-variant transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
+                className="bg-secondary text-on-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-secondary-fixed-variant transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                 aria-label={t("home.bookConsultation")}
               >
                 <span>{t("home.bookConsultation")}</span>
@@ -75,17 +63,13 @@ function HeroSection() {
                 </span>
               </button>
               <button
-                className="btn-motion border-2 border-secondary text-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
+                className="border-2 border-secondary text-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                 aria-label={t("home.requestQuote")}
               >
                 {t("home.requestQuote")}
               </button>
             </div>
-            <div
-              data-hero-item
-              data-stagger
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-outline-variant/30"
-            >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-outline-variant/30">
               <div className="flex items-center gap-2 justify-start">
                 <span
                   className="material-symbols-outlined text-secondary"
@@ -136,10 +120,9 @@ function HeroSection() {
               </div>
             </div>
           </div>
-          <div className="relative order-1 lg:order-2" data-hero-item>
+          <div className="relative order-1 lg:order-2">
             <div className="absolute inset-0 bg-secondary/10 rounded-3xl -rotate-3 scale-105"></div>
             <img
-              data-parallax
               alt={t("home.heroImageAlt")}
               className="rounded-3xl shadow-2xl relative z-10 w-full object-cover aspect-[1.79]"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2AZZoxIZ-GDG2uwZS83lY8yRzqHk_C73qrpsc1srV-sfitFamyjaRXBe56nqXsvQLRxz8bTp9no3vd5ap1jNdpxue2yquRm4BPjIAoCOptoZvo3ZycyRLOR-6k8_AJvR23sKbj88-h4acKRpOIItt1aBdEsU0ENAA59h2fVClgtelgbLke1V5cLZ0tiG_SiWP0HrGqRL6Flmq_UDy_T0Rc0ROi7xRfqWoU4nTK9oNIruANCybg4f8Lfu9mQTTT9EHY5E6trVoSqEd"

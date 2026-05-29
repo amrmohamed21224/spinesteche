@@ -4,8 +4,6 @@ import { tokens } from "../../lib/tokens";
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
-  /** Disable scroll-in reveal for this section */
-  reveal?: boolean;
   bg?:
     | "default"
     | "surface"
@@ -20,7 +18,6 @@ interface SectionProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Section: React.FC<SectionProps> = ({
   children,
-  reveal = true,
   bg = "none",
   noContainer = false,
   pattern = false,
@@ -42,7 +39,6 @@ export const Section: React.FC<SectionProps> = ({
 
   return (
     <section
-      data-reveal={reveal ? undefined : "false"}
       className={`relative ${tokens.spacing.sectionPadding} ${selectedBg} ${
         pattern ? "geometric-pattern overflow-hidden" : ""
       } ${className}`}
