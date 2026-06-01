@@ -1,5 +1,6 @@
 import { cmsClient } from "./client";
 import { ENDPOINTS } from "./endpoints";
+import { env } from "../../config/env";
 import {
   CMSService,
   CMSCaseStudy,
@@ -12,6 +13,7 @@ import {
   CMSSector,
   CMSProduct,
   CMSNavigationLink,
+  CMSAboutPageData,
 } from "../../types/cms";
 import type { Locale } from "../../i18n/types";
 import {
@@ -27,134 +29,124 @@ import {
 import { mockTestimonials, mockTeamMembers } from "../../data/testimonials";
 import { mockNavigation, mockSiteSettings } from "../../data/navigation";
 
-// Helper to determine if we should bypass network and use mocks directly
-const USE_MOCKS = true; // Set to true to simulate loading state and client logic offline
-
 const MOCK_DELAY_MS = 400;
+
+function useMocks(): boolean {
+  return env.USE_MOCKS;
+}
+
+function withLang(path: string, locale: Locale = "ar"): string {
+  const separator = path.includes("?") ? "&" : "?";
+  return `${path}${separator}lang=${locale}`;
+}
 
 async function mockDelay(ms = MOCK_DELAY_MS) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/**
- * Services Fetchers
- */
 export async function getServices(locale: Locale = "ar"): Promise<CMSService[]> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(500);
     return localizeServices(locale);
   }
-  return cmsClient.get<CMSService[]>(ENDPOINTS.SERVICES);
+  return cmsClient.get<CMSService[]>(withLang(ENDPOINTS.SERVICES, locale));
 }
 
 export async function getServiceBySlug(
   slug: string,
   locale: Locale = "ar",
 ): Promise<CMSService | null> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(300);
     return localizeServices(locale).find((s) => s.slug === slug) || null;
   }
   try {
-    return await cmsClient.get<CMSService>(`${ENDPOINTS.SERVICES}/${slug}`);
+    return await cmsClient.get<CMSService>(withLang(`${ENDPOINTS.SERVICES}/${slug}`, locale));
   } catch {
     return null;
   }
 }
 
-/**
- * Case Studies Fetchers
- */
 export async function getCaseStudies(locale: Locale = "ar"): Promise<CMSCaseStudy[]> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(600);
     return localizeCaseStudies(locale);
   }
-  return cmsClient.get<CMSCaseStudy[]>(ENDPOINTS.CASE_STUDIES);
+  return cmsClient.get<CMSCaseStudy[]>(withLang(ENDPOINTS.CASE_STUDIES, locale));
 }
 
 export async function getCaseStudyBySlug(
   slug: string,
   locale: Locale = "ar",
 ): Promise<CMSCaseStudy | null> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(300);
     return localizeCaseStudies(locale).find((cs) => cs.slug === slug) || null;
   }
   try {
-    return await cmsClient.get<CMSCaseStudy>(`${ENDPOINTS.CASE_STUDIES}/${slug}`);
+    return await cmsClient.get<CMSCaseStudy>(
+      withLang(`${ENDPOINTS.CASE_STUDIES}/${slug}`, locale),
+    );
   } catch {
     return null;
   }
 }
 
-/**
- * Pricing & FAQ Fetchers
- */
 export async function getPricingPlans(locale: Locale = "ar"): Promise<CMSPricingPlan[]> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(400);
     return localizePricing(locale);
   }
-  return cmsClient.get<CMSPricingPlan[]>(ENDPOINTS.PRICING);
+  return cmsClient.get<CMSPricingPlan[]>(withLang(ENDPOINTS.PRICING, locale));
 }
 
 export async function getFaqs(locale: Locale = "ar"): Promise<CMSFaq[]> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(300);
     return localizeFaqs(locale);
   }
-  return cmsClient.get<CMSFaq[]>(ENDPOINTS.FAQS);
+  return cmsClient.get<CMSFaq[]>(withLang(ENDPOINTS.FAQS, locale));
 }
 
-/**
- * Careers / Job Position Fetchers
- */
 export async function getCareers(locale: Locale = "ar"): Promise<CMSJobPosition[]> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(500);
     return localizeCareers(locale);
   }
-  return cmsClient.get<CMSJobPosition[]>(ENDPOINTS.CAREERS);
+  return cmsClient.get<CMSJobPosition[]>(withLang(ENDPOINTS.CAREERS, locale));
 }
 
 export async function getJobBySlug(
   slug: string,
   locale: Locale = "ar",
 ): Promise<CMSJobPosition | null> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(300);
     return localizeCareers(locale).find((job) => job.slug === slug) || null;
   }
   try {
-    return await cmsClient.get<CMSJobPosition>(`${ENDPOINTS.CAREERS}/${slug}`);
+    return await cmsClient.get<CMSJobPosition>(withLang(`${ENDPOINTS.CAREERS}/${slug}`, locale));
   } catch {
     return null;
   }
 }
 
-/**
- * Testimonials & Team Fetchers
- */
-export async function getTestimonials(): Promise<CMSTestimonial[]> {
-  if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
+export async function getTestimonials(locale: Locale = "ar"): Promise<CMSTestimonial[]> {
+  if (useMocks()) {
+    await mockDelay(400);
     return mockTestimonials;
   }
-  return cmsClient.get<CMSTestimonial[]>(ENDPOINTS.TESTIMONIALS);
+  return cmsClient.get<CMSTestimonial[]>(withLang(ENDPOINTS.TESTIMONIALS, locale));
 }
 
-export async function getTeamMembers(): Promise<CMSTeamMember[]> {
-  if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
+export async function getTeamMembers(locale: Locale = "ar"): Promise<CMSTeamMember[]> {
+  if (useMocks()) {
+    await mockDelay(400);
     return mockTeamMembers;
   }
-  return cmsClient.get<CMSTeamMember[]>(ENDPOINTS.TEAM_MEMBERS);
+  return cmsClient.get<CMSTeamMember[]>(withLang(ENDPOINTS.TEAM_MEMBERS, locale));
 }
 
-/**
- * Form Submission Fetchers (API preparation)
- */
 export async function submitContactForm(
   data: {
     name: string;
@@ -166,7 +158,7 @@ export async function submitContactForm(
   },
   locale: Locale = "ar",
 ): Promise<{ success: boolean; message: string }> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(1000);
     return {
       success: true,
@@ -176,15 +168,18 @@ export async function submitContactForm(
           : "تم استلام رسالتك بنجاح! وسنتواصل معك قريباً.",
     };
   }
-  return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.CONTACT_SUBMISSION, data);
+  return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.CONTACT_SUBMISSION, {
+    ...data,
+    locale,
+  });
 }
 
 export async function submitCareerApplication(
   data: FormData,
   locale: Locale = "ar",
 ): Promise<{ success: boolean; message: string }> {
-  if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+  if (useMocks()) {
+    await mockDelay(1200);
     return {
       success: true,
       message:
@@ -193,77 +188,83 @@ export async function submitCareerApplication(
           : "تم إرسال طلب التقديم بنجاح! شكراً لاهتمامك.",
     };
   }
-  // Note: FormData POST should let the browser set the boundary headers automatically
-  return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.CAREER_SUBMISSION, data);
+  if (!data.has("locale")) {
+    data.append("locale", locale);
+  }
+  return cmsClient.post<{ success: boolean; message: string }>(
+    ENDPOINTS.CAREER_SUBMISSION,
+    data,
+  );
 }
 
-export async function submitQuoteRequest(data: {
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  projectType: string;
-  budget: string;
-  details: string;
-}): Promise<{ success: boolean; message: string }> {
-  if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+export async function submitQuoteRequest(
+  data: {
+    name: string;
+    email: string;
+    phone: string;
+    company: string;
+    projectType: string;
+    budget: string;
+    details: string;
+  },
+  locale: Locale = "ar",
+): Promise<{ success: boolean; message: string }> {
+  if (useMocks()) {
+    await mockDelay(1000);
     return {
       success: true,
-      message: "تم إرسال طلب عرض السعر بنجاح! سيقوم مستشارنا التقني بالرد عليك.",
+      message:
+        locale === "en"
+          ? "Your quote request was received successfully."
+          : "تم إرسال طلب عرض السعر بنجاح! سيقوم مستشارنا التقني بالرد عليك.",
     };
   }
-  return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.QUOTE_SUBMISSION, data);
+  return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.QUOTE_SUBMISSION, {
+    ...data,
+    locale,
+  });
 }
 
-/**
- * Sectors Fetchers
- */
 export async function getSectors(locale: Locale = "ar"): Promise<CMSSector[]> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(400);
     return localizeSectors(locale);
   }
-  return cmsClient.get<CMSSector[]>("/sectors");
+  return cmsClient.get<CMSSector[]>(withLang(ENDPOINTS.SECTORS, locale));
 }
 
-/**
- * Products Fetchers
- */
 export async function getProducts(locale: Locale = "ar"): Promise<CMSProduct[]> {
-  if (USE_MOCKS) {
+  if (useMocks()) {
     await mockDelay(400);
     return localizeProducts(locale);
   }
-  return cmsClient.get<CMSProduct[]>("/products");
+  return cmsClient.get<CMSProduct[]>(withLang(ENDPOINTS.PRODUCTS, locale));
 }
 
-/**
- * About Page Fetchers
- */
-export async function getAboutPageData(locale: Locale = "ar") {
-  if (USE_MOCKS) {
+export async function getAboutPageData(locale: Locale = "ar"): Promise<CMSAboutPageData> {
+  if (useMocks()) {
     await mockDelay(400);
     return getLocalizedAboutPage(locale);
   }
-  return cmsClient.get("/about");
+  return cmsClient.get<CMSAboutPageData>(withLang(ENDPOINTS.ABOUT, locale));
 }
 
-/**
- * Navigation & Site Settings Fetchers
- */
 export async function getNavigation(): Promise<CMSNavigationLink[]> {
-  if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
+  if (useMocks()) {
+    await mockDelay(200);
     return mockNavigation;
   }
-  return cmsClient.get<CMSNavigationLink[]>("/navigation");
+  return cmsClient.get<CMSNavigationLink[]>(ENDPOINTS.NAVIGATION);
 }
 
 export async function getSiteSettings(): Promise<CMSSiteSettings> {
-  if (USE_MOCKS) {
-    await new Promise((resolve) => setTimeout(resolve, 200));
+  if (useMocks()) {
+    await mockDelay(200);
     return mockSiteSettings;
   }
   return cmsClient.get<CMSSiteSettings>(ENDPOINTS.SETTINGS);
+}
+
+export async function checkApiHealth(): Promise<{ status: string }> {
+  return cmsClient.get<{ status: string }>("/health");
 }

@@ -28,27 +28,23 @@ class ApiClient {
     this.defaultTimeout = defaultTimeout;
   }
 
-  /**
-   * Safe delay helper
-   */
   private async delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  /**
-   * Helper to perform a fetch request with timeout and abort capabilities.
-   */
   private async request<T>(path: string, options: RequestOptions = {}): Promise<T> {
     const { timeout = this.defaultTimeout, ...fetchOptions } = options;
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
 
-    // Build absolute URL safely
     const separator = path.startsWith("/") ? "" : "/";
     const url = `${this.baseUrl}${separator}${path}`;
 
-    const headers = {
-      "Content-Type": "application/json",
+    const isFormData =
+      typeof FormData !== "undefined" && fetchOptions.body instanceof FormData;
+
+    const headers: HeadersInit = {
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...fetchOptions.headers,
     };
 
@@ -77,7 +73,6 @@ class ApiClient {
         );
       }
 
-      // Safe JSON parsing guard
       const text = await response.text();
       if (!text) {
         return {} as T;
@@ -101,32 +96,28 @@ class ApiClient {
     }
   }
 
-  /**
-   * Performs an asynchronous GET request.
-   */
   public async get<T>(path: string, options: RequestOptions = {}): Promise<T> {
-    // For mock development, if we receive a mock path or when testing, simulate 600ms latency
     if (env.USE_MOCKS) {
       await this.delay(600);
     }
     return this.request<T>(path, { ...options, method: "GET" });
   }
 
-  /**
-   * Performs an asynchronous POST request.
-   */
   public async post<T, U = unknown>(
     path: string,
     body: U,
     options: RequestOptions = {},
   ): Promise<T> {
     if (env.USE_MOCKS) {
-      await this.delay(800); // simulate form processing time
+      await this.delay(800);
     }
+
+    const isFormData = typeof FormData !== "undefined" && body instanceof FormData;
+
     return this.request<T>(path, {
       ...options,
       method: "POST",
-      body: JSON.stringify(body),
+      body: isFormData ? body : JSON.stringify(body),
     });
   }
 }

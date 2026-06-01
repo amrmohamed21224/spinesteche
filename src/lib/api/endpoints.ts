@@ -14,6 +14,8 @@ export const ENDPOINTS = {
   TEAM_MEMBERS: "/team-members",
   SETTINGS: "/settings",
   SECTORS: "/sectors",
+  PRODUCTS: "/products",
+  ABOUT: "/about",
   NAVIGATION: "/navigation",
 
   // Forms / Submissions

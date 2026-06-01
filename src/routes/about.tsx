@@ -8,6 +8,7 @@ import { Grid } from "../components/layout/Grid";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getAboutPageData } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
+import type { CMSAboutPageData } from "../types/cms";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/about")({
 
 function Page() {
   const { t, locale } = useTranslation();
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery<CMSAboutPageData>({
     queryKey: ["about-page", locale],
     queryFn: () => getAboutPageData(locale),
   });
@@ -97,7 +98,7 @@ function Page() {
           </Section>
         )}
 
-        {!isLoading && !isError && data && (
+        {!isLoading && !isError && data ? (
           <>
             {/* Mission & Vision: Bento Grid */}
             <Section bg="surface" className="py-24">
@@ -253,7 +254,7 @@ function Page() {
               </div>
             </Section>
           </>
-        )}
+        ) : null}
 
         {/* CTA Section */}
         <section className="py-24 geometric-pattern">

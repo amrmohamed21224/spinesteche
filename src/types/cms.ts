@@ -149,3 +149,12 @@ export interface CMSStat {
   value: string;
   label: string;
 }
+
+export interface CMSAboutPageData {
+  mission: string;
+  vision: string;
+  coreValues: CMSCoreValue[];
+  differentiators: CMSDifferentiator[];
+  markets: CMSMarketPresence[];
+  stats: CMSStat[];
+}

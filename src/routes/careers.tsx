@@ -42,7 +42,7 @@ function Page() {
   });
 
   const mutation = useMutation({
-    mutationFn: (data) => submitCareerApplication(data, locale),
+    mutationFn: (data: FormData) => submitCareerApplication(data, locale),
     onSuccess: (data) => {
       alert(data.message);
       // Clear form
