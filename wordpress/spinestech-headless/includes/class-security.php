@@ -50,7 +50,7 @@ final class SpinesTech_Headless_Security
         foreach (['HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'] as $header) {
             if (!empty($_SERVER[$header])) {
                 $value = sanitize_text_field(wp_unslash((string) $_SERVER[$header]));
-                if (str_contains($value, ',')) {
+                if (strpos($value, ',') !== false) {
                     $value = trim(explode(',', $value)[0]);
                 }
                 return $value;

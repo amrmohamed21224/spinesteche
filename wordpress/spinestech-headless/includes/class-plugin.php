@@ -47,13 +47,5 @@ final class SpinesTech_Headless_Plugin
 
         SpinesTech_Headless_CORS::init();
         SpinesTech_Headless_Security::init();
-
-        register_activation_hook(ST_HEADLESS_PATH . 'spinestech-headless.php', [self::class, 'activate']);
-    }
-
-    public static function activate(): void
-    {
-        SpinesTech_Headless_Post_Types::register();
-        flush_rewrite_rules();
     }
 }

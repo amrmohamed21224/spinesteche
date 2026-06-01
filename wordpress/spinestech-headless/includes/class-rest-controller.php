@@ -109,7 +109,10 @@ final class SpinesTech_Headless_REST_Controller
         return new WP_REST_Response($data, 200);
     }
 
-    public static function map_service(WP_REST_Request $request): WP_REST_Response|WP_Error
+    /**
+     * @return WP_REST_Response|WP_Error
+     */
+    public static function map_service(WP_REST_Request $request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $slug = (string) $request->get_param('slug');
@@ -141,7 +144,10 @@ final class SpinesTech_Headless_REST_Controller
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'case_study'], $posts), 200);
     }
 
-    public static function map_case_study(WP_REST_Request $request): WP_REST_Response|WP_Error
+    /**
+     * @return WP_REST_Response|WP_Error
+     */
+    public static function map_case_study(WP_REST_Request $request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $slug = (string) $request->get_param('slug');
@@ -173,7 +179,10 @@ final class SpinesTech_Headless_REST_Controller
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'job'], $posts), 200);
     }
 
-    public static function map_job(WP_REST_Request $request): WP_REST_Response|WP_Error
+    /**
+     * @return WP_REST_Response|WP_Error
+     */
+    public static function map_job(WP_REST_Request $request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $slug = (string) $request->get_param('slug');
