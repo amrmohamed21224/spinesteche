@@ -31,7 +31,7 @@ import { mockNavigation, mockSiteSettings } from "../../data/navigation";
 
 const MOCK_DELAY_MS = 400;
 
-function useMocks(): boolean {
+function isMockMode(): boolean {
   return env.USE_MOCKS;
 }
 
@@ -45,7 +45,7 @@ async function mockDelay(ms = MOCK_DELAY_MS) {
 }
 
 export async function getServices(locale: Locale = "ar"): Promise<CMSService[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(500);
     return localizeServices(locale);
   }
@@ -56,7 +56,7 @@ export async function getServiceBySlug(
   slug: string,
   locale: Locale = "ar",
 ): Promise<CMSService | null> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(300);
     return localizeServices(locale).find((s) => s.slug === slug) || null;
   }
@@ -68,7 +68,7 @@ export async function getServiceBySlug(
 }
 
 export async function getCaseStudies(locale: Locale = "ar"): Promise<CMSCaseStudy[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(600);
     return localizeCaseStudies(locale);
   }
@@ -79,21 +79,19 @@ export async function getCaseStudyBySlug(
   slug: string,
   locale: Locale = "ar",
 ): Promise<CMSCaseStudy | null> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(300);
     return localizeCaseStudies(locale).find((cs) => cs.slug === slug) || null;
   }
   try {
-    return await cmsClient.get<CMSCaseStudy>(
-      withLang(`${ENDPOINTS.CASE_STUDIES}/${slug}`, locale),
-    );
+    return await cmsClient.get<CMSCaseStudy>(withLang(`${ENDPOINTS.CASE_STUDIES}/${slug}`, locale));
   } catch {
     return null;
   }
 }
 
 export async function getPricingPlans(locale: Locale = "ar"): Promise<CMSPricingPlan[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(400);
     return localizePricing(locale);
   }
@@ -101,7 +99,7 @@ export async function getPricingPlans(locale: Locale = "ar"): Promise<CMSPricing
 }
 
 export async function getFaqs(locale: Locale = "ar"): Promise<CMSFaq[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(300);
     return localizeFaqs(locale);
   }
@@ -109,7 +107,7 @@ export async function getFaqs(locale: Locale = "ar"): Promise<CMSFaq[]> {
 }
 
 export async function getCareers(locale: Locale = "ar"): Promise<CMSJobPosition[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(500);
     return localizeCareers(locale);
   }
@@ -120,7 +118,7 @@ export async function getJobBySlug(
   slug: string,
   locale: Locale = "ar",
 ): Promise<CMSJobPosition | null> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(300);
     return localizeCareers(locale).find((job) => job.slug === slug) || null;
   }
@@ -132,7 +130,7 @@ export async function getJobBySlug(
 }
 
 export async function getTestimonials(locale: Locale = "ar"): Promise<CMSTestimonial[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(400);
     return mockTestimonials;
   }
@@ -140,7 +138,7 @@ export async function getTestimonials(locale: Locale = "ar"): Promise<CMSTestimo
 }
 
 export async function getTeamMembers(locale: Locale = "ar"): Promise<CMSTeamMember[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(400);
     return mockTeamMembers;
   }
@@ -158,7 +156,7 @@ export async function submitContactForm(
   },
   locale: Locale = "ar",
 ): Promise<{ success: boolean; message: string }> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(1000);
     return {
       success: true,
@@ -178,7 +176,7 @@ export async function submitCareerApplication(
   data: FormData,
   locale: Locale = "ar",
 ): Promise<{ success: boolean; message: string }> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(1200);
     return {
       success: true,
@@ -191,10 +189,7 @@ export async function submitCareerApplication(
   if (!data.has("locale")) {
     data.append("locale", locale);
   }
-  return cmsClient.post<{ success: boolean; message: string }>(
-    ENDPOINTS.CAREER_SUBMISSION,
-    data,
-  );
+  return cmsClient.post<{ success: boolean; message: string }>(ENDPOINTS.CAREER_SUBMISSION, data);
 }
 
 export async function submitQuoteRequest(
@@ -209,7 +204,7 @@ export async function submitQuoteRequest(
   },
   locale: Locale = "ar",
 ): Promise<{ success: boolean; message: string }> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(1000);
     return {
       success: true,
@@ -226,7 +221,7 @@ export async function submitQuoteRequest(
 }
 
 export async function getSectors(locale: Locale = "ar"): Promise<CMSSector[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(400);
     return localizeSectors(locale);
   }
@@ -234,7 +229,7 @@ export async function getSectors(locale: Locale = "ar"): Promise<CMSSector[]> {
 }
 
 export async function getProducts(locale: Locale = "ar"): Promise<CMSProduct[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(400);
     return localizeProducts(locale);
   }
@@ -242,7 +237,7 @@ export async function getProducts(locale: Locale = "ar"): Promise<CMSProduct[]> 
 }
 
 export async function getAboutPageData(locale: Locale = "ar"): Promise<CMSAboutPageData> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(400);
     return getLocalizedAboutPage(locale);
   }
@@ -250,7 +245,7 @@ export async function getAboutPageData(locale: Locale = "ar"): Promise<CMSAboutP
 }
 
 export async function getNavigation(): Promise<CMSNavigationLink[]> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(200);
     return mockNavigation;
   }
@@ -258,7 +253,7 @@ export async function getNavigation(): Promise<CMSNavigationLink[]> {
 }
 
 export async function getSiteSettings(): Promise<CMSSiteSettings> {
-  if (useMocks()) {
+  if (isMockMode()) {
     await mockDelay(200);
     return mockSiteSettings;
   }

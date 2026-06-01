@@ -1,7 +1,4 @@
-export const sectorsEn: Record<
-  string,
-  { title: string; description: string; tags?: string[] }
-> = {
+export const sectorsEn: Record<string, { title: string; description: string; tags?: string[] }> = {
   "sec-1": {
     title: "Retail & E-commerce",
     description: "Advanced POS, e-commerce platforms, and AI-powered inventory management.",

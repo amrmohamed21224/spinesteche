@@ -9,12 +9,7 @@ interface StateFeedbackProps {
   onRetry?: () => void;
 }
 
-export const StateFeedback: React.FC<StateFeedbackProps> = ({
-  type,
-  title,
-  message,
-  onRetry,
-}) => {
+export const StateFeedback: React.FC<StateFeedbackProps> = ({ type, title, message, onRetry }) => {
   const { t } = useTranslation();
 
   const getDefaults = () => {

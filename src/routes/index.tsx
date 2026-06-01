@@ -235,11 +235,7 @@ function ServicesSection() {
 
       {isLoading && <StateFeedback type="loading" />}
       {isError && (
-        <StateFeedback
-          type="error"
-          message={t("feedback.servicesError")}
-          onRetry={refetch}
-        />
+        <StateFeedback type="error" message={t("feedback.servicesError")} onRetry={refetch} />
       )}
       {!isLoading && !isError && displayServices.length === 0 && (
         <StateFeedback type="empty" message={t("feedback.servicesEmpty")} />

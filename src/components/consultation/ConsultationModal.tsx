@@ -15,14 +15,7 @@ type ConsultationModalProps = {
   onOpenChange: (open: boolean) => void;
 };
 
-type ServiceKey =
-  | "customDev"
-  | "erp"
-  | "ai"
-  | "consulting"
-  | "integration"
-  | "mobile"
-  | "other";
+type ServiceKey = "customDev" | "erp" | "ai" | "consulting" | "integration" | "mobile" | "other";
 
 const SERVICE_KEYS: ServiceKey[] = [
   "customDev",
@@ -64,9 +57,7 @@ export function ConsultationModal({ open, onOpenChange }: ConsultationModalProps
   }, [open]);
 
   const toggleService = (key: ServiceKey) => {
-    setServices((prev) =>
-      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
-    );
+    setServices((prev) => (prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]));
   };
 
   const buildMessage = (fd: FormData) => {
@@ -78,9 +69,7 @@ export function ConsultationModal({ open, onOpenChange }: ConsultationModalProps
       `${t("consultation.sector")}: ${t(`consultation.sectorOption.${step1Data.sector}`)}`,
       `${t("consultation.servicesInterest")}: ${
         services.length
-          ? services
-              .map((s) => t(`consultation.service.${s}`))
-              .join(locale === "ar" ? "، " : ", ")
+          ? services.map((s) => t(`consultation.service.${s}`)).join(locale === "ar" ? "، " : ", ")
           : "—"
       }`,
       `${t("consultation.budget")}: ${t(`consultation.budgetOption.${fd.get("budget")}`)}`,
@@ -166,197 +155,199 @@ export function ConsultationModal({ open, onOpenChange }: ConsultationModalProps
             className="consultation-content consultation-form pointer-events-auto relative z-10 flex w-full max-w-[920px] h-[min(92vh,780px)] max-h-[min(92vh,780px)] flex-col outline-none overflow-hidden rounded-3xl shadow-2xl shadow-primary/20 border border-outline-variant/25 bg-surface"
             aria-describedby={undefined}
           >
-          <Dialog.Title className="sr-only">{t("consultation.title")}</Dialog.Title>
+            <Dialog.Title className="sr-only">{t("consultation.title")}</Dialog.Title>
 
-          {submitted ? (
-            <SuccessView onClose={() => onOpenChange(false)} />
-          ) : (
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:flex-row">
-              {/* Brand panel */}
-              <aside className="relative hidden lg:flex lg:w-[38%] flex-col justify-between p-8 xl:p-10 bg-primary-container text-on-primary overflow-hidden shrink-0">
-                <div
-                  className="absolute inset-0 opacity-[0.07] islamic-pattern pointer-events-none"
-                  aria-hidden="true"
-                />
-                <div
-                  className="absolute -top-24 -end-24 w-64 h-64 rounded-full bg-secondary/30 blur-3xl"
-                  aria-hidden="true"
-                />
-                <div
-                  className="absolute -bottom-16 -start-16 w-48 h-48 rounded-full bg-tertiary-fixed/20 blur-2xl"
-                  aria-hidden="true"
-                />
-
-                <div className="relative z-10">
-                  <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-secondary/20 text-secondary-container text-label-md font-medium mb-6">
-                    <span className="material-symbols-outlined text-base" aria-hidden="true">
-                      verified
-                    </span>
-                    {t("consultation.badge")}
-                  </span>
-                  <h2 className="font-headline-xl text-headline-xl font-bold leading-snug mb-4">
-                    {t("consultation.asideTitle")}
-                  </h2>
-                  <p className="text-on-primary/80 font-body-md leading-relaxed">
-                    {t("consultation.asideSubtitle")}
-                  </p>
-                </div>
-
-                <ul className="relative z-10 space-y-4 mt-8">
-                  {(["benefit1", "benefit2", "benefit3"] as const).map((key) => (
-                    <li key={key} className="flex items-start gap-3">
-                      <span
-                        className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary/25 text-secondary-container"
-                        aria-hidden="true"
-                      >
-                        <span className="material-symbols-outlined text-lg">check</span>
-                      </span>
-                      <span className="text-sm leading-relaxed text-on-primary/90">
-                        {t(`consultation.${key}`)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="relative z-10 mt-8 pt-6 border-t border-on-primary/15 flex items-center gap-3">
-                  <span
-                    className="material-symbols-outlined text-secondary-container text-2xl"
-                    aria-hidden="true"
-                  >
-                    schedule
-                  </span>
-                  <div>
-                    <p className="text-xs text-on-primary/60">{t("consultation.responseLabel")}</p>
-                    <p className="font-semibold text-secondary-container">
-                      {t("consultation.responseTime")}
-                    </p>
-                  </div>
-                </div>
-              </aside>
-
-              {/* Form panel */}
-              <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-surface">
-                {/* Mobile header strip */}
-                <div className="lg:hidden relative px-5 pt-5 pb-4 bg-primary-container text-on-primary shrink-0">
+            {submitted ? (
+              <SuccessView onClose={() => onOpenChange(false)} />
+            ) : (
+              <div className="flex min-h-0 flex-1 flex-col overflow-hidden lg:flex-row">
+                {/* Brand panel */}
+                <aside className="relative hidden lg:flex lg:w-[38%] flex-col justify-between p-8 xl:p-10 bg-primary-container text-on-primary overflow-hidden shrink-0">
                   <div
-                    className="absolute inset-0 opacity-[0.06] islamic-pattern"
+                    className="absolute inset-0 opacity-[0.07] islamic-pattern pointer-events-none"
                     aria-hidden="true"
                   />
-                  <p className="relative text-label-md text-secondary-container font-medium mb-1">
-                    {t("consultation.badge")}
-                  </p>
-                  <p className="relative font-headline-sm font-bold">{t("consultation.title")}</p>
-                </div>
-
-                <div className="flex items-center justify-between gap-4 px-5 sm:px-8 pt-5 sm:pt-6 shrink-0">
-                  <div className="flex-1 min-w-0">
-                    <p className="hidden lg:block font-headline-lg text-headline-lg text-primary font-bold truncate">
-                      {t("consultation.title")}
-                    </p>
-                    <p className="text-label-md text-on-surface-variant mt-0.5">
-                      {step === 1 ? t("consultation.step1Hint") : t("consultation.step2Hint")}
-                    </p>
-                  </div>
-                  <Dialog.Close asChild>
-                    <button
-                      type="button"
-                      className="size-10 shrink-0 inline-flex items-center justify-center rounded-xl border border-outline-variant/40 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                      aria-label={t("consultation.close")}
-                    >
-                      <span className="material-symbols-outlined" aria-hidden="true">
-                        close
-                      </span>
-                    </button>
-                  </Dialog.Close>
-                </div>
-
-                {/* Progress */}
-                <div className="px-5 sm:px-8 pt-4 shrink-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <StepDot active={step >= 1} done={step > 1} label="1" />
-                    <div
-                      className={`h-0.5 flex-1 rounded-full transition-colors duration-500 ${step > 1 ? "bg-secondary" : "bg-outline-variant/30"}`}
-                    />
-                    <StepDot active={step >= 2} done={false} label="2" />
-                  </div>
-                  <div className="flex justify-between text-caption text-on-surface-variant">
-                    <span>{t("consultation.step1Label")}</span>
-                    <span>{t("consultation.step2Label")}</span>
-                  </div>
-                </div>
-
-                <form
-                  onSubmit={step === 1 ? goNext : handleSubmit}
-                  className="flex flex-col flex-1 min-h-0"
-                >
                   <div
-                    className="consultation-modal-scroll flex-1 min-h-0 overflow-y-auto overscroll-contain px-5 sm:px-8 py-5"
-                    data-lenis-prevent
-                    onWheel={(e) => e.stopPropagation()}
-                    onTouchMove={(e) => e.stopPropagation()}
-                  >
-                    {errorMsg && (
-                      <div
-                        role="alert"
-                        className="mb-5 p-4 bg-error-container/15 text-error rounded-xl text-body-md font-medium border border-error/20"
-                      >
-                        {errorMsg}
-                      </div>
-                    )}
+                    className="absolute -top-24 -end-24 w-64 h-64 rounded-full bg-secondary/30 blur-3xl"
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="absolute -bottom-16 -start-16 w-48 h-48 rounded-full bg-tertiary-fixed/20 blur-2xl"
+                    aria-hidden="true"
+                  />
 
-                    <div key={step} className="consultation-step-panel space-y-5">
-                      {step === 1 ? (
-                        <StepOneFields
-                          inputClass={inputClass}
-                          selectClass={selectClass}
-                          defaults={step1Data}
-                        />
-                      ) : (
-                        <StepTwoFields
-                          inputClass={inputClass}
-                          selectClass={selectClass}
-                          services={services}
-                          onToggleService={toggleService}
-                        />
-                      )}
+                  <div className="relative z-10">
+                    <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-secondary/20 text-secondary-container text-label-md font-medium mb-6">
+                      <span className="material-symbols-outlined text-base" aria-hidden="true">
+                        verified
+                      </span>
+                      {t("consultation.badge")}
+                    </span>
+                    <h2 className="font-headline-xl text-headline-xl font-bold leading-snug mb-4">
+                      {t("consultation.asideTitle")}
+                    </h2>
+                    <p className="text-on-primary/80 font-body-md leading-relaxed">
+                      {t("consultation.asideSubtitle")}
+                    </p>
+                  </div>
+
+                  <ul className="relative z-10 space-y-4 mt-8">
+                    {(["benefit1", "benefit2", "benefit3"] as const).map((key) => (
+                      <li key={key} className="flex items-start gap-3">
+                        <span
+                          className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary/25 text-secondary-container"
+                          aria-hidden="true"
+                        >
+                          <span className="material-symbols-outlined text-lg">check</span>
+                        </span>
+                        <span className="text-sm leading-relaxed text-on-primary/90">
+                          {t(`consultation.${key}`)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="relative z-10 mt-8 pt-6 border-t border-on-primary/15 flex items-center gap-3">
+                    <span
+                      className="material-symbols-outlined text-secondary-container text-2xl"
+                      aria-hidden="true"
+                    >
+                      schedule
+                    </span>
+                    <div>
+                      <p className="text-xs text-on-primary/60">
+                        {t("consultation.responseLabel")}
+                      </p>
+                      <p className="font-semibold text-secondary-container">
+                        {t("consultation.responseTime")}
+                      </p>
+                    </div>
+                  </div>
+                </aside>
+
+                {/* Form panel */}
+                <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-surface">
+                  {/* Mobile header strip */}
+                  <div className="lg:hidden relative px-5 pt-5 pb-4 bg-primary-container text-on-primary shrink-0">
+                    <div
+                      className="absolute inset-0 opacity-[0.06] islamic-pattern"
+                      aria-hidden="true"
+                    />
+                    <p className="relative text-label-md text-secondary-container font-medium mb-1">
+                      {t("consultation.badge")}
+                    </p>
+                    <p className="relative font-headline-sm font-bold">{t("consultation.title")}</p>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4 px-5 sm:px-8 pt-5 sm:pt-6 shrink-0">
+                    <div className="flex-1 min-w-0">
+                      <p className="hidden lg:block font-headline-lg text-headline-lg text-primary font-bold truncate">
+                        {t("consultation.title")}
+                      </p>
+                      <p className="text-label-md text-on-surface-variant mt-0.5">
+                        {step === 1 ? t("consultation.step1Hint") : t("consultation.step2Hint")}
+                      </p>
+                    </div>
+                    <Dialog.Close asChild>
+                      <button
+                        type="button"
+                        className="size-10 shrink-0 inline-flex items-center justify-center rounded-xl border border-outline-variant/40 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                        aria-label={t("consultation.close")}
+                      >
+                        <span className="material-symbols-outlined" aria-hidden="true">
+                          close
+                        </span>
+                      </button>
+                    </Dialog.Close>
+                  </div>
+
+                  {/* Progress */}
+                  <div className="px-5 sm:px-8 pt-4 shrink-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <StepDot active={step >= 1} done={step > 1} label="1" />
+                      <div
+                        className={`h-0.5 flex-1 rounded-full transition-colors duration-500 ${step > 1 ? "bg-secondary" : "bg-outline-variant/30"}`}
+                      />
+                      <StepDot active={step >= 2} done={false} label="2" />
+                    </div>
+                    <div className="flex justify-between text-caption text-on-surface-variant">
+                      <span>{t("consultation.step1Label")}</span>
+                      <span>{t("consultation.step2Label")}</span>
                     </div>
                   </div>
 
-                  <div className="shrink-0 px-5 sm:px-8 py-4 sm:py-5 border-t border-outline-variant/20 bg-surface-container-lowest/80 flex flex-col-reverse sm:flex-row gap-3">
-                    {step === 2 && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setErrorMsg(null);
-                          setStep(1);
-                        }}
-                        className="sm:flex-1 py-3.5 px-6 rounded-xl border border-outline-variant/50 text-on-surface font-semibold hover:bg-surface-container transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                      >
-                        {t("consultation.back")}
-                      </button>
-                    )}
-                    <button
-                      type="submit"
-                      disabled={contactMutation.isPending}
-                      className={`${step === 2 ? "sm:flex-[2]" : "w-full"} py-3.5 px-6 rounded-xl bg-secondary text-on-secondary font-bold hover:bg-secondary/90 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 disabled:opacity-60 flex items-center justify-center gap-2`}
+                  <form
+                    onSubmit={step === 1 ? goNext : handleSubmit}
+                    className="flex flex-col flex-1 min-h-0"
+                  >
+                    <div
+                      className="consultation-modal-scroll flex-1 min-h-0 overflow-y-auto overscroll-contain px-5 sm:px-8 py-5"
+                      data-lenis-prevent
+                      onWheel={(e) => e.stopPropagation()}
+                      onTouchMove={(e) => e.stopPropagation()}
                     >
-                      {contactMutation.isPending
-                        ? t("common.sending")
-                        : step === 1
-                          ? t("consultation.next")
-                          : t("consultation.submit")}
-                      <span
-                        className={`material-symbols-outlined text-lg ${locale === "ar" ? "scale-x-[-1]" : ""}`}
-                        aria-hidden="true"
+                      {errorMsg && (
+                        <div
+                          role="alert"
+                          className="mb-5 p-4 bg-error-container/15 text-error rounded-xl text-body-md font-medium border border-error/20"
+                        >
+                          {errorMsg}
+                        </div>
+                      )}
+
+                      <div key={step} className="consultation-step-panel space-y-5">
+                        {step === 1 ? (
+                          <StepOneFields
+                            inputClass={inputClass}
+                            selectClass={selectClass}
+                            defaults={step1Data}
+                          />
+                        ) : (
+                          <StepTwoFields
+                            inputClass={inputClass}
+                            selectClass={selectClass}
+                            services={services}
+                            onToggleService={toggleService}
+                          />
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="shrink-0 px-5 sm:px-8 py-4 sm:py-5 border-t border-outline-variant/20 bg-surface-container-lowest/80 flex flex-col-reverse sm:flex-row gap-3">
+                      {step === 2 && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setErrorMsg(null);
+                            setStep(1);
+                          }}
+                          className="sm:flex-1 py-3.5 px-6 rounded-xl border border-outline-variant/50 text-on-surface font-semibold hover:bg-surface-container transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                        >
+                          {t("consultation.back")}
+                        </button>
+                      )}
+                      <button
+                        type="submit"
+                        disabled={contactMutation.isPending}
+                        className={`${step === 2 ? "sm:flex-[2]" : "w-full"} py-3.5 px-6 rounded-xl bg-secondary text-on-secondary font-bold hover:bg-secondary/90 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 disabled:opacity-60 flex items-center justify-center gap-2`}
                       >
-                        {step === 1 ? "arrow_forward" : "send"}
-                      </span>
-                    </button>
-                  </div>
-                </form>
+                        {contactMutation.isPending
+                          ? t("common.sending")
+                          : step === 1
+                            ? t("consultation.next")
+                            : t("consultation.submit")}
+                        <span
+                          className={`material-symbols-outlined text-lg ${locale === "ar" ? "scale-x-[-1]" : ""}`}
+                          aria-hidden="true"
+                        >
+                          {step === 1 ? "arrow_forward" : "send"}
+                        </span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </div>
-          )}
+            )}
           </Dialog.Content>
         </div>
       </Dialog.Portal>
@@ -364,15 +355,7 @@ export function ConsultationModal({ open, onOpenChange }: ConsultationModalProps
   );
 }
 
-function StepDot({
-  active,
-  done,
-  label,
-}: {
-  active: boolean;
-  done: boolean;
-  label: string;
-}) {
+function StepDot({ active, done, label }: { active: boolean; done: boolean; label: string }) {
   return (
     <span
       className={`flex size-8 items-center justify-center rounded-full text-xs font-bold transition-all duration-300 ${
@@ -673,7 +656,11 @@ function SuccessView({ onClose }: { onClose: () => void }) {
           aria-hidden="true"
         />
         <div className="relative flex size-20 items-center justify-center rounded-full bg-secondary text-on-secondary shadow-lg shadow-secondary/30">
-          <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
+          <span
+            className="material-symbols-outlined text-4xl"
+            style={{ fontVariationSettings: "'FILL' 1" }}
+            aria-hidden="true"
+          >
             check_circle
           </span>
         </div>

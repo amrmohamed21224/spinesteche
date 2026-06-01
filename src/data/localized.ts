@@ -26,12 +26,7 @@ import {
   mockMarkets,
   mockAboutStats,
 } from "./about";
-import {
-  servicesEn,
-  pricingPlansEn,
-  faqsEn,
-  aboutEn,
-} from "./i18n-overrides/en";
+import { servicesEn, pricingPlansEn, faqsEn, aboutEn } from "./i18n-overrides/en";
 import { sectorsEn, productsEn, caseStudiesEn, careersEn } from "./i18n-overrides/en-content";
 
 function localizeServices(locale: Locale): CMSService[] {

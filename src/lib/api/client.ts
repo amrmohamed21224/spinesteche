@@ -40,8 +40,7 @@ class ApiClient {
     const separator = path.startsWith("/") ? "" : "/";
     const url = `${this.baseUrl}${separator}${path}`;
 
-    const isFormData =
-      typeof FormData !== "undefined" && fetchOptions.body instanceof FormData;
+    const isFormData = typeof FormData !== "undefined" && fetchOptions.body instanceof FormData;
 
     const headers: HeadersInit = {
       ...(isFormData ? {} : { "Content-Type": "application/json" }),

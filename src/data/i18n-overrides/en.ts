@@ -19,19 +19,33 @@ export const servicesEn: Record<
     title: "AI Agents",
     description:
       "Automate complex processes with generative AI to boost productivity and cut operational costs.",
-    details: ["LLM integration.", "Robotic process automation (RPA).", "Real-time intelligent analytics."],
+    details: [
+      "LLM integration.",
+      "Robotic process automation (RPA).",
+      "Real-time intelligent analytics.",
+    ],
     features: ["Smart chatbots (LLMs)", "Process automation (RPA)"],
   },
   s3: {
     title: "Integrated ERP Systems",
-    description: "Manage enterprise resources through one unified control panel across departments.",
-    details: ["Inventory & supply chain.", "ZATCA-compliant e-invoicing.", "Finance, reporting & payroll."],
+    description:
+      "Manage enterprise resources through one unified control panel across departments.",
+    details: [
+      "Inventory & supply chain.",
+      "ZATCA-compliant e-invoicing.",
+      "Finance, reporting & payroll.",
+    ],
     features: ["Supply chain management", "E-invoicing"],
   },
   s4: {
     title: "CRM Systems",
-    description: "Build lasting customer relationships with advanced journey tracking and analytics.",
-    details: ["Lead lifecycle tracking.", "Sales team collaboration.", "Automated alerts & reports."],
+    description:
+      "Build lasting customer relationships with advanced journey tracking and analytics.",
+    details: [
+      "Lead lifecycle tracking.",
+      "Sales team collaboration.",
+      "Automated alerts & reports.",
+    ],
     features: ["Lead tracking", "Sales performance analytics"],
   },
   s5: {
@@ -43,25 +57,43 @@ export const servicesEn: Record<
   s6: {
     title: "E-commerce Solutions",
     description: "Advanced storefronts with local payment gateways and logistics integrations.",
-    details: ["Mada, Visa, Mastercard, Apple Pay.", "Shipping integrations.", "Sales & behavior analytics."],
+    details: [
+      "Mada, Visa, Mastercard, Apple Pay.",
+      "Shipping integrations.",
+      "Sales & behavior analytics.",
+    ],
     features: ["Local & global payments", "Logistics integrations"],
   },
   s7: {
     title: "Cybersecurity",
     description: "Protect digital assets with advanced defense strategies and periodic audits.",
-    details: ["End-to-end protection.", "NCA compliance.", "Penetration testing & vulnerability scans."],
+    details: [
+      "End-to-end protection.",
+      "NCA compliance.",
+      "Penetration testing & vulnerability scans.",
+    ],
     features: ["NCA compliance", "Penetration testing"],
   },
   s8: {
     title: "UI/UX Design",
-    description: "Engaging interfaces and smooth user journeys that boost digital product adoption.",
-    details: ["User research & journey mapping.", "Brand-aligned interactive UI.", "Usability testing & prototypes."],
+    description:
+      "Engaging interfaces and smooth user journeys that boost digital product adoption.",
+    details: [
+      "User research & journey mapping.",
+      "Brand-aligned interactive UI.",
+      "Usability testing & prototypes.",
+    ],
     features: ["Research-driven UX", "High-fidelity prototypes"],
   },
   s9: {
     title: "Support & Maintenance",
-    description: "Continuous technical support and updates to keep your systems running at peak performance.",
-    details: ["Security patches.", "Phone, email & WhatsApp support.", "Infrastructure maintenance."],
+    description:
+      "Continuous technical support and updates to keep your systems running at peak performance.",
+    details: [
+      "Security patches.",
+      "Phone, email & WhatsApp support.",
+      "Infrastructure maintenance.",
+    ],
     features: ["24/7 support", "Regular platform updates"],
   },
 };
@@ -74,7 +106,12 @@ export const pricingPlansEn: Record<
     name: "Startups",
     tier: "Launch plan",
     description: "Essentials to digitize core operations and establish your digital presence.",
-    features: ["Basic digital brand", "High-conversion landing pages", "Secure cloud hosting", "Email support"],
+    features: [
+      "Basic digital brand",
+      "High-conversion landing pages",
+      "Secure cloud hosting",
+      "Email support",
+    ],
     ctaText: "Get started",
   },
   p2: {
@@ -131,7 +168,8 @@ export const faqsEn: Record<string, { question: string; answer: string }> = {
   },
   faq5: {
     question: "Are there hidden fees in the $100 plan?",
-    answer: "No hidden fees. The price covers listed features; optional add-ons are disclosed upfront.",
+    answer:
+      "No hidden fees. The price covers listed features; optional add-ons are disclosed upfront.",
   },
 };
 
@@ -141,15 +179,28 @@ export const aboutEn = {
   vision:
     "To be the first choice and digital backbone for transformation in the region — recognized globally for engineering excellence born in Saudi Arabia.",
   coreValues: {
-    v1: { title: "Innovation", description: "We challenge the status quo with smart, forward-looking solutions." },
-    v2: { title: "Security", description: "Protecting your data and digital sovereignty is non-negotiable." },
-    v3: { title: "Reliability", description: "The partner you trust for the most sensitive technical challenges." },
-    v4: { title: "Scalability", description: "Solutions that grow from startups to large enterprises." },
+    v1: {
+      title: "Innovation",
+      description: "We challenge the status quo with smart, forward-looking solutions.",
+    },
+    v2: {
+      title: "Security",
+      description: "Protecting your data and digital sovereignty is non-negotiable.",
+    },
+    v3: {
+      title: "Reliability",
+      description: "The partner you trust for the most sensitive technical challenges.",
+    },
+    v4: {
+      title: "Scalability",
+      description: "Solutions that grow from startups to large enterprises.",
+    },
   },
   differentiators: {
     d1: {
       title: "Local expertise, global vision",
-      description: "Deep KSA regulatory and cultural understanding with world-class engineering practices.",
+      description:
+        "Deep KSA regulatory and cultural understanding with world-class engineering practices.",
     },
     d2: {
       title: "Full tech sovereignty",
@@ -157,7 +208,8 @@ export const aboutEn = {
     },
     d3: {
       title: "Elite team",
-      description: "Engineers and advisors who led large-scale digital transformation across the region.",
+      description:
+        "Engineers and advisors who led large-scale digital transformation across the region.",
     },
   },
   markets: {
