@@ -7,7 +7,10 @@ if (!defined('ABSPATH')) {
 
 final class SpinesTech_Headless_Polylang
 {
-    public static function resolve_lang(WP_REST_Request $request): string
+    /**
+     * @param WP_REST_Request $request
+     */
+    public static function resolve_lang($request): string
     {
         $lang = $request->get_param('lang');
         if (!is_string($lang) || $lang === '') {
@@ -51,7 +54,10 @@ final class SpinesTech_Headless_Polylang
         return get_posts(self::query_args($post_type, $lang));
     }
 
-    public static function get_post_by_slug(string $post_type, string $slug, string $lang): ?WP_Post
+    /**
+     * @return WP_Post|null
+     */
+    public static function get_post_by_slug(string $post_type, string $slug, string $lang)
     {
         $posts = get_posts(array_merge(self::query_args($post_type, $lang), [
             'name' => sanitize_title($slug),

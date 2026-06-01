@@ -32,7 +32,7 @@ final class SpinesTech_Headless_Submissions
     /**
      * @return WP_REST_Response|WP_Error
      */
-    public static function contact(WP_REST_Request $request)
+    public static function contact($request)
     {
         $body = $request->get_json_params();
         if (!is_array($body)) {
@@ -72,7 +72,7 @@ final class SpinesTech_Headless_Submissions
     /**
      * @return WP_REST_Response|WP_Error
      */
-    public static function career(WP_REST_Request $request)
+    public static function career($request)
     {
         $params = $request->get_params();
         $files = $request->get_file_params();
@@ -119,7 +119,7 @@ final class SpinesTech_Headless_Submissions
     /**
      * @return WP_REST_Response|WP_Error
      */
-    public static function quote(WP_REST_Request $request)
+    public static function quote($request)
     {
         $body = $request->get_json_params();
         if (!is_array($body)) {

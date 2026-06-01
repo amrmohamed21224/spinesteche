@@ -40,6 +40,7 @@ final class SpinesTech_Headless_Plugin
     private function init_hooks(): void
     {
         add_action('init', [SpinesTech_Headless_Post_Types::class, 'register']);
+        add_filter('pll_get_post_types', [SpinesTech_Headless_Post_Types::class, 'register_polylang_types'], 10, 2);
         add_action('rest_api_init', [SpinesTech_Headless_REST_Controller::class, 'register_routes']);
         add_action('acf/init', [SpinesTech_Headless_ACF_Fields::class, 'register']);
         add_action('admin_menu', [SpinesTech_Headless_Options::class, 'register_menu']);

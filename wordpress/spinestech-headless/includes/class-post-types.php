@@ -92,10 +92,36 @@ final class SpinesTech_Headless_Post_Types
             'capability_type' => 'post',
         ]);
 
-        if (function_exists('pll_register_post_type')) {
-            foreach ([self::SERVICE, self::PRODUCT, self::SECTOR, self::CASE_STUDY, self::PRICING, self::FAQ, self::JOB, self::TESTIMONIAL, self::TEAM] as $type) {
-                pll_register_post_type($type);
+    }
+
+    /**
+     * Register CPTs with Polylang (Settings → Languages → Post types).
+     *
+     * @param array<string, string> $post_types
+     * @return array<string, string>
+     */
+    public static function register_polylang_types($post_types, $is_settings)
+    {
+        $types = [
+            self::SERVICE,
+            self::PRODUCT,
+            self::SECTOR,
+            self::CASE_STUDY,
+            self::PRICING,
+            self::FAQ,
+            self::JOB,
+            self::TESTIMONIAL,
+            self::TEAM,
+        ];
+
+        foreach ($types as $type) {
+            if ($is_settings) {
+                $post_types[$type] = $type;
+            } else {
+                $post_types[$type] = $type;
             }
         }
+
+        return $post_types;
     }
 }

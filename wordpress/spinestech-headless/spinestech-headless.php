@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SpinesTech Headless
  * Description: Headless REST API for SpinesTech React frontend (content + forms + Polylang).
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: SpinesTech
  * Text Domain: spinestech-headless
  * Requires at least: 6.0
@@ -20,7 +20,7 @@ if (version_compare(PHP_VERSION, '7.4', '<')) {
     return;
 }
 
-define('ST_HEADLESS_VERSION', '1.0.1');
+define('ST_HEADLESS_VERSION', '1.0.2');
 define('ST_HEADLESS_PATH', plugin_dir_path(__FILE__));
 define('ST_HEADLESS_URL', plugin_dir_url(__FILE__));
 

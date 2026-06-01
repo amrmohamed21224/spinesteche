@@ -91,7 +91,7 @@ final class SpinesTech_Headless_REST_Controller
         ];
     }
 
-    public static function health(WP_REST_Request $request): WP_REST_Response
+    public static function health($request)
     {
         return new WP_REST_Response([
             'status' => 'ok',
@@ -101,7 +101,7 @@ final class SpinesTech_Headless_REST_Controller
         ], 200);
     }
 
-    public static function map_services(WP_REST_Request $request): WP_REST_Response
+    public static function map_services($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::SERVICE, $lang);
@@ -112,7 +112,7 @@ final class SpinesTech_Headless_REST_Controller
     /**
      * @return WP_REST_Response|WP_Error
      */
-    public static function map_service(WP_REST_Request $request)
+    public static function map_service($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $slug = (string) $request->get_param('slug');
@@ -123,21 +123,21 @@ final class SpinesTech_Headless_REST_Controller
         return new WP_REST_Response(SpinesTech_Headless_Mappers::service($post), 200);
     }
 
-    public static function map_products(WP_REST_Request $request): WP_REST_Response
+    public static function map_products($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::PRODUCT, $lang);
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'product'], $posts), 200);
     }
 
-    public static function map_sectors(WP_REST_Request $request): WP_REST_Response
+    public static function map_sectors($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::SECTOR, $lang);
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'sector'], $posts), 200);
     }
 
-    public static function map_case_studies(WP_REST_Request $request): WP_REST_Response
+    public static function map_case_studies($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::CASE_STUDY, $lang);
@@ -147,7 +147,7 @@ final class SpinesTech_Headless_REST_Controller
     /**
      * @return WP_REST_Response|WP_Error
      */
-    public static function map_case_study(WP_REST_Request $request)
+    public static function map_case_study($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $slug = (string) $request->get_param('slug');
@@ -158,21 +158,21 @@ final class SpinesTech_Headless_REST_Controller
         return new WP_REST_Response(SpinesTech_Headless_Mappers::case_study($post), 200);
     }
 
-    public static function map_pricing(WP_REST_Request $request): WP_REST_Response
+    public static function map_pricing($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::PRICING, $lang);
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'pricing'], $posts), 200);
     }
 
-    public static function map_faqs(WP_REST_Request $request): WP_REST_Response
+    public static function map_faqs($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::FAQ, $lang);
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'faq'], $posts), 200);
     }
 
-    public static function map_jobs(WP_REST_Request $request): WP_REST_Response
+    public static function map_jobs($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::JOB, $lang);
@@ -182,7 +182,7 @@ final class SpinesTech_Headless_REST_Controller
     /**
      * @return WP_REST_Response|WP_Error
      */
-    public static function map_job(WP_REST_Request $request)
+    public static function map_job($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $slug = (string) $request->get_param('slug');
@@ -193,32 +193,32 @@ final class SpinesTech_Headless_REST_Controller
         return new WP_REST_Response(SpinesTech_Headless_Mappers::job($post), 200);
     }
 
-    public static function map_testimonials(WP_REST_Request $request): WP_REST_Response
+    public static function map_testimonials($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::TESTIMONIAL, $lang);
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'testimonial'], $posts), 200);
     }
 
-    public static function map_team(WP_REST_Request $request): WP_REST_Response
+    public static function map_team($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         $posts = SpinesTech_Headless_Polylang::get_posts(SpinesTech_Headless_Post_Types::TEAM, $lang);
         return new WP_REST_Response(array_map([SpinesTech_Headless_Mappers::class, 'team_member'], $posts), 200);
     }
 
-    public static function about(WP_REST_Request $request): WP_REST_Response
+    public static function about($request)
     {
         $lang = SpinesTech_Headless_Polylang::resolve_lang($request);
         return new WP_REST_Response(SpinesTech_Headless_Mappers::about($lang), 200);
     }
 
-    public static function navigation(): WP_REST_Response
+    public static function navigation()
     {
         return new WP_REST_Response(SpinesTech_Headless_Mappers::navigation(), 200);
     }
 
-    public static function settings(): WP_REST_Response
+    public static function settings()
     {
         return new WP_REST_Response(SpinesTech_Headless_Mappers::settings(), 200);
     }

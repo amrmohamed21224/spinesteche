@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 final class SpinesTech_Headless_Mappers
 {
-    public static function service(WP_Post $post): array
+    public static function service($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,
@@ -20,7 +20,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function product(WP_Post $post): array
+    public static function product($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,
@@ -35,7 +35,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function sector(WP_Post $post): array
+    public static function sector($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,
@@ -49,7 +49,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function case_study(WP_Post $post): array
+    public static function case_study($post): array
     {
         $stats_raw = get_post_meta($post->ID, 'st_stats', true);
         $stats = [];
@@ -74,7 +74,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function pricing(WP_Post $post): array
+    public static function pricing($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,
@@ -87,7 +87,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function faq(WP_Post $post): array
+    public static function faq($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,
@@ -96,7 +96,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function job(WP_Post $post): array
+    public static function job($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,
@@ -112,7 +112,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function testimonial(WP_Post $post): array
+    public static function testimonial($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,
@@ -125,7 +125,7 @@ final class SpinesTech_Headless_Mappers
         ];
     }
 
-    public static function team_member(WP_Post $post): array
+    public static function team_member($post): array
     {
         return [
             'id' => get_post_field('post_name', $post) ?: (string) $post->ID,

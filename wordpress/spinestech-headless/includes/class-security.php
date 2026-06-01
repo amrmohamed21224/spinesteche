@@ -18,7 +18,12 @@ final class SpinesTech_Headless_Security
     /**
      * @param mixed $result
      */
-    public static function rate_limit_submissions($result, WP_REST_Server $server, WP_REST_Request $request)
+    /**
+     * @param mixed           $result
+     * @param WP_REST_Server  $server
+     * @param WP_REST_Request $request
+     */
+    public static function rate_limit_submissions($result, $server, $request)
     {
         $route = $request->get_route();
         if (!is_string($route) || strpos($route, '/spinestech/v1/submissions/') === false) {
