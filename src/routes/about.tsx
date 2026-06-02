@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
 import { seo } from "../lib/seo";
@@ -268,12 +268,18 @@ function Page() {
                 {t("about.ctaSubtitle")}
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
-                <button className="px-12 py-4 bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded hover:shadow-lg transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
+                <Link
+                  to="/contact"
+                  className="px-12 py-4 bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded hover:shadow-lg transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                >
                   {t("about.ctaPrimary")}
-                </button>
-                <button className="px-12 py-4 border-2 border-secondary text-secondary font-headline-sm text-headline-sm rounded hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
+                </Link>
+                <Link
+                  to="/services"
+                  className="px-12 py-4 border-2 border-secondary text-secondary font-headline-sm text-headline-sm rounded hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                >
                   {t("about.ctaSecondary")}
-                </button>
+                </Link>
               </div>
             </div>
           </Container>

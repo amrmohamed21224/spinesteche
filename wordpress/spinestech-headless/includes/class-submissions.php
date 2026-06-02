@@ -46,6 +46,11 @@ final class SpinesTech_Headless_Submissions
         $message = sanitize_textarea_field((string) ($body['message'] ?? ''));
         $source = sanitize_text_field((string) ($body['source'] ?? 'contact'));
         $locale = sanitize_key((string) ($body['locale'] ?? 'ar'));
+        $honeypot = sanitize_text_field((string) ($body['website'] ?? $body['url'] ?? ''));
+
+        if ($honeypot !== '') {
+            return new WP_Error('validation_error', 'Invalid submission', ['status' => 400]);
+        }
 
         if ($name === '' || $email === '' || $message === '') {
             return new WP_Error('validation_error', 'Missing required fields', ['status' => 400]);
@@ -82,6 +87,11 @@ final class SpinesTech_Headless_Submissions
         $phone = sanitize_text_field((string) ($params['phone'] ?? ''));
         $position = sanitize_text_field((string) ($params['position'] ?? $params['job'] ?? ''));
         $locale = sanitize_key((string) ($params['locale'] ?? 'ar'));
+        $honeypot = sanitize_text_field((string) ($params['website'] ?? $params['url'] ?? ''));
+
+        if ($honeypot !== '') {
+            return new WP_Error('validation_error', 'Invalid submission', ['status' => 400]);
+        }
 
         if ($name === '' || $email === '') {
             return new WP_Error('validation_error', 'Missing required fields', ['status' => 400]);
@@ -135,7 +145,13 @@ final class SpinesTech_Headless_Submissions
             'budget' => sanitize_text_field((string) ($body['budget'] ?? '')),
             'details' => sanitize_textarea_field((string) ($body['details'] ?? '')),
             'locale' => sanitize_key((string) ($body['locale'] ?? 'ar')),
+            'website' => sanitize_text_field((string) ($body['website'] ?? $body['url'] ?? '')),
         ];
+
+        if ($payload['website'] !== '') {
+            return new WP_Error('validation_error', 'Invalid submission', ['status' => 400]);
+        }
+        unset($payload['website']);
 
         if ($payload['name'] === '' || $payload['email'] === '') {
             return new WP_Error('validation_error', 'Missing required fields', ['status' => 400]);
@@ -192,6 +208,11 @@ final class SpinesTech_Headless_Submissions
     {
         if (empty($file['tmp_name'])) {
             return new WP_Error('upload_error', 'No file uploaded', ['status' => 400]);
+        }
+
+        $max_size = 5 * 1024 * 1024;
+        if (!empty($file['size']) && (int) $file['size'] > $max_size) {
+            return new WP_Error('upload_error', 'File is too large. Maximum size is 5MB.', ['status' => 400]);
         }
 
         require_once ABSPATH . 'wp-admin/includes/file.php';

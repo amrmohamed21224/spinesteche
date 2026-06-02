@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
 import { seo } from "../lib/seo";
@@ -114,13 +114,19 @@ function Page() {
                       ))}
                     </div>
                     <div className="flex flex-col gap-3">
-                      <button className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+                      <Link
+                        to="/contact"
+                        className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 text-center"
+                      >
                         {product.ctaPrimary}
-                      </button>
+                      </Link>
                       {product.ctaSecondary && (
-                        <button className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
+                        <Link
+                          to="/services"
+                          className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 text-center"
+                        >
                           {product.ctaSecondary}
-                        </button>
+                        </Link>
                       )}
                     </div>
                   </div>
@@ -139,9 +145,12 @@ function Page() {
               <p className="font-body-lg text-body-lg text-on-primary-container max-w-2xl mx-auto mb-10 opacity-90">
                 {t("products.customCtaSubtitle")}
               </p>
-              <button className="bg-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2">
+              <Link
+                to="/contact"
+                className="inline-flex bg-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
+              >
                 {t("products.customCtaButton")}
-              </button>
+              </Link>
             </div>
           </section>
         </Container>

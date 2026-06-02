@@ -12,11 +12,11 @@
  *     description: "تعرف على شركة SpinesTech...",
  *   })
  */
+import { env } from "../config/env";
 
 const SITE_NAME = "SpinesTech";
 const DEFAULT_DESCRIPTION =
   "SpinesTech - حلول برمجية مخصصة، أنظمة ERP، وذكاء اصطناعي للشركات الطموحة في السعودية والخليج.";
-const SITE_URL = "https://spinestech.sa";
 const DEFAULT_OG_IMAGE = "/og-image.png";
 
 interface SeoOptions {
@@ -45,7 +45,9 @@ export function seo(options: SeoOptions = {}) {
   } = options;
 
   const fullTitle = title ? `${SITE_NAME} | ${title}` : SITE_NAME;
-  const canonicalUrl = `${SITE_URL}${path}`;
+  const siteUrl = env.SITE_URL.replace(/\/$/, "");
+  const canonicalUrl = `${siteUrl}${path}`;
+  const imageUrl = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`;
 
   return {
     meta: [
@@ -56,14 +58,14 @@ export function seo(options: SeoOptions = {}) {
       { property: "og:description", content: description },
       { property: "og:type", content: ogType },
       { property: "og:url", content: canonicalUrl },
-      { property: "og:image", content: ogImage },
+      { property: "og:image", content: imageUrl },
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:locale", content: "ar_SA" },
       // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: fullTitle },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: ogImage },
+      { name: "twitter:image", content: imageUrl },
       // Additional
       ...extra,
     ],

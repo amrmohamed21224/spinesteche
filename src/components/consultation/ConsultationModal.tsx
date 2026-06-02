@@ -280,6 +280,14 @@ export function ConsultationModal({ open, onOpenChange }: ConsultationModalProps
                     onSubmit={step === 1 ? goNext : handleSubmit}
                     className="flex flex-col flex-1 min-h-0"
                   >
+                    <input
+                      type="text"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      className="hidden"
+                      aria-hidden="true"
+                    />
                     <div
                       className="consultation-modal-scroll flex-1 min-h-0 overflow-y-auto overscroll-contain px-5 sm:px-8 py-5"
                       data-lenis-prevent

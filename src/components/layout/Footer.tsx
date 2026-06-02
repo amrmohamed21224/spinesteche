@@ -27,7 +27,7 @@ export function Footer() {
           <div className="flex gap-4 mt-8 justify-start">
             <a
               className="text-outline-variant hover:text-on-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded p-1"
-              href="#"
+              href="/"
               aria-label={t("footer.websiteAria")}
             >
               <span className="material-symbols-outlined" aria-hidden="true">
@@ -36,7 +36,7 @@ export function Footer() {
             </a>
             <a
               className="text-outline-variant hover:text-on-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded p-1"
-              href="#"
+              href="mailto:contact@spinestech.com"
               aria-label={t("footer.emailAria")}
             >
               <span className="material-symbols-outlined" aria-hidden="true">
@@ -45,7 +45,7 @@ export function Footer() {
             </a>
             <a
               className="text-outline-variant hover:text-on-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded p-1"
-              href="#"
+              href="https://spinestech.sa"
               aria-label={t("footer.shareAria")}
             >
               <span className="material-symbols-outlined" aria-hidden="true">
@@ -166,13 +166,13 @@ export function Footer() {
         <div className="flex gap-6">
           <a
             className="hover:text-on-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded px-1"
-            href="#"
+            href="mailto:contact@spinestech.com?subject=Privacy%20Policy"
           >
             {t("footer.privacy")}
           </a>
           <a
             className="hover:text-on-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded px-1"
-            href="#"
+            href="mailto:contact@spinestech.com?subject=Terms%20of%20Service"
           >
             {t("footer.terms")}
           </a>

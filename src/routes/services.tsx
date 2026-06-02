@@ -7,6 +7,7 @@ import { Container } from "../components/layout/Container";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getServices } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
+import { useConsultation } from "../contexts/ConsultationContext";
 
 export const Route = createFileRoute("/services")({
   head: () =>
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/services")({
 
 function Page() {
   const { t, locale } = useTranslation();
+  const { openConsultation } = useConsultation();
   const {
     data: services,
     isLoading,
@@ -89,7 +91,11 @@ function Page() {
                           <p className="text-on-primary-container font-body-md text-body-md mb-8 leading-relaxed">
                             {service.description}
                           </p>
-                          <button className="bg-secondary text-on-secondary px-8 py-3 rounded-lg flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2">
+                          <Link
+                            to="/services/$slug"
+                            params={{ slug: service.slug }}
+                            className="bg-secondary text-on-secondary px-8 py-3 rounded-lg inline-flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
+                          >
                             <span>{t("common.learnMore")}</span>
                             <span
                               className="material-symbols-outlined text-[18px]"
@@ -97,7 +103,7 @@ function Page() {
                             >
                               arrow_back
                             </span>
-                          </button>
+                          </Link>
                         </div>
                         <div className="flex-1 w-full h-64 md:h-full relative z-10">
                           <img
@@ -135,9 +141,10 @@ function Page() {
                       <p className="text-on-surface-variant font-body-md text-body-md mb-auto leading-relaxed">
                         {service.description}
                       </p>
-                      <a
+                      <Link
+                        to="/services/$slug"
+                        params={{ slug: service.slug }}
                         className="mt-8 text-secondary font-label-md text-label-md flex items-center gap-2 group justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
-                        href="#"
                       >
                         <span>{t("common.learnMore")}</span>
                         <span
@@ -146,7 +153,7 @@ function Page() {
                         >
                           arrow_back
                         </span>
-                      </a>
+                      </Link>
                     </div>
                   );
                 })}
@@ -166,12 +173,19 @@ function Page() {
                 {t("services.ctaSubtitle")}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <button className="bg-primary text-on-primary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:opacity-90 transition-opacity cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2">
+                <button
+                  type="button"
+                  onClick={openConsultation}
+                  className="bg-primary text-on-primary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:opacity-90 transition-opacity cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
+                >
                   {t("services.ctaPrimary")}
                 </button>
-                <button className="bg-transparent border border-on-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
+                <Link
+                  to="/contact"
+                  className="bg-transparent border border-on-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                >
                   {t("services.ctaSecondary")}
-                </button>
+                </Link>
               </div>
             </div>
             {/* Abstract BG Elements */}

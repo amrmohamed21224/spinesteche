@@ -1,4 +1,5 @@
 import { AnalyticsEvent } from "./events";
+import { env } from "../../config/env";
 
 // Extend window interface for Google Analytics dataLayer
 declare global {
@@ -8,7 +9,7 @@ declare global {
   }
 }
 
-const GA_TRACKING_ID = "G-XXXXXXXXXX"; // Mock or replaced via environment variables
+const GA_TRACKING_ID = env.GA_ID;
 
 /**
  * Checks if running on the client side.
@@ -20,6 +21,7 @@ const isClient = typeof window !== "undefined";
  */
 export function initGA(): void {
   if (!isClient) return;
+  if (!GA_TRACKING_ID || GA_TRACKING_ID === "G-XXXXXXXXXX") return;
 
   // Prevent multiple initializations
   if (window.gtag) return;

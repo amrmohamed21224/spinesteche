@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
 import { seo } from "../lib/seo";
@@ -208,12 +208,18 @@ function Page() {
               {t("sectors.ctaTitle")}
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-              <button className="bg-primary text-on-primary px-10 py-4 rounded-lg font-label-md hover:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+              <Link
+                to="/contact"
+                className="bg-primary text-on-primary px-10 py-4 rounded-lg font-label-md hover:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              >
                 {t("sectors.ctaPrimary")}
-              </button>
-              <button className="border border-secondary text-secondary px-10 py-4 rounded-lg font-label-md hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
+              </Link>
+              <Link
+                to="/services"
+                className="border border-secondary text-secondary px-10 py-4 rounded-lg font-label-md hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+              >
                 {t("sectors.ctaSecondary")}
-              </button>
+              </Link>
             </div>
           </div>
           <div

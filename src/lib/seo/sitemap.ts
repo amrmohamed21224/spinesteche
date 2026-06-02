@@ -28,22 +28,24 @@ ${xmlEntries}
 </urlset>`;
 }
 
-export function getStaticRoutes(): SitemapEntry[] {
+export function getStaticRoutes(siteUrl = "https://spinestech.sa"): SitemapEntry[] {
   const now = new Date().toISOString().split("T")[0];
+  const base = siteUrl.replace(/\/$/, "");
 
   return [
-    { url: "https://spinestech.sa/", lastmod: now, changefreq: "daily", priority: 1.0 },
-    { url: "https://spinestech.sa/about", lastmod: now, changefreq: "monthly", priority: 0.8 },
-    { url: "https://spinestech.sa/services", lastmod: now, changefreq: "weekly", priority: 0.9 },
-    { url: "https://spinestech.sa/products", lastmod: now, changefreq: "weekly", priority: 0.9 },
-    { url: "https://spinestech.sa/sectors", lastmod: now, changefreq: "monthly", priority: 0.7 },
+    { url: `${base}/`, lastmod: now, changefreq: "daily", priority: 1.0 },
+    { url: `${base}/about`, lastmod: now, changefreq: "monthly", priority: 0.8 },
+    { url: `${base}/services`, lastmod: now, changefreq: "weekly", priority: 0.9 },
+    { url: `${base}/products`, lastmod: now, changefreq: "weekly", priority: 0.9 },
+    { url: `${base}/sectors`, lastmod: now, changefreq: "monthly", priority: 0.7 },
     {
-      url: "https://spinestech.sa/case-studies",
+      url: `${base}/case-studies`,
       lastmod: now,
       changefreq: "weekly",
       priority: 0.8,
     },
-    { url: "https://spinestech.sa/pricing", lastmod: now, changefreq: "monthly", priority: 0.7 },
-    { url: "https://spinestech.sa/careers", lastmod: now, changefreq: "weekly", priority: 0.6 },
+    { url: `${base}/pricing`, lastmod: now, changefreq: "monthly", priority: 0.7 },
+    { url: `${base}/careers`, lastmod: now, changefreq: "weekly", priority: 0.6 },
+    { url: `${base}/contact`, lastmod: now, changefreq: "monthly", priority: 0.7 },
   ];
 }

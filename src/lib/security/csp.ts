@@ -2,6 +2,7 @@
  * Content Security Policy (CSP) Generator for SpinesTech.
  * Ensures protection against XSS, clickjacking, and data injection attacks.
  */
+import { env } from "../../config/env";
 
 export interface CspDirectives {
   defaultSrc: string[];
@@ -35,12 +36,7 @@ const DEFAULT_CSP_DIRECTIVES: CspDirectives = {
     "https://www.google-analytics.com",
   ],
   fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
-  connectSrc: [
-    "'self'",
-    "https://api.spinestech.sa",
-    "https://www.google-analytics.com",
-    "https://analytics.google.com",
-  ],
+  connectSrc: ["'self'", "https://www.google-analytics.com", "https://analytics.google.com"],
   frameAncestors: ["'none'"], // Prevents Clickjacking
   upgradeInsecureRequests: true,
 };
@@ -49,7 +45,14 @@ const DEFAULT_CSP_DIRECTIVES: CspDirectives = {
  * Returns CSP formatted string for HTTP headers or HTML meta tag usage.
  */
 export function generateCspHeader(directives: Partial<CspDirectives> = {}): string {
-  const merged = { ...DEFAULT_CSP_DIRECTIVES, ...directives };
+  const apiOrigin = getOrigin(env.API_URL);
+  const merged = {
+    ...DEFAULT_CSP_DIRECTIVES,
+    connectSrc: apiOrigin
+      ? [...DEFAULT_CSP_DIRECTIVES.connectSrc, apiOrigin]
+      : DEFAULT_CSP_DIRECTIVES.connectSrc,
+    ...directives,
+  };
 
   const parts = [
     `default-src ${merged.defaultSrc.join(" ")}`,
@@ -66,4 +69,12 @@ export function generateCspHeader(directives: Partial<CspDirectives> = {}): stri
   }
 
   return parts.join("; ");
+}
+
+function getOrigin(url: string): string | null {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
 }

@@ -67,6 +67,8 @@ function HeroSection() {
                 </span>
               </button>
               <button
+                type="button"
+                onClick={openConsultation}
                 className="border-2 border-secondary text-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                 aria-label={t("home.requestQuote")}
               >
@@ -514,7 +516,7 @@ function PricingSection() {
                     ))}
                   </ul>
                   <Link
-                    to="/pricing"
+                    to="/contact"
                     className={`w-full text-center py-3 rounded-lg font-bold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${
                       isRecommended
                         ? "bg-secondary text-white hover:bg-secondary/90 focus-visible:ring-secondary/50"

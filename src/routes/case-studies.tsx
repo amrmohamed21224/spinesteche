@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
@@ -222,12 +222,16 @@ function Page() {
                       </div>
                     </div>
                     <div className="p-8 pt-0">
-                      <button className="w-full py-3 flex justify-center items-center gap-2 border border-secondary text-secondary font-label-md rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
+                      <Link
+                        to="/case-studies/$slug"
+                        params={{ slug: study.slug }}
+                        className="w-full py-3 flex justify-center items-center gap-2 border border-secondary text-secondary font-label-md rounded-lg group-hover:bg-secondary group-hover:text-on-secondary transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                      >
                         {t("caseStudies.viewCaseStudyButton")}
                         <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
                           arrow_back
                         </span>
-                      </button>
+                      </Link>
                     </div>
                   </article>
                 ))}
@@ -251,12 +255,18 @@ function Page() {
                 {t("caseStudies.ctaSubtitle")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-10 py-4 bg-secondary text-on-secondary font-headline-sm rounded-lg hover:bg-secondary-fixed-dim transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2">
+                <Link
+                  to="/contact"
+                  className="px-10 py-4 bg-secondary text-on-secondary font-headline-sm rounded-lg hover:bg-secondary-fixed-dim transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
+                >
                   {t("caseStudies.ctaPrimary")}
-                </button>
-                <button className="px-10 py-4 border border-outline-variant/30 text-on-primary font-headline-sm rounded-lg hover:bg-surface-variant/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+                </Link>
+                <Link
+                  to="/services"
+                  className="px-10 py-4 border border-outline-variant/30 text-on-primary font-headline-sm rounded-lg hover:bg-surface-variant/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                >
                   {t("caseStudies.ctaSecondary")}
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -149,6 +149,14 @@ function Page() {
                   onSubmit={handleSubmit}
                   className="bg-surface-container-lowest p-8 md:p-10 rounded-2xl border border-outline-variant/30 shadow-sm space-y-6"
                 >
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    aria-hidden="true"
+                  />
                   <h3 className="font-headline-lg text-headline-lg text-primary font-bold mb-4">
                     {t("contact.formTitle")}
                   </h3>

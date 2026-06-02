@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
@@ -172,7 +172,8 @@ function PricingPage() {
                         </li>
                       ))}
                     </ul>
-                    <button
+                    <Link
+                      to="/contact"
                       className={`w-full py-4 font-headline-sm text-headline-sm rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${
                         isRecommended
                           ? "bg-secondary text-on-secondary hover:opacity-90 focus-visible:ring-secondary/50"
@@ -180,7 +181,7 @@ function PricingPage() {
                       }`}
                     >
                       {plan.ctaText}
-                    </button>
+                    </Link>
                   </article>
                 );
               })}

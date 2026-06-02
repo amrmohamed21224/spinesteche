@@ -58,6 +58,8 @@ final class SpinesTech_Headless_CORS
             'http://127.0.0.1:8080',
             'https://spinestech.sa',
             'https://www.spinestech.sa',
+            'https://spinesteche.vercel.app',
+            'https://spinesteche-git-main-amrkh24212-2027s-projects.vercel.app',
         ];
 
         return array_values(array_unique(array_merge($defaults, $lines)));

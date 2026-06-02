@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import React, { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import React from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
 import { seo } from "../lib/seo";
@@ -23,14 +23,6 @@ export const Route = createFileRoute("/careers")({
 
 function Page() {
   const { t, locale } = useTranslation();
-  const handleScrollToApply = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const element = document.getElementById("apply-form");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const {
     data: careers,
     isLoading,
@@ -243,18 +235,19 @@ function Page() {
                             {job.location}
                           </span>
                         </div>
-                        <button
-                          onClick={handleScrollToApply}
+                        <Link
+                          to="/careers/$slug"
+                          params={{ slug: job.slug }}
                           className="text-secondary font-label-md text-label-md flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
                         >
-                          {t("careers.applyPrimary")}{" "}
+                          {locale === "ar" ? "عرض التفاصيل" : "View details"}{" "}
                           <span
                             className="material-symbols-outlined scale-x-[-1]"
                             aria-hidden="true"
                           >
                             arrow_forward
                           </span>
-                        </button>
+                        </Link>
                       </div>
                     );
                   }
@@ -282,12 +275,13 @@ function Page() {
                           </p>
                         </div>
                         <div className="mt-auto">
-                          <button
-                            onClick={handleScrollToApply}
+                          <Link
+                            to="/careers/$slug"
+                            params={{ slug: job.slug }}
                             className="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-md text-label-md cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                           >
-                            {t("careers.applyFast")}
-                          </button>
+                            {locale === "ar" ? "عرض التفاصيل" : "View details"}
+                          </Link>
                         </div>
                       </div>
                     );
@@ -310,15 +304,16 @@ function Page() {
                       <p className="font-caption text-caption text-on-surface-variant mb-6 uppercase tracking-widest">
                         {job.department}
                       </p>
-                      <button
-                        onClick={handleScrollToApply}
+                      <Link
+                        to="/careers/$slug"
+                        params={{ slug: job.slug }}
                         className="text-secondary font-label-md text-label-md flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
                       >
-                        {t("careers.applyQuick")}{" "}
+                        {locale === "ar" ? "عرض التفاصيل" : "View details"}{" "}
                         <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">
                           chevron_right
                         </span>
-                      </button>
+                      </Link>
                     </div>
                   );
                 })}
@@ -384,6 +379,14 @@ function Page() {
                   className="bg-surface-container-lowest p-10 rounded-2xl border border-outline-variant/30 shadow-sm space-y-6"
                   id="career-form"
                 >
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    aria-hidden="true"
+                  />
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="block text-right font-label-md text-label-md text-on-surface-variant">
