@@ -80,7 +80,14 @@ class ApiClient {
       try {
         return JSON.parse(text) as T;
       } catch (jsonErr) {
-        throw new Error(`Failed to parse JSON response: ${(jsonErr as Error).message}`);
+        const contentType = response.headers.get("content-type") || "unknown";
+        const preview = text.replace(/\s+/g, " ").slice(0, 160);
+        throw new ApiError(
+          502,
+          "Invalid API Response",
+          `Expected JSON from ${path}, received ${contentType}: ${(jsonErr as Error).message}`,
+          { contentType, preview },
+        );
       }
     } catch (err) {
       clearTimeout(id);
