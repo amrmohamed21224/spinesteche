@@ -87,32 +87,44 @@ async function checkFrontendRoutes() {
 }
 
 async function checkSecurityHeaders() {
-  const { response } = await fetchText(frontendUrl);
   let failures = 0;
 
-  for (const header of requiredHeaders) {
-    if (response.headers.has(header)) {
-      ok(`header ${header}`);
-    } else {
-      failures += 1;
-      fail(`missing header ${header}`);
+  try {
+    const { response } = await fetchText(frontendUrl);
+
+    for (const header of requiredHeaders) {
+      if (response.headers.has(header)) {
+        ok(`header ${header}`);
+      } else {
+        failures += 1;
+        fail(`missing header ${header}`);
+      }
     }
+  } catch (error) {
+    failures += 1;
+    fail(`security headers check failed: ${error.message}`);
   }
 
   return failures;
 }
 
 async function checkSitemap() {
-  const { text } = await fetchText(absoluteUrl(frontendUrl, "/sitemap.xml"));
   let failures = 0;
 
-  for (const needle of sitemapNeedles) {
-    if (text.includes(needle)) {
-      ok(`sitemap contains ${needle}`);
-    } else {
-      failures += 1;
-      fail(`sitemap missing ${needle}`);
+  try {
+    const { text } = await fetchText(absoluteUrl(frontendUrl, "/sitemap.xml"));
+
+    for (const needle of sitemapNeedles) {
+      if (text.includes(needle)) {
+        ok(`sitemap contains ${needle}`);
+      } else {
+        failures += 1;
+        fail(`sitemap missing ${needle}`);
+      }
     }
+  } catch (error) {
+    failures += 1;
+    fail(`sitemap check failed: ${error.message}`);
   }
 
   return failures;
