@@ -70,6 +70,9 @@ export function getStaticRoutes(siteUrl = "https://spinestech.sa"): SitemapEntry
     { url: `${base}/pricing`, lastmod: now, changefreq: "monthly", priority: 0.7 },
     { url: `${base}/careers`, lastmod: now, changefreq: "weekly", priority: 0.6 },
     { url: `${base}/contact`, lastmod: now, changefreq: "monthly", priority: 0.7 },
+    { url: `${base}/solutions`, lastmod: now, changefreq: "weekly", priority: 0.9 },
+    { url: `${base}/consultation`, lastmod: now, changefreq: "weekly", priority: 0.8 },
+    { url: `${base}/quote`, lastmod: now, changefreq: "weekly", priority: 0.8 },
     ...detailRoutes,
   ];
 }

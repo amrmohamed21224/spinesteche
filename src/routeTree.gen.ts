@@ -9,13 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SectorsRouteImport } from './routes/sectors'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ConsultationRouteImport } from './routes/consultation'
 import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutRouteImport } from './routes/about'
@@ -24,6 +27,11 @@ import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies/$slug'
 import { Route as CareersSlugRouteImport } from './routes/careers/$slug'
 
+const SolutionsRoute = SolutionsRouteImport.update({
+  id: '/solutions',
+  path: '/solutions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -44,6 +52,11 @@ const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -57,6 +70,11 @@ const PricingRoute = PricingRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConsultationRoute = ConsultationRouteImport.update({
+  id: '/consultation',
+  path: '/consultation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaseStudiesRoute = CaseStudiesRouteImport.update({
@@ -100,13 +118,16 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/careers': typeof CareersRouteWithChildren
   '/case-studies': typeof CaseStudiesRouteWithChildren
+  '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
+  '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sectors': typeof SectorsRoute
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -116,13 +137,16 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/careers': typeof CareersRouteWithChildren
   '/case-studies': typeof CaseStudiesRouteWithChildren
+  '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
+  '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sectors': typeof SectorsRoute
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -133,13 +157,16 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/careers': typeof CareersRouteWithChildren
   '/case-studies': typeof CaseStudiesRouteWithChildren
+  '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/pricing': typeof PricingRoute
   '/products': typeof ProductsRoute
+  '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sectors': typeof SectorsRoute
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -151,13 +178,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/careers'
     | '/case-studies'
+    | '/consultation'
     | '/contact'
     | '/pricing'
     | '/products'
+    | '/quote'
     | '/robots.txt'
     | '/sectors'
     | '/services'
     | '/sitemap.xml'
+    | '/solutions'
     | '/careers/$slug'
     | '/case-studies/$slug'
     | '/services/$slug'
@@ -167,13 +197,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/careers'
     | '/case-studies'
+    | '/consultation'
     | '/contact'
     | '/pricing'
     | '/products'
+    | '/quote'
     | '/robots.txt'
     | '/sectors'
     | '/services'
     | '/sitemap.xml'
+    | '/solutions'
     | '/careers/$slug'
     | '/case-studies/$slug'
     | '/services/$slug'
@@ -183,13 +216,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/careers'
     | '/case-studies'
+    | '/consultation'
     | '/contact'
     | '/pricing'
     | '/products'
+    | '/quote'
     | '/robots.txt'
     | '/sectors'
     | '/services'
     | '/sitemap.xml'
+    | '/solutions'
     | '/careers/$slug'
     | '/case-studies/$slug'
     | '/services/$slug'
@@ -200,17 +236,27 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRouteWithChildren
   CaseStudiesRoute: typeof CaseStudiesRouteWithChildren
+  ConsultationRoute: typeof ConsultationRoute
   ContactRoute: typeof ContactRoute
   PricingRoute: typeof PricingRoute
   ProductsRoute: typeof ProductsRoute
+  QuoteRoute: typeof QuoteRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SectorsRoute: typeof SectorsRoute
   ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SolutionsRoute: typeof SolutionsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/solutions': {
+      id: '/solutions'
+      path: '/solutions'
+      fullPath: '/solutions'
+      preLoaderRoute: typeof SolutionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -239,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -258,6 +311,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/consultation': {
+      id: '/consultation'
+      path: '/consultation'
+      fullPath: '/consultation'
+      preLoaderRoute: typeof ConsultationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/case-studies': {
@@ -352,13 +412,16 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CareersRoute: CareersRouteWithChildren,
   CaseStudiesRoute: CaseStudiesRouteWithChildren,
+  ConsultationRoute: ConsultationRoute,
   ContactRoute: ContactRoute,
   PricingRoute: PricingRoute,
   ProductsRoute: ProductsRoute,
+  QuoteRoute: QuoteRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SectorsRoute: SectorsRoute,
   ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SolutionsRoute: SolutionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

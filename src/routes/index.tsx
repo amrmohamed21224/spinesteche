@@ -10,7 +10,6 @@ import { Grid } from "../components/layout/Grid";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getServices, getPricingPlans, getFaqs } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
-import { useConsultation } from "../contexts/ConsultationContext";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -40,7 +39,6 @@ function Page() {
 // 1. Hero Section Component
 function HeroSection() {
   const { t, locale } = useTranslation();
-  const { openConsultation } = useConsultation();
   const arrowIcon = locale === "ar" ? "arrow_back" : "arrow_forward";
 
   return (
@@ -55,9 +53,9 @@ function HeroSection() {
               {t("home.heroSubtitle")}
             </p>
             <div className="flex flex-wrap gap-3 sm:gap-4 mb-12 justify-start">
-              <button
-                type="button"
-                onClick={openConsultation}
+              <Link
+                to="/consultation"
+                search={{ source: "home-hero" }}
                 className="bg-secondary text-on-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-secondary-fixed-variant transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                 aria-label={t("home.bookConsultation")}
               >
@@ -65,15 +63,15 @@ function HeroSection() {
                 <span className="material-symbols-outlined" aria-hidden="true">
                   {arrowIcon}
                 </span>
-              </button>
-              <button
-                type="button"
-                onClick={openConsultation}
+              </Link>
+              <Link
+                to="/quote"
+                search={{ source: "home-hero" }}
                 className="border-2 border-secondary text-secondary px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                 aria-label={t("home.requestQuote")}
               >
                 {t("home.requestQuote")}
-              </button>
+              </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-outline-variant/30">
               <div className="flex items-center gap-2 justify-start">
@@ -246,8 +244,10 @@ function ServicesSection() {
       {!isLoading && !isError && displayServices.length > 0 && (
         <Grid cols={3}>
           {displayServices.map((service) => (
-            <div
+            <Link
               key={service.id}
+              to="/services/$slug"
+              params={{ slug: service.slug }}
               className="group p-8 bg-white border border-outline-variant/30 rounded-2xl hover:border-secondary transition-all hover:shadow-xl relative overflow-hidden"
             >
               <div className="bg-secondary/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:bg-secondary group-hover:text-white transition-colors">
@@ -274,7 +274,13 @@ function ServicesSection() {
                   ))}
                 </ul>
               )}
-            </div>
+              <span className="mt-6 inline-flex items-center gap-2 font-bold text-secondary">
+                {t("common.learnMore")}
+                <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                  {locale === "ar" ? "arrow_back" : "arrow_forward"}
+                </span>
+              </span>
+            </Link>
           ))}
         </Grid>
       )}
@@ -516,7 +522,8 @@ function PricingSection() {
                     ))}
                   </ul>
                   <Link
-                    to="/contact"
+                    to="/quote"
+                    search={{ plan: plan.id, source: "home-pricing" }}
                     className={`w-full text-center py-3 rounded-lg font-bold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${
                       isRecommended
                         ? "bg-secondary text-white hover:bg-secondary/90 focus-visible:ring-secondary/50"

@@ -14,6 +14,9 @@ const strictBackend = process.argv.includes("--strict") || process.env.STRICT_BA
 
 const frontendRoutes = [
   { path: "/", type: "text/html", minLength: 1000 },
+  { path: "/solutions", type: "text/html", minLength: 1000 },
+  { path: "/consultation", type: "text/html", minLength: 1000 },
+  { path: "/quote", type: "text/html", minLength: 1000 },
   { path: "/services/custom-software", type: "text/html", minLength: 1000 },
   { path: "/case-studies/supply-chain-erp", type: "text/html", minLength: 1000 },
   { path: "/careers/senior-web-developer", type: "text/html", minLength: 1000 },
@@ -32,6 +35,9 @@ const requiredHeaders = [
 
 const sitemapNeedles = [
   "/services/custom-software",
+  "/solutions",
+  "/consultation",
+  "/quote",
   "/case-studies/supply-chain-erp",
   "/careers/senior-web-developer",
 ];

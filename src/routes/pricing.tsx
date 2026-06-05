@@ -173,7 +173,8 @@ function PricingPage() {
                       ))}
                     </ul>
                     <Link
-                      to="/contact"
+                      to="/quote"
+                      search={{ plan: plan.id, source: "pricing-card" }}
                       className={`w-full py-4 font-headline-sm text-headline-sm rounded transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 ${
                         isRecommended
                           ? "bg-secondary text-on-secondary hover:opacity-90 focus-visible:ring-secondary/50"

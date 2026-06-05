@@ -115,14 +115,16 @@ function Page() {
                     </div>
                     <div className="flex flex-col gap-3">
                       <Link
-                        to="/contact"
+                        to="/quote"
+                        search={{ product: product.slug, source: "products-card" }}
                         className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 text-center"
                       >
                         {product.ctaPrimary}
                       </Link>
                       {product.ctaSecondary && (
                         <Link
-                          to="/services"
+                          to="/solutions"
+                          search={{ need: product.slug, source: "products-card" }}
                           className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 text-center"
                         >
                           {product.ctaSecondary}
@@ -146,7 +148,8 @@ function Page() {
                 {t("products.customCtaSubtitle")}
               </p>
               <Link
-                to="/contact"
+                to="/solutions"
+                search={{ source: "products-custom-cta" }}
                 className="inline-flex bg-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
               >
                 {t("products.customCtaButton")}

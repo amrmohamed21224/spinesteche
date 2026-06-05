@@ -7,7 +7,6 @@ import { Container } from "../components/layout/Container";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getServices } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
-import { useConsultation } from "../contexts/ConsultationContext";
 
 export const Route = createFileRoute("/services")({
   head: () =>
@@ -22,7 +21,6 @@ export const Route = createFileRoute("/services")({
 
 function Page() {
   const { t, locale } = useTranslation();
-  const { openConsultation } = useConsultation();
   const {
     data: services,
     isLoading,
@@ -173,15 +171,16 @@ function Page() {
                 {t("services.ctaSubtitle")}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <button
-                  type="button"
-                  onClick={openConsultation}
+                <Link
+                  to="/solutions"
+                  search={{ source: "services-cta" }}
                   className="bg-primary text-on-primary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:opacity-90 transition-opacity cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
                 >
                   {t("services.ctaPrimary")}
-                </button>
+                </Link>
                 <Link
-                  to="/contact"
+                  to="/consultation"
+                  search={{ source: "services-cta" }}
                   className="bg-transparent border border-on-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:bg-white/10 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                 >
                   {t("services.ctaSecondary")}

@@ -209,13 +209,15 @@ function Page() {
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
               <Link
-                to="/contact"
+                to="/solutions"
+                search={{ source: "sectors-cta" }}
                 className="bg-primary text-on-primary px-10 py-4 rounded-lg font-label-md hover:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               >
                 {t("sectors.ctaPrimary")}
               </Link>
               <Link
-                to="/services"
+                to="/consultation"
+                search={{ source: "sectors-cta" }}
                 className="border border-secondary text-secondary px-10 py-4 rounded-lg font-label-md hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
               >
                 {t("sectors.ctaSecondary")}

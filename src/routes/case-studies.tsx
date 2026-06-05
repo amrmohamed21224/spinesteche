@@ -256,13 +256,15 @@ function Page() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  to="/contact"
+                  to="/consultation"
+                  search={{ source: "case-studies-cta" }}
                   className="px-10 py-4 bg-secondary text-on-secondary font-headline-sm rounded-lg hover:bg-secondary-fixed-dim transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                 >
                   {t("caseStudies.ctaPrimary")}
                 </Link>
                 <Link
-                  to="/services"
+                  to="/solutions"
+                  search={{ source: "case-studies-cta" }}
                   className="px-10 py-4 border border-outline-variant/30 text-on-primary font-headline-sm rounded-lg hover:bg-surface-variant/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 >
                   {t("caseStudies.ctaSecondary")}

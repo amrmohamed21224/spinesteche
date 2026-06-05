@@ -269,13 +269,15 @@ function Page() {
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
                 <Link
-                  to="/contact"
+                  to="/consultation"
+                  search={{ source: "about-cta" }}
                   className="px-12 py-4 bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded hover:shadow-lg transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                 >
                   {t("about.ctaPrimary")}
                 </Link>
                 <Link
-                  to="/services"
+                  to="/solutions"
+                  search={{ source: "about-cta" }}
                   className="px-12 py-4 border-2 border-secondary text-secondary font-headline-sm text-headline-sm rounded hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                 >
                   {t("about.ctaSecondary")}

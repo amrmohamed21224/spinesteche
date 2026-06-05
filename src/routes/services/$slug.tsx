@@ -7,7 +7,6 @@ import { StateFeedback } from "../../components/layout/StateFeedback";
 import { getServiceBySlug } from "../../lib/api/fetchers";
 import { seo } from "../../lib/seo";
 import { useTranslation } from "../../i18n";
-import { useConsultation } from "../../contexts/ConsultationContext";
 
 export const Route = createFileRoute("/services/$slug")({
   head: () =>
@@ -22,7 +21,6 @@ export const Route = createFileRoute("/services/$slug")({
 function ServiceDetailPage() {
   const { slug } = Route.useParams();
   const { t, locale } = useTranslation();
-  const { openConsultation } = useConsultation();
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["service-detail", slug, locale],
     queryFn: () => getServiceBySlug(slug, locale),
@@ -86,17 +84,55 @@ function ServiceDetailPage() {
                       ? "احجز مكالمة قصيرة لنحدد الاحتياج ونقترح المسار الأنسب."
                       : "Book a short call to define the need and choose the right path."}
                   </p>
-                  <button
-                    type="button"
-                    onClick={openConsultation}
-                    className="w-full rounded-xl bg-secondary px-6 py-3.5 font-bold text-on-secondary hover:bg-secondary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                  >
-                    {t("nav.bookConsultation")}
-                  </button>
+                  <div className="grid gap-3">
+                    <Link
+                      to="/quote"
+                      search={{ service: data.slug, source: "service-detail" }}
+                      className="w-full rounded-xl bg-secondary px-6 py-3.5 text-center font-bold text-on-secondary hover:bg-secondary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                    >
+                      {locale === "ar" ? "اطلب عرض سعر لهذه الخدمة" : "Request a quote"}
+                    </Link>
+                    <Link
+                      to="/consultation"
+                      search={{ service: data.slug, source: "service-detail" }}
+                      className="w-full rounded-xl border border-secondary px-6 py-3.5 text-center font-bold text-secondary hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                    >
+                      {t("nav.bookConsultation")}
+                    </Link>
+                  </div>
                 </aside>
               </section>
 
               <Section bg="none" noContainer className="mt-20">
+                <div className="grid md:grid-cols-3 gap-5 mb-8">
+                  <JourneyCard
+                    icon="problem"
+                    title={locale === "ar" ? "المشكلة" : "Problem"}
+                    body={
+                      locale === "ar"
+                        ? "نحدد العوائق التشغيلية أو التقنية التي تمنع النمو قبل اقتراح أي بناء."
+                        : "We identify the operational or technical blockers before proposing any build."
+                    }
+                  />
+                  <JourneyCard
+                    icon="architecture"
+                    title={locale === "ar" ? "الحل" : "Solution"}
+                    body={
+                      locale === "ar"
+                        ? "نحوّل الاحتياج إلى بنية واضحة، مراحل تنفيذ، ومخرجات قابلة للقياس."
+                        : "We turn the need into architecture, delivery phases, and measurable outputs."
+                    }
+                  />
+                  <JourneyCard
+                    icon="rocket_launch"
+                    title={locale === "ar" ? "المخرجات" : "Outcomes"}
+                    body={
+                      locale === "ar"
+                        ? "خطة إطلاق، لوحة أولويات، وتصور تكلفة يسهّل قرار التنفيذ."
+                        : "Launch plan, priority board, and cost direction for a confident decision."
+                    }
+                  />
+                </div>
                 <div className="grid md:grid-cols-2 gap-8">
                   {data.features && data.features.length > 0 && (
                     <InfoList
@@ -117,6 +153,18 @@ function ServiceDetailPage() {
         </Container>
       </main>
     </PageLayout>
+  );
+}
+
+function JourneyCard({ icon, title, body }: { icon: string; title: string; body: string }) {
+  return (
+    <section className="rounded-2xl border border-outline-variant/30 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl">
+      <span className="material-symbols-outlined text-3xl text-secondary" aria-hidden="true">
+        {icon}
+      </span>
+      <h2 className="mt-4 font-headline-sm text-headline-sm text-primary font-bold">{title}</h2>
+      <p className="mt-3 text-on-surface-variant leading-relaxed">{body}</p>
+    </section>
   );
 }
 
