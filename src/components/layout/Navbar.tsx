@@ -2,10 +2,17 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useTranslation } from "../../i18n";
+import { useConsultation } from "../../contexts/ConsultationContext";
 
 export function Navbar() {
   const { t, locale, toggleLocale, dir } = useTranslation();
+  const { openConsultation } = useConsultation();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleBookConsultation = () => {
+    setMenuOpen(false);
+    openConsultation();
+  };
 
   const panelSide = dir === "rtl" ? "right-0" : "left-0";
   const panelClosedTranslate =
@@ -103,14 +110,13 @@ export function Navbar() {
                     >
                       {locale === "ar" ? t("nav.english") : t("nav.arabic")}
                     </button>
-                    <Link
-                      to="/consultation"
-                      search={{ source: "navbar-mobile" }}
-                      onClick={() => setMenuOpen(false)}
+                    <button
+                      type="button"
+                      onClick={handleBookConsultation}
                       className="w-full text-center bg-primary-container text-on-primary font-bold py-3.5 px-5 rounded-xl text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                     >
                       {t("nav.bookConsultation")}
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </Dialog.Content>
@@ -149,14 +155,14 @@ export function Navbar() {
           >
             {locale === "ar" ? t("nav.english") : t("nav.arabic")}
           </button>
-          <Link
-            to="/consultation"
-            search={{ source: "navbar-desktop" }}
+          <button
+            type="button"
+            onClick={openConsultation}
             className="bg-primary-container text-on-primary font-bold py-2.5 px-6 rounded-xl text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 whitespace-nowrap"
             aria-label={t("nav.bookConsultation")}
           >
             {t("nav.bookConsultation")}
-          </Link>
+          </button>
         </div>
       </nav>
     </header>
