@@ -122,6 +122,15 @@ export interface CMSProduct {
   features: string[];
   ctaPrimary: string;
   ctaSecondary?: string;
+  // Detail page fields
+  tagline?: string;
+  longDescription?: string;
+  highlights?: { icon: string; title: string; body: string }[];
+  modules?: { title: string; description: string; icon: string }[];
+  useCases?: string[];
+  techSpecs?: string[];
+  targetSectors?: string[];
+  integrations?: string[];
 }
 
 export interface CMSCoreValue {
