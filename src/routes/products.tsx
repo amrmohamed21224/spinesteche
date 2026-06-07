@@ -1,3 +1,4 @@
+// v2 - product cards link to detail page
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
