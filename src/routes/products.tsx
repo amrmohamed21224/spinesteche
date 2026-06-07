@@ -118,8 +118,8 @@ function Page() {
                     </div>
                     <div className="flex flex-col gap-3">
                       <Link
-                        to="/quote"
-                        search={{ product: product.slug, source: "products-card" }}
+                        to="/products/$slug"
+                        params={{ slug: product.slug }}
                         className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 text-center"
                       >
                         {product.ctaPrimary}
