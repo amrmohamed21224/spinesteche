@@ -20,10 +20,6 @@ export function Footer() {
         className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none transform -translate-x-1/3 translate-y-1/3"
         aria-hidden="true"
       />
-      <div
-        className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none"
-        aria-hidden="true"
-      />
 
       {/* CTA Section */}
       <div className="max-w-container-max w-full bg-surface/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-20 relative z-10 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
