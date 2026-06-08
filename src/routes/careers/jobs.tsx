@@ -21,7 +21,12 @@ export const Route = createFileRoute("/careers/jobs")({
 
 function JobsPage() {
   const { t, locale } = useTranslation();
-  const { data: careers, isLoading, isError, refetch } = useQuery({
+  const {
+    data: careers,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["careers", locale],
     queryFn: () => getCareers(locale),
   });
