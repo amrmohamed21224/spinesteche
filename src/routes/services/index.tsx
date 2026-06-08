@@ -94,7 +94,10 @@ function Page() {
                             className="bg-secondary text-on-secondary px-8 py-3 rounded-lg inline-flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
                           >
                             <span>{t("common.learnMore")}</span>
-                            <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                            <span
+                              className="material-symbols-outlined text-[18px]"
+                              aria-hidden="true"
+                            >
                               arrow_back
                             </span>
                           </Link>

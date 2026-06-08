@@ -50,19 +50,26 @@ function CareersLandingPage() {
                   className="px-8 py-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 flex items-center gap-2"
                 >
                   {t("careers.jobsButton")}
-                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">work</span>
+                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                    work
+                  </span>
                 </Link>
                 <Link
                   to="/careers/work-environment"
                   className="px-8 py-4 border-2 border-secondary text-secondary rounded-xl font-label-md text-label-md hover:bg-secondary hover:text-on-secondary hover:shadow-lg hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 flex items-center gap-2"
                 >
                   {t("careers.workEnvironmentButton")}
-                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">diversity_3</span>
+                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                    diversity_3
+                  </span>
                 </Link>
               </div>
             </div>
             <div className="hidden md:block relative">
-              <div className="absolute -inset-4 bg-secondary/10 rounded-3xl blur-2xl -z-10" aria-hidden="true" />
+              <div
+                className="absolute -inset-4 bg-secondary/10 rounded-3xl blur-2xl -z-10"
+                aria-hidden="true"
+              />
               <img
                 className="rounded-3xl shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all duration-700 object-cover w-full h-[500px] border-4 border-white/50"
                 alt="متخصصون سعوديون في مجال التقنية"
@@ -77,32 +84,50 @@ function CareersLandingPage() {
         <Section bg="none" className="py-24">
           <Container clean className="max-w-container-max mx-auto px-margin-desktop">
             <div className="grid md:grid-cols-2 gap-10">
-              <Link 
-                to="/careers/work-environment" 
+              <Link
+                to="/careers/work-environment"
                 className="group relative overflow-hidden bg-primary-container text-on-primary-container rounded-3xl p-10 md:p-14 border border-outline-variant/10 hover:shadow-xl transition-all block"
               >
-                <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-[80px] -z-10 group-hover:scale-150 transition-transform duration-700" aria-hidden="true" />
-                <div className="material-symbols-outlined text-6xl text-secondary mb-6" aria-hidden="true">diversity_3</div>
+                <div
+                  className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-[80px] -z-10 group-hover:scale-150 transition-transform duration-700"
+                  aria-hidden="true"
+                />
+                <div
+                  className="material-symbols-outlined text-6xl text-secondary mb-6"
+                  aria-hidden="true"
+                >
+                  diversity_3
+                </div>
                 <h2 className="font-headline-lg text-headline-lg font-bold mb-4">
                   {locale === "ar" ? "بيئة العمل والثقافة" : "Work Environment & Culture"}
                 </h2>
                 <p className="font-body-md text-body-md opacity-90 mb-8 max-w-md">
-                  {locale === "ar" 
+                  {locale === "ar"
                     ? "اكتشف كيف نبني بيئة عمل تدعم الابتكار، التعلم المستمر، والمرونة. نحن نركز على المخرجات وليس ساعات العمل."
                     : "Discover how we build a work environment that supports innovation, continuous learning, and flexibility."}
                 </p>
                 <div className="inline-flex items-center gap-2 text-secondary font-bold group-hover:translate-x-[-8px] transition-transform">
                   {locale === "ar" ? "استكشف بيئة العمل" : "Explore Culture"}
-                  <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">arrow_forward</span>
+                  <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">
+                    arrow_forward
+                  </span>
                 </div>
               </Link>
 
-              <Link 
-                to="/careers/jobs" 
+              <Link
+                to="/careers/jobs"
                 className="group relative overflow-hidden bg-surface-container-lowest text-on-surface rounded-3xl p-10 md:p-14 border border-outline-variant/30 hover:border-secondary/50 hover:shadow-xl transition-all block"
               >
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -z-10 group-hover:scale-150 transition-transform duration-700" aria-hidden="true" />
-                <div className="material-symbols-outlined text-6xl text-primary mb-6" aria-hidden="true">work</div>
+                <div
+                  className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -z-10 group-hover:scale-150 transition-transform duration-700"
+                  aria-hidden="true"
+                />
+                <div
+                  className="material-symbols-outlined text-6xl text-primary mb-6"
+                  aria-hidden="true"
+                >
+                  work
+                </div>
                 <h2 className="font-headline-lg text-headline-lg font-bold mb-4">
                   {locale === "ar" ? "الوظائف المتاحة" : "Available Openings"}
                 </h2>
@@ -113,7 +138,9 @@ function CareersLandingPage() {
                 </p>
                 <div className="inline-flex items-center gap-2 text-primary font-bold group-hover:translate-x-[-8px] transition-transform">
                   {locale === "ar" ? "تصفح الوظائف المتاحة" : "Browse Jobs"}
-                  <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">arrow_forward</span>
+                  <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">
+                    arrow_forward
+                  </span>
                 </div>
               </Link>
             </div>

@@ -60,11 +60,19 @@ function ContactPage() {
     <PageLayout>
       <main className="pt-24 sm:pt-28 lg:pt-32 pb-24 text-start bg-background overflow-hidden relative">
         {/* Abstract Background Orbs */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none" aria-hidden="true" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" aria-hidden="true" />
+        <div
+          className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none"
+          aria-hidden="true"
+        />
 
-        <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
-          
+        <Container
+          clean
+          className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10"
+        >
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <span className="inline-flex items-center gap-2 py-1.5 px-4 bg-secondary/10 text-secondary font-label-md text-label-md rounded-full mb-6 border border-secondary/20 shadow-sm">
@@ -80,7 +88,6 @@ function ContactPage() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-            
             {/* Contact Info (Left Side) */}
             <div className="lg:col-span-5 space-y-6">
               <div className="mb-10 text-right">
@@ -94,9 +101,17 @@ function ContactPage() {
 
               {/* Info Cards */}
               <div className="space-y-4">
-                <a href="mailto:info@spinestech.sa" className="group flex items-start gap-6 p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 hover:shadow-lg transition-all duration-300 block w-full text-right">
+                <a
+                  href="mailto:info@spinestech.sa"
+                  className="group flex items-start gap-6 p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 hover:shadow-lg transition-all duration-300 block w-full text-right"
+                >
                   <div className="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-secondary group-hover:text-on-secondary transition-all">
-                    <span className="material-symbols-outlined text-[28px] text-secondary group-hover:text-on-secondary transition-colors" aria-hidden="true">mail</span>
+                    <span
+                      className="material-symbols-outlined text-[28px] text-secondary group-hover:text-on-secondary transition-colors"
+                      aria-hidden="true"
+                    >
+                      mail
+                    </span>
                   </div>
                   <div>
                     <h4 className="font-headline-sm text-headline-sm text-primary font-bold mb-1 group-hover:text-secondary transition-colors">
@@ -108,15 +123,26 @@ function ContactPage() {
                   </div>
                 </a>
 
-                <a href="tel:+966111234567" className="group flex items-start gap-6 p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 hover:shadow-lg transition-all duration-300 block w-full text-right">
+                <a
+                  href="tel:+966111234567"
+                  className="group flex items-start gap-6 p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 hover:shadow-lg transition-all duration-300 block w-full text-right"
+                >
                   <div className="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-secondary group-hover:text-on-secondary transition-all">
-                    <span className="material-symbols-outlined text-[28px] text-secondary group-hover:text-on-secondary transition-colors" aria-hidden="true">call</span>
+                    <span
+                      className="material-symbols-outlined text-[28px] text-secondary group-hover:text-on-secondary transition-colors"
+                      aria-hidden="true"
+                    >
+                      call
+                    </span>
                   </div>
                   <div>
                     <h4 className="font-headline-sm text-headline-sm text-primary font-bold mb-1 group-hover:text-secondary transition-colors">
                       {t("contact.phone")}
                     </h4>
-                    <p className="font-body-md text-on-surface-variant group-hover:text-on-surface transition-colors" dir="ltr">
+                    <p
+                      className="font-body-md text-on-surface-variant group-hover:text-on-surface transition-colors"
+                      dir="ltr"
+                    >
                       +966 11 123 4567
                     </p>
                   </div>
@@ -124,7 +150,12 @@ function ContactPage() {
 
                 <div className="group flex items-start gap-6 p-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 hover:shadow-lg transition-all duration-300 text-right cursor-default">
                   <div className="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-secondary group-hover:text-on-secondary transition-all">
-                    <span className="material-symbols-outlined text-[28px] text-secondary group-hover:text-on-secondary transition-colors" aria-hidden="true">location_on</span>
+                    <span
+                      className="material-symbols-outlined text-[28px] text-secondary group-hover:text-on-secondary transition-colors"
+                      aria-hidden="true"
+                    >
+                      location_on
+                    </span>
                   </div>
                   <div>
                     <h4 className="font-headline-sm text-headline-sm text-primary font-bold mb-1 group-hover:text-secondary transition-colors">
@@ -139,13 +170,17 @@ function ContactPage() {
 
               {/* Working Hours Badge */}
               <div className="mt-8 p-6 bg-primary-container rounded-2xl text-center md:text-right flex flex-col md:flex-row items-center gap-4 border border-outline-variant/10">
-                <span className="material-symbols-outlined text-4xl text-primary opacity-80">schedule</span>
+                <span className="material-symbols-outlined text-4xl text-primary opacity-80">
+                  schedule
+                </span>
                 <div>
                   <h4 className="font-label-lg text-label-lg text-on-primary-container font-bold">
                     {locale === "ar" ? "ساعات العمل" : "Working Hours"}
                   </h4>
                   <p className="font-body-sm text-body-sm text-on-primary-container/80">
-                    {locale === "ar" ? "الأحد - الخميس: 9 صباحاً إلى 5 مساءً" : "Sun - Thu: 9 AM to 5 PM"}
+                    {locale === "ar"
+                      ? "الأحد - الخميس: 9 صباحاً إلى 5 مساءً"
+                      : "Sun - Thu: 9 AM to 5 PM"}
                   </p>
                 </div>
               </div>
@@ -154,7 +189,10 @@ function ContactPage() {
             {/* Contact Form (Right Side) */}
             <div className="lg:col-span-7">
               <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-secondary/30 to-primary/30 rounded-[32px] blur-lg opacity-50" aria-hidden="true" />
+                <div
+                  className="absolute -inset-1 bg-gradient-to-r from-secondary/30 to-primary/30 rounded-[32px] blur-lg opacity-50"
+                  aria-hidden="true"
+                />
                 <form
                   onSubmit={handleSubmit}
                   className="relative bg-surface-container-lowest p-8 md:p-12 rounded-[28px] border border-outline-variant/50 shadow-2xl space-y-8"
@@ -172,7 +210,9 @@ function ContactPage() {
                       {t("contact.formTitle")}
                     </h3>
                     <p className="text-on-surface-variant font-body-sm text-body-sm">
-                      {locale === "ar" ? "املأ النموذج وسنقوم بالرد عليك في أقرب وقت." : "Fill the form and we'll get back to you shortly."}
+                      {locale === "ar"
+                        ? "املأ النموذج وسنقوم بالرد عليك في أقرب وقت."
+                        : "Fill the form and we'll get back to you shortly."}
                     </p>
                   </div>
 
@@ -271,7 +311,6 @@ function ContactPage() {
                 </form>
               </div>
             </div>
-
           </div>
         </Container>
       </main>
