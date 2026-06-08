@@ -208,18 +208,21 @@ function QuotePage() {
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
         {/* ───── HERO ───── */}
-        <section className="relative overflow-hidden bg-primary-container pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
-          <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-surface-container-lowest pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
+          <div
+            className="islamic-pattern absolute inset-0 opacity-[0.04] pointer-events-none"
+            aria-hidden="true"
+          />
           <div
             className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/15 blur-3xl"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl"
+            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-primary/5 blur-3xl"
             aria-hidden="true"
           />
 
-          <Container clean>
+          <Container clean className="relative z-10">
             <div
               className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center"
               style={{
@@ -230,17 +233,17 @@ function QuotePage() {
             >
               {/* Left: copy */}
               <div className="text-start order-2 lg:order-1">
-                <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/30 bg-secondary/15 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
+                <span className="inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/10 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
                   <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
                     request_quote
                   </span>
                   {c.eyebrow}
                 </span>
 
-                <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-on-primary mb-5">
+                <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-primary mb-5">
                   {c.title}
                 </h1>
-                <p className="font-body-lg text-body-lg text-on-primary/75 max-w-xl mb-10">
+                <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-10">
                   {c.subtitle}
                 </p>
 
@@ -255,30 +258,35 @@ function QuotePage() {
                         transition: `opacity 0.55s ease ${0.15 + i * 0.1}s, transform 0.55s ease ${0.15 + i * 0.1}s`,
                       }}
                     >
-                      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary/25 text-secondary-fixed">
+                      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary/15 text-secondary">
                         <span className="material-symbols-outlined text-[15px]" aria-hidden="true">
                           check
                         </span>
                       </span>
-                      <span className="font-label-md text-label-md text-on-primary/90">{b}</span>
+                      <span className="font-label-md text-label-md text-on-surface-variant">
+                        {b}
+                      </span>
                     </li>
                   ))}
                 </ul>
 
                 <div className="flex flex-wrap gap-3">
-                  <a
-                    href="#scope"
-                    className="inline-flex items-center gap-2 rounded-xl bg-secondary px-7 py-4 font-bold text-on-secondary transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                  <button
+                    type="button"
+                    onClick={() =>
+                      document.getElementById("scope")?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    className="inline-flex items-center gap-2 rounded-xl bg-secondary px-7 py-4 font-bold text-on-secondary transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 cursor-pointer"
                   >
                     {c.scrollCta}
                     <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
                       keyboard_arrow_down
                     </span>
-                  </a>
+                  </button>
                   <Link
                     to="/consultation"
                     search={{ source: "quote-alternative" }}
-                    className="inline-flex items-center gap-2 rounded-xl border border-secondary-fixed/35 px-7 py-4 font-bold text-secondary-fixed transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+                    className="inline-flex items-center gap-2 rounded-xl border-2 border-secondary px-7 py-4 font-bold text-secondary transition-all hover:bg-secondary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
                   >
                     {c.consultCta}
                   </Link>
@@ -294,37 +302,35 @@ function QuotePage() {
                   transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
                 }}
               >
-                <div className="rounded-2xl border border-white/12 bg-white/6 p-5 backdrop-blur-sm shadow-2xl">
+                <div className="rounded-2xl border border-outline-variant/30 bg-surface p-5 shadow-2xl">
                   {([c.step1Label, c.step2Label, c.step3Label] as string[]).map((step, i) => (
                     <div
                       key={step}
-                      className="group mb-3 last:mb-0 flex items-center gap-4 rounded-xl border border-white/10 bg-white/6 p-4 transition-all hover:-translate-y-0.5 hover:bg-white/10"
+                      className="group mb-3 last:mb-0 flex items-center gap-4 rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-4 transition-all hover:-translate-y-0.5 hover:shadow-md"
                       style={{ transitionDelay: `${i * 60}ms` }}
                     >
-                      <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-on-secondary font-bold text-lg">
+                      <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary font-bold text-lg">
                         {i + 1}
                       </span>
-                      <span className="font-headline-sm text-headline-sm text-on-primary">
-                        {step}
-                      </span>
+                      <span className="font-headline-sm text-headline-sm text-primary">{step}</span>
                       <span
-                        className="material-symbols-outlined ms-auto text-secondary-fixed/60 group-hover:text-secondary-fixed transition-colors"
+                        className="material-symbols-outlined ms-auto text-secondary/40 group-hover:text-secondary transition-colors"
                         aria-hidden="true"
                       >
                         auto_awesome
                       </span>
                     </div>
                   ))}
-                  <div className="mt-4 flex items-center gap-3 rounded-xl border border-white/10 bg-secondary/15 px-4 py-3">
+                  <div className="mt-4 flex items-center gap-3 rounded-xl border border-secondary/20 bg-secondary/5 px-4 py-3">
                     <span
-                      className="material-symbols-outlined text-secondary-fixed text-xl"
+                      className="material-symbols-outlined text-secondary text-xl"
                       aria-hidden="true"
                     >
                       schedule
                     </span>
                     <div>
-                      <p className="text-caption text-on-primary/55">{c.responseLabel}</p>
-                      <p className="font-bold text-secondary-fixed">{c.responseTime}</p>
+                      <p className="text-caption text-on-surface-variant">{c.responseLabel}</p>
+                      <p className="font-bold text-secondary">{c.responseTime}</p>
                     </div>
                   </div>
                 </div>
