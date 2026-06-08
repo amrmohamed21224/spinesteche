@@ -236,6 +236,21 @@ export async function getProducts(locale: Locale = "ar"): Promise<CMSProduct[]> 
   return cmsClient.get<CMSProduct[]>(withLang(ENDPOINTS.PRODUCTS, locale));
 }
 
+export async function getProductBySlug(
+  slug: string,
+  locale: Locale = "ar",
+): Promise<CMSProduct | null> {
+  if (isMockMode()) {
+    await mockDelay(300);
+    return localizeProducts(locale).find((p) => p.slug === slug) || null;
+  }
+  try {
+    return await cmsClient.get<CMSProduct>(withLang(`${ENDPOINTS.PRODUCTS}/${slug}`, locale));
+  } catch {
+    return null;
+  }
+}
+
 export async function getAboutPageData(locale: Locale = "ar"): Promise<CMSAboutPageData> {
   if (isMockMode()) {
     await mockDelay(400);

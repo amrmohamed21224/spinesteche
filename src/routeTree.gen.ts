@@ -24,6 +24,7 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
+import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies/$slug'
 import { Route as CareersSlugRouteImport } from './routes/careers/$slug'
 
@@ -102,6 +103,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
 } as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -121,7 +127,7 @@ export interface FileRoutesByFullPath {
   '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sectors': typeof SectorsRoute
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesByTo {
@@ -140,7 +147,7 @@ export interface FileRoutesByTo {
   '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sectors': typeof SectorsRoute
@@ -149,6 +156,7 @@ export interface FileRoutesByTo {
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesById {
@@ -160,7 +168,7 @@ export interface FileRoutesById {
   '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sectors': typeof SectorsRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRouteTypes {
@@ -190,6 +199,7 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/careers/$slug'
     | '/case-studies/$slug'
+    | '/products/$slug'
     | '/services/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/careers/$slug'
     | '/case-studies/$slug'
+    | '/products/$slug'
     | '/services/$slug'
   id:
     | '__root__'
@@ -228,6 +239,7 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/careers/$slug'
     | '/case-studies/$slug'
+    | '/products/$slug'
     | '/services/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -239,7 +251,7 @@ export interface RootRouteChildren {
   ConsultationRoute: typeof ConsultationRoute
   ContactRoute: typeof ContactRoute
   PricingRoute: typeof PricingRoute
-  ProductsRoute: typeof ProductsRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
   QuoteRoute: typeof QuoteRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SectorsRoute: typeof SectorsRoute
@@ -355,6 +367,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
     }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/case-studies/$slug': {
       id: '/case-studies/$slug'
       path: '/$slug'
@@ -395,6 +414,18 @@ const CaseStudiesRouteWithChildren = CaseStudiesRoute._addFileChildren(
   CaseStudiesRouteChildren,
 )
 
+interface ProductsRouteChildren {
+  ProductsSlugRoute: typeof ProductsSlugRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsSlugRoute: ProductsSlugRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
+
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
 }
@@ -415,7 +446,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConsultationRoute: ConsultationRoute,
   ContactRoute: ContactRoute,
   PricingRoute: PricingRoute,
-  ProductsRoute: ProductsRoute,
+  ProductsRoute: ProductsRouteWithChildren,
   QuoteRoute: QuoteRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SectorsRoute: SectorsRoute,

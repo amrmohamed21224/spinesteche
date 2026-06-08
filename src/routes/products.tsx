@@ -1,3 +1,4 @@
+// v2 - product cards link to detail page
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../components/layout/PageLayout";
@@ -63,7 +64,7 @@ function Page() {
                   <div
                     key={product.id}
                     className={`bg-surface-container-lowest border p-8 rounded-xl flex flex-col h-full hover:shadow-lg transition-all group relative overflow-hidden ${
-                      isSpecialized ? "border-secondary/30" : "border-outline-variant"
+                      isSpecialized ? "border-secondary/30 hover:border-secondary/60" : "border-outline-variant hover:border-secondary/40"
                     }`}
                   >
                     {isSpecialized && (
@@ -72,6 +73,9 @@ function Page() {
                         aria-hidden="true"
                       ></div>
                     )}
+                    {/* Hover accent line */}
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right" />
+
                     <div className="flex justify-between items-start mb-6">
                       <span
                         className="material-symbols-outlined text-4xl text-secondary"
@@ -92,7 +96,7 @@ function Page() {
                         </span>
                       )}
                     </div>
-                    <h3 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold">
+                    <h3 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold group-hover:text-secondary transition-colors">
                       {product.title}
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
@@ -115,21 +119,22 @@ function Page() {
                     </div>
                     <div className="flex flex-col gap-3">
                       <Link
-                        to="/quote"
-                        search={{ product: product.slug, source: "products-card" }}
+                        to="/products/$slug"
+                        params={{ slug: product.slug }}
                         className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 text-center"
                       >
                         {product.ctaPrimary}
                       </Link>
-                      {product.ctaSecondary && (
-                        <Link
-                          to="/solutions"
-                          search={{ need: product.slug, source: "products-card" }}
-                          className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 text-center"
-                        >
-                          {product.ctaSecondary}
-                        </Link>
-                      )}
+                      <Link
+                        to="/products/$slug"
+                        params={{ slug: product.slug }}
+                        className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 text-center inline-flex items-center justify-center gap-2"
+                      >
+                        {product.ctaSecondary || (locale === "ar" ? "تفاصيل المنتج" : "View details")}
+                        <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
+                          {locale === "ar" ? "arrow_back" : "arrow_forward"}
+                        </span>
+                      </Link>
                     </div>
                   </div>
                 );
