@@ -98,9 +98,15 @@ function Page() {
                         </span>
                       )}
                     </div>
-                    <h3 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold group-hover:text-secondary transition-colors">
-                      {product.title}
-                    </h3>
+                    <Link
+                      to="/products/$slug"
+                      params={{ slug: product.slug }}
+                      className="block"
+                    >
+                      <h3 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold group-hover:text-secondary transition-colors">
+                        {product.title}
+                      </h3>
+                    </Link>
                     <p className="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
                       {product.description}
                     </p>
@@ -121,19 +127,19 @@ function Page() {
                     </div>
                     <div className="flex flex-col gap-3">
                       <Link
-                        to="/products/$slug"
-                        params={{ slug: product.slug }}
+                        to="/quote"
+                        search={{ product: product.slug, source: "products-listing" }}
                         className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 text-center"
                       >
                         {product.ctaPrimary}
                       </Link>
                       <Link
-                        to="/products/$slug"
-                        params={{ slug: product.slug }}
+                        to="/consultation"
+                        search={{ source: "products-listing" }}
                         className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 text-center inline-flex items-center justify-center gap-2"
                       >
                         {product.ctaSecondary ||
-                          (locale === "ar" ? "تفاصيل المنتج" : "View details")}
+                          (locale === "ar" ? "تخصيص لعملك" : "Customize for you")}
                         <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
                           {locale === "ar" ? "arrow_back" : "arrow_forward"}
                         </span>
