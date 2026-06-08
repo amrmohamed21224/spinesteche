@@ -57,7 +57,7 @@ function Page() {
         </section>
 
         {/* Services Bento Grid */}
-        <Section bg="none" noContainer>
+        <Section bg="none" noContainer className="pb-10">
           <Container clean className="max-w-container-max mx-auto px-margin-desktop">
             {isLoading && <StateFeedback type="loading" />}
             {isError && (
@@ -76,82 +76,77 @@ function Page() {
                     return (
                       <div
                         key={service.id}
-                        className="md:col-span-8 bg-primary-container rounded-xl p-10 flex flex-col md:flex-row gap-8 items-center overflow-hidden relative group"
+                        className="md:col-span-8 bg-primary-container rounded-2xl p-0 flex flex-col md:flex-row items-stretch overflow-hidden relative group border border-outline-variant/20 shadow-lg hover:shadow-xl hover:shadow-secondary/5 transition-all duration-500"
                       >
-                        <div className="flex-1 z-10">
-                          <span className="bg-secondary/20 text-secondary-fixed px-3 py-1 rounded-full text-caption mb-4 inline-block">
+                        <div className="flex-1 z-10 p-10 md:p-12 flex flex-col justify-center">
+                          <span className="bg-secondary/15 text-secondary-fixed border border-secondary/20 px-4 py-1.5 rounded-full text-caption mb-6 w-fit font-bold tracking-wide">
                             {t("common.mostPopular")}
                           </span>
-                          <h3 className="font-headline-xl text-headline-xl text-on-primary mb-4 font-bold">
+                          <h3 className="font-display-sm text-display-sm-mobile md:text-display-sm text-on-primary mb-4 font-bold">
                             {service.title}
                           </h3>
-                          <p className="text-on-primary-container font-body-md text-body-md mb-8 leading-relaxed">
+                          <p className="text-on-primary-container font-body-lg text-body-lg mb-10 leading-relaxed max-w-lg">
                             {service.description}
                           </p>
                           <Link
                             to="/services/$slug"
                             params={{ slug: service.slug }}
-                            className="bg-secondary text-on-secondary px-8 py-3 rounded-lg inline-flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
+                            className="bg-secondary text-on-secondary px-8 py-4 rounded-xl inline-flex items-center gap-3 group-hover:gap-5 w-fit font-bold hover:bg-secondary/90 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/30 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                           >
                             <span>{t("common.learnMore")}</span>
                             <span
-                              className="material-symbols-outlined text-[18px]"
+                              className="material-symbols-outlined text-[20px]"
                               aria-hidden="true"
                             >
                               arrow_back
                             </span>
                           </Link>
                         </div>
-                        <div className="flex-1 w-full h-64 md:h-full relative z-10">
+                        <div className="flex-1 w-full h-72 md:h-auto relative overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary-container to-transparent z-10 w-24"></div>
                           <img
-                            className="w-full h-full object-cover rounded-lg shadow-xl grayscale-[0.2] group-hover:grayscale-0 transition-all duration-500"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                             alt={service.title}
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuE-NWP_sTg4R_qbuMhs4FHIaZ1AOOxTDjsHOXijJTvWROn20OBNJ-0Z6BEK9hrRpKwoMSdJny5PxjEHDjWhi3ZFW5T48LYgDeBlcTb2WSgjfV4DWQWduV75ctRALvhJRvV2rWc6s8HDy4XAX1jKUfyTf32nFjRToVabJOEy-UfAHAWZP7VLwUCXV6qhwWKTRmv5QSLVUDeZGjf1sfN8eTpdBdQZF7HZnuNN_ZMk8skYtvUGYN1NCImT4SziBA62c1ndqFlXUbRsCwNe"
+                            src="/images/services/custom-software.png"
                             loading="lazy"
                           />
                         </div>
-                        <div
-                          className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-secondary/5 blur-[120px] rounded-full pointer-events-none"
-                          aria-hidden="true"
-                        ></div>
                       </div>
                     );
                   }
 
                   return (
-                    <div
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: service.slug }}
                       key={service.id}
-                      className="md:col-span-4 bg-surface-container rounded-xl p-8 border border-outline-variant/30 flex flex-col hover:shadow-lg transition-shadow"
+                      className="md:col-span-4 bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/40 flex flex-col hover:border-secondary/30 hover:shadow-xl hover:shadow-secondary/5 hover:-translate-y-1 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 cursor-pointer"
                     >
-                      <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
+                      <div className="w-14 h-14 bg-secondary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-secondary group-hover:text-on-secondary transition-colors duration-300">
                         <span
-                          className="material-symbols-outlined text-secondary"
+                          className="material-symbols-outlined text-[28px] text-secondary group-hover:text-on-secondary transition-colors"
                           style={{ fontVariationSettings: "'FILL' 1" }}
                           aria-hidden="true"
                         >
                           {service.icon}
                         </span>
                       </div>
-                      <h3 className="font-headline-sm text-headline-sm mb-3 text-primary font-bold">
+                      <h3 className="font-headline-sm text-headline-sm mb-4 text-primary font-bold group-hover:text-secondary transition-colors">
                         {service.title}
                       </h3>
-                      <p className="text-on-surface-variant font-body-md text-body-md mb-auto leading-relaxed">
+                      <p className="text-on-surface-variant font-body-md text-body-md mb-8 leading-relaxed">
                         {service.description}
                       </p>
-                      <Link
-                        to="/services/$slug"
-                        params={{ slug: service.slug }}
-                        className="mt-8 text-secondary font-label-md text-label-md flex items-center gap-2 group justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
-                      >
+                      <div className="mt-auto text-secondary font-label-md text-label-md font-bold flex items-center gap-2">
                         <span>{t("common.learnMore")}</span>
                         <span
-                          className="material-symbols-outlined text-[16px] group-hover:translate-x-[-4px] transition-transform"
+                          className="material-symbols-outlined text-[18px] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
                           aria-hidden="true"
                         >
                           arrow_back
                         </span>
-                      </Link>
-                    </div>
+                      </div>
+                    </Link>
                   );
                 })}
               </div>
