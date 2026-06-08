@@ -11,6 +11,7 @@ import { useTranslation } from "../i18n";
 type SolutionsSearch = {
   sector?: string;
   need?: string;
+  source?: string;
 };
 
 const copy = {
@@ -68,6 +69,7 @@ export const Route = createFileRoute("/solutions")({
   validateSearch: (search): SolutionsSearch => ({
     sector: typeof search.sector === "string" ? search.sector : undefined,
     need: typeof search.need === "string" ? search.need : undefined,
+    source: typeof search.source === "string" ? search.source : undefined,
   }),
   head: () =>
     seo({
@@ -152,7 +154,9 @@ function SolutionsPage() {
                         }`}
                       >
                         <span className="material-symbols-outlined">{item.icon}</span>
-                        <span className="font-bold">{needLabels[locale][item.id]}</span>
+                        <span className="font-bold">
+                          {needLabels[locale][item.id as keyof typeof needLabels.ar]}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -220,7 +224,7 @@ function SolutionsPage() {
                             {service.icon}
                           </span>
                           <span className="rounded-full bg-secondary-container px-3 py-1 text-xs font-bold text-on-secondary-container">
-                            {needLabels[locale][need]}
+                            {needLabels[locale][need as keyof typeof needLabels.ar]}
                           </span>
                         </div>
                         <h3 className="mt-6 font-headline-lg text-headline-lg font-bold text-primary">
