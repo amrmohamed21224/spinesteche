@@ -30,6 +30,8 @@ import { Route as CareersIndexRouteImport } from './routes/careers/index'
 import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
 import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies/$slug'
+import { Route as CareersWorkEnvironmentRouteImport } from './routes/careers/work-environment'
+import { Route as CareersJobsRouteImport } from './routes/careers/jobs'
 import { Route as CareersSlugRouteImport } from './routes/careers/$slug'
 
 const SolutionsRoute = SolutionsRouteImport.update({
@@ -137,6 +139,16 @@ const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => CaseStudiesRoute,
 } as any)
+const CareersWorkEnvironmentRoute = CareersWorkEnvironmentRouteImport.update({
+  id: '/work-environment',
+  path: '/work-environment',
+  getParentRoute: () => CareersRoute,
+} as any)
+const CareersJobsRoute = CareersJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => CareersRoute,
+} as any)
 const CareersSlugRoute = CareersSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -159,6 +171,8 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/careers/jobs': typeof CareersJobsRoute
+  '/careers/work-environment': typeof CareersWorkEnvironmentRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -179,6 +193,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/careers/jobs': typeof CareersJobsRoute
+  '/careers/work-environment': typeof CareersWorkEnvironmentRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -204,6 +220,8 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/careers/jobs': typeof CareersJobsRoute
+  '/careers/work-environment': typeof CareersWorkEnvironmentRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -230,6 +248,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/solutions'
     | '/careers/$slug'
+    | '/careers/jobs'
+    | '/careers/work-environment'
     | '/case-studies/$slug'
     | '/products/$slug'
     | '/services/$slug'
@@ -250,6 +270,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/solutions'
     | '/careers/$slug'
+    | '/careers/jobs'
+    | '/careers/work-environment'
     | '/case-studies/$slug'
     | '/products/$slug'
     | '/services/$slug'
@@ -274,6 +296,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/solutions'
     | '/careers/$slug'
+    | '/careers/jobs'
+    | '/careers/work-environment'
     | '/case-studies/$slug'
     | '/products/$slug'
     | '/services/$slug'
@@ -449,6 +473,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseStudiesSlugRouteImport
       parentRoute: typeof CaseStudiesRoute
     }
+    '/careers/work-environment': {
+      id: '/careers/work-environment'
+      path: '/work-environment'
+      fullPath: '/careers/work-environment'
+      preLoaderRoute: typeof CareersWorkEnvironmentRouteImport
+      parentRoute: typeof CareersRoute
+    }
+    '/careers/jobs': {
+      id: '/careers/jobs'
+      path: '/jobs'
+      fullPath: '/careers/jobs'
+      preLoaderRoute: typeof CareersJobsRouteImport
+      parentRoute: typeof CareersRoute
+    }
     '/careers/$slug': {
       id: '/careers/$slug'
       path: '/$slug'
@@ -461,11 +499,15 @@ declare module '@tanstack/react-router' {
 
 interface CareersRouteChildren {
   CareersSlugRoute: typeof CareersSlugRoute
+  CareersJobsRoute: typeof CareersJobsRoute
+  CareersWorkEnvironmentRoute: typeof CareersWorkEnvironmentRoute
   CareersIndexRoute: typeof CareersIndexRoute
 }
 
 const CareersRouteChildren: CareersRouteChildren = {
   CareersSlugRoute: CareersSlugRoute,
+  CareersJobsRoute: CareersJobsRoute,
+  CareersWorkEnvironmentRoute: CareersWorkEnvironmentRoute,
   CareersIndexRoute: CareersIndexRoute,
 }
 

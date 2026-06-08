@@ -1,13 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import React from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { PageLayout } from "../../components/layout/PageLayout";
 import { seo } from "../../lib/seo";
 import { Container } from "../../components/layout/Container";
 import { Grid } from "../../components/layout/Grid";
 import { Section } from "../../components/layout/Section";
-import { StateFeedback } from "../../components/layout/StateFeedback";
-import { getCareers, submitCareerApplication } from "../../lib/api/fetchers";
 import { useTranslation } from "../../i18n";
 
 export const Route = createFileRoute("/careers/")({
@@ -18,248 +15,110 @@ export const Route = createFileRoute("/careers/")({
         "تصفح الفرص الوظيفية المتاحة في SpinesTech وابنِ مستقبلك المهني في مجالات تطوير البرمجيات والذكاء الاصطناعي.",
       path: "/careers",
     }),
-  component: Page,
+  component: CareersLandingPage,
 });
 
-function Page() {
+function CareersLandingPage() {
   const { t, locale } = useTranslation();
-  const { data: careers, isLoading, isError, refetch } = useQuery({
-    queryKey: ["careers", locale],
-    queryFn: () => getCareers(locale),
-  });
-
-  const mutation = useMutation({
-    mutationFn: (data: FormData) => submitCareerApplication(data, locale),
-    onSuccess: (data) => {
-      alert(data.message);
-      const form = document.getElementById("career-form") as HTMLFormElement;
-      if (form) form.reset();
-    },
-    onError: () => {
-      alert(t("careers.submitError"));
-    },
-  });
-
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    mutation.mutate(formData);
-  };
-
-  const getJobIcon = (title: string) => {
-    const lower = title.toLowerCase();
-    if (lower.includes("web") || lower.includes("ويب")) return "code";
-    if (lower.includes("ai") || lower.includes("ذكاء")) return "psychology";
-    if (lower.includes("design") || lower.includes("مصمم") || lower.includes("ux")) return "palette";
-    if (lower.includes("mobile") || lower.includes("جوال")) return "smartphone";
-    if (lower.includes("erp") || lower.includes("أخصائي")) return "account_tree";
-    return "work";
-  };
 
   return (
     <PageLayout>
-      <main className="pt-24 sm:pt-28 lg:pt-32 text-start">
+      <main className="pt-24 sm:pt-28 lg:pt-32 text-start bg-background">
         {/* Hero */}
-        <section className="relative min-h-[614px] flex items-center overflow-hidden bg-surface-container-low border-b border-outline-variant/20" aria-label="مقدمة التوظيف">
-          <div className="absolute inset-0 hero-pattern" aria-hidden="true" />
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop w-full relative z-10 grid md:grid-cols-2 gap-gutter items-center py-16">
+        <section
+          className="relative min-h-[614px] flex items-center overflow-hidden bg-surface-container-low border-b border-outline-variant/20"
+          aria-label="مقدمة التوظيف"
+        >
+          <div className="absolute inset-0 hero-pattern opacity-60" aria-hidden="true" />
+          <Container
+            clean
+            className="max-w-container-max mx-auto px-margin-desktop w-full relative z-10 grid md:grid-cols-2 gap-gutter items-center py-16"
+          >
             <div className="text-right">
-              <span className="inline-block py-1 px-3 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-full mb-6">
+              <span className="inline-block py-1 px-3 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-full mb-6 shadow-sm">
                 {t("careers.heroBadge")}
               </span>
-              <h1 className="font-display-lg text-display-lg text-primary mb-6 font-bold">{t("careers.heroTitle")}</h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-xl">{t("careers.heroSubtitle")}</p>
-              <div className="flex gap-4 flex-row-reverse justify-end">
-                <a className="px-8 py-3 bg-secondary text-on-secondary rounded-xl font-label-md text-label-md hover:shadow-lg transition-shadow cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                  href="#jobs" onClick={(e) => { e.preventDefault(); document.getElementById("jobs")?.scrollIntoView({ behavior: "smooth" }); }}>
+              <h1 className="font-display-lg text-display-lg text-primary mb-6 font-bold leading-tight">
+                {t("careers.heroTitle")}
+              </h1>
+              <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl leading-relaxed">
+                {t("careers.heroSubtitle")}
+              </p>
+              <div className="flex flex-wrap gap-4 flex-row-reverse justify-end">
+                <Link
+                  to="/careers/jobs"
+                  className="px-8 py-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 flex items-center gap-2"
+                >
                   {t("careers.jobsButton")}
-                </a>
-                <a className="px-8 py-3 border border-secondary text-secondary rounded-xl font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                  href="#jobs" onClick={(e) => { e.preventDefault(); document.getElementById("jobs")?.scrollIntoView({ behavior: "smooth" }); }}>
+                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">work</span>
+                </Link>
+                <Link
+                  to="/careers/work-environment"
+                  className="px-8 py-4 border-2 border-secondary text-secondary rounded-xl font-label-md text-label-md hover:bg-secondary hover:text-on-secondary hover:shadow-lg hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 flex items-center gap-2"
+                >
                   {t("careers.workEnvironmentButton")}
-                </a>
+                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">diversity_3</span>
+                </Link>
               </div>
             </div>
-            <div className="hidden md:block">
-              <img className="rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover w-full h-[500px]"
+            <div className="hidden md:block relative">
+              <div className="absolute -inset-4 bg-secondary/10 rounded-3xl blur-2xl -z-10" aria-hidden="true" />
+              <img
+                className="rounded-3xl shadow-2xl grayscale-[0.2] hover:grayscale-0 transition-all duration-700 object-cover w-full h-[500px] border-4 border-white/50"
                 alt="متخصصون سعوديون في مجال التقنية"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuALlnEpwMFPEX9boAFbAFv3oiBKNFMDciMEvwSad7SByzcAjvWn4d3zxBezgPYnL8lQTjN1EWKlcpr5VRP0fVLk03E8cx-OTRMxCqx_b0obKR9F5WfmGPMsWS2aBI531vQ4KxjvQBk38VbISPIXIeu06q3lW-VIzhKJhYI-wkw3i4PyANTjO4CUFFw8JqZ1dveNDS54yW220Xo3tGMfGZ2apF_C4ZawjiHa8XVT9CCkIuIk_In4op_Ey4n5sGu3BXEIii_YW7bHvDsf"
-                loading="lazy" />
+                loading="lazy"
+              />
             </div>
           </Container>
         </section>
 
-        {/* Stats */}
-        <Section bg="default" className="py-24">
-          <Grid cols={4}>
-            {[
-              { icon: "groups", value: "+١٥٠", label: t("careers.stats.creative") },
-              { icon: "rocket_launch", value: "٣٠+", label: t("careers.stats.nationalProject") },
-              { icon: "workspace_premium", value: "١٠٠٪", label: t("careers.stats.growthEnvironment") },
-              { icon: "verified", value: locale === "ar" ? "رائد" : "Leader", label: locale === "ar" ? "في حلول ERP" : "in ERP solutions" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 hover:border-secondary/50 transition-colors">
-                <div className="material-symbols-outlined text-secondary text-4xl mb-4" aria-hidden="true">{stat.icon}</div>
-                <div className="font-headline-xl text-headline-xl text-primary font-bold">{stat.value}</div>
-                <div className="font-label-md text-label-md text-on-surface-variant">{stat.label}</div>
-              </div>
-            ))}
-          </Grid>
-        </Section>
-
-        {/* Jobs Grid */}
-        <Section bg="surface-container-low" className="py-24" noContainer>
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop" id="jobs">
-            <div className="text-center mb-16">
-              <h2 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold">{t("careers.jobsTitle")}</h2>
-              <p className="font-body-md text-body-md text-on-surface-variant">{t("careers.jobsSubtitle")}</p>
-            </div>
-
-            {isLoading && <StateFeedback type="loading" />}
-            {isError && <StateFeedback type="error" message={t("careers.loadError")} onRetry={refetch} />}
-            {!isLoading && !isError && (!careers || careers.length === 0) && (
-              <StateFeedback type="empty" message={t("careers.emptyMessage")} />
-            )}
-
-            {!isLoading && !isError && careers && careers.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter text-right">
-                {careers.map((job, index) => {
-                  const isFeatured = index === 0;
-                  const isAI = job.slug.includes("ai") || job.title.includes("ذكاء");
-
-                  if (isFeatured) return (
-                    <div key={job.id} className="md:col-span-2 group relative overflow-hidden bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/30 hover:shadow-xl transition-all duration-300">
-                      <div className="flex justify-between items-start mb-6">
-                        <span className="px-4 py-1 bg-secondary/10 text-secondary rounded-full font-label-md text-label-md">
-                          {job.type === "Full-time" ? t("careers.jobTypeFullTime") : t("careers.jobTypeFlexibleOrRemote")}
-                        </span>
-                        <div className="material-symbols-outlined text-secondary text-3xl" aria-hidden="true">{getJobIcon(job.title)}</div>
-                      </div>
-                      <h3 className="font-headline-lg text-headline-lg text-primary mb-4 font-bold">{job.title}</h3>
-                      <p className="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">{job.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-8 justify-start">
-                        <span className="px-3 py-1 bg-background text-on-surface-variant font-caption text-caption rounded-lg border border-outline-variant/20">{job.experience}</span>
-                        <span className="px-3 py-1 bg-background text-on-surface-variant font-caption text-caption rounded-lg border border-outline-variant/20">{job.location}</span>
-                      </div>
-                      <Link to="/careers/$slug" params={{ slug: job.slug }}
-                        className="text-secondary font-label-md text-label-md flex items-center gap-2 group-hover:gap-4 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded">
-                        {locale === "ar" ? "عرض التفاصيل" : "View details"}{" "}
-                        <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">arrow_forward</span>
-                      </Link>
-                    </div>
-                  );
-
-                  if (isAI) return (
-                    <div key={job.id} className="group bg-primary text-on-primary p-8 rounded-2xl border border-primary hover:bg-primary/90 transition-all duration-300 flex flex-col justify-between">
-                      <div>
-                        <div className="material-symbols-outlined text-secondary text-3xl mb-6" aria-hidden="true">{getJobIcon(job.title)}</div>
-                        <h3 className="font-headline-lg text-headline-lg mb-4 text-on-primary font-bold">{job.title}</h3>
-                        <p className="font-body-md text-body-md text-outline-variant mb-6">{job.description}</p>
-                      </div>
-                      <Link to="/careers/$slug" params={{ slug: job.slug }}
-                        className="w-full py-3 bg-secondary text-on-secondary rounded-xl font-label-md text-label-md text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50">
-                        {locale === "ar" ? "عرض التفاصيل" : "View details"}
-                      </Link>
-                    </div>
-                  );
-
-                  return (
-                    <div key={job.id} className="group bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/30 hover:border-secondary transition-all duration-300">
-                      <div className="material-symbols-outlined text-secondary text-3xl mb-6" aria-hidden="true">{getJobIcon(job.title)}</div>
-                      <h3 className="font-headline-sm text-headline-sm text-primary mb-2 font-bold">{job.title}</h3>
-                      <p className="font-caption text-caption text-on-surface-variant mb-6 uppercase tracking-widest">{job.department}</p>
-                      <Link to="/careers/$slug" params={{ slug: job.slug }}
-                        className="text-secondary font-label-md text-label-md flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded">
-                        {locale === "ar" ? "عرض التفاصيل" : "View details"}{" "}
-                        <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">chevron_right</span>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </Container>
-        </Section>
-
-        {/* Application Form */}
-        <section className="py-24 bg-background" id="apply-form">
+        {/* Quick Info Grid */}
+        <Section bg="none" className="py-24">
           <Container clean className="max-w-container-max mx-auto px-margin-desktop">
-            <div className="grid md:grid-cols-5 gap-16">
-              <div className="md:col-span-2 text-right">
-                <h2 className="font-headline-xl text-headline-xl text-primary mb-6 font-bold">{t("careers.applyFormTitle")}</h2>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mb-12">{t("careers.applyFormSubtitle")}</p>
-                <div className="space-y-8">
-                  {[
-                    { icon: "mail", title: t("careers.contactEmailLabel"), body: t("careers.careerEmailAddress") },
-                    { icon: "location_on", title: t("careers.contactLocationLabel"), body: t("careers.careerLocationAddress") },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4 flex-row-reverse text-right">
-                      <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center shrink-0">
-                        <span className="material-symbols-outlined text-secondary font-bold" aria-hidden="true">{item.icon}</span>
-                      </div>
-                      <div>
-                        <h4 className="font-headline-sm text-headline-sm text-primary font-medium">{item.title}</h4>
-                        <p className="font-body-md text-body-md text-on-surface-variant">{item.body}</p>
-                      </div>
-                    </div>
-                  ))}
+            <div className="grid md:grid-cols-2 gap-10">
+              <Link 
+                to="/careers/work-environment" 
+                className="group relative overflow-hidden bg-primary-container text-on-primary-container rounded-3xl p-10 md:p-14 border border-outline-variant/10 hover:shadow-xl transition-all block"
+              >
+                <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-[80px] -z-10 group-hover:scale-150 transition-transform duration-700" aria-hidden="true" />
+                <div className="material-symbols-outlined text-6xl text-secondary mb-6" aria-hidden="true">diversity_3</div>
+                <h2 className="font-headline-lg text-headline-lg font-bold mb-4">
+                  {locale === "ar" ? "بيئة العمل والثقافة" : "Work Environment & Culture"}
+                </h2>
+                <p className="font-body-md text-body-md opacity-90 mb-8 max-w-md">
+                  {locale === "ar" 
+                    ? "اكتشف كيف نبني بيئة عمل تدعم الابتكار، التعلم المستمر، والمرونة. نحن نركز على المخرجات وليس ساعات العمل."
+                    : "Discover how we build a work environment that supports innovation, continuous learning, and flexibility."}
+                </p>
+                <div className="inline-flex items-center gap-2 text-secondary font-bold group-hover:translate-x-[-8px] transition-transform">
+                  {locale === "ar" ? "استكشف بيئة العمل" : "Explore Culture"}
+                  <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">arrow_forward</span>
                 </div>
-              </div>
+              </Link>
 
-              <div className="md:col-span-3 text-right">
-                <form onSubmit={handleFormSubmit} className="bg-surface-container-lowest p-10 rounded-2xl border border-outline-variant/30 shadow-sm space-y-6" id="career-form">
-                  <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="block text-right font-label-md text-label-md text-on-surface-variant">{t("careers.fullNameLabel")}</label>
-                      <input name="name" className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right" placeholder={t("careers.namePlaceholder")} type="text" required />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="block text-right font-label-md text-label-md text-on-surface-variant">{t("careers.emailLabel")}</label>
-                      <input name="email" className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right" placeholder={t("careers.emailPlaceholder")} type="email" required />
-                    </div>
-                  </div>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="block text-right font-label-md text-label-md text-on-surface-variant">{t("careers.phoneLabel")}</label>
-                      <input name="phone" className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right" placeholder={t("careers.phonePlaceholder")} type="tel" required />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="block text-right font-label-md text-label-md text-on-surface-variant">{t("careers.positionLabel")}</label>
-                      <select name="position" className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right">
-                        <option>{t("careers.positions.web")}</option>
-                        <option>{t("careers.positions.mobile")}</option>
-                        <option>{t("careers.positions.ai")}</option>
-                        <option>{t("careers.positions.ux")}</option>
-                        <option>{t("careers.positions.erp")}</option>
-                        <option>{t("careers.positions.sales")}</option>
-                        <option>{t("careers.positions.other")}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block text-right font-label-md text-label-md text-on-surface-variant">{t("careers.resumeLabel")}</label>
-                    <div className="relative group border-2 border-dashed border-outline-variant/50 rounded-xl p-8 transition-colors hover:border-secondary/50 bg-background/50 flex flex-col items-center justify-center gap-2 cursor-pointer">
-                      <input name="resume" className="absolute inset-0 opacity-0 cursor-pointer" type="file" required />
-                      <span className="material-symbols-outlined text-secondary text-4xl" aria-hidden="true">cloud_upload</span>
-                      <span className="font-body-md text-body-md text-on-surface-variant">{t("careers.resumePrompt")}</span>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="block text-right font-label-md text-label-md text-on-surface-variant">{t("careers.coverLetterLabel")}</label>
-                    <textarea name="cover_letter" className="w-full bg-background border border-outline-variant/30 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all text-right" placeholder={t("careers.coverLetterPlaceholder")} rows={4} />
-                  </div>
-                  <button disabled={mutation.isPending}
-                    className="w-full py-4 bg-primary text-on-primary rounded-xl font-headline-sm text-headline-sm hover:bg-primary/90 transition-all flex items-center justify-center gap-3 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:opacity-50"
-                    type="submit">
-                    {mutation.isPending ? t("careers.submitPending") : t("careers.submitButton")}
-                    <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">send</span>
-                  </button>
-                </form>
-              </div>
+              <Link 
+                to="/careers/jobs" 
+                className="group relative overflow-hidden bg-surface-container-lowest text-on-surface rounded-3xl p-10 md:p-14 border border-outline-variant/30 hover:border-secondary/50 hover:shadow-xl transition-all block"
+              >
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -z-10 group-hover:scale-150 transition-transform duration-700" aria-hidden="true" />
+                <div className="material-symbols-outlined text-6xl text-primary mb-6" aria-hidden="true">work</div>
+                <h2 className="font-headline-lg text-headline-lg font-bold mb-4">
+                  {locale === "ar" ? "الوظائف المتاحة" : "Available Openings"}
+                </h2>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-8 max-w-md">
+                  {locale === "ar"
+                    ? "هل أنت مستعد للتحدي؟ تصفح الوظائف الشاغرة في مجالات تطوير البرمجيات، الذكاء الاصطناعي، المبيعات والمزيد وانضم إلينا."
+                    : "Ready for a challenge? Browse open positions in software development, AI, sales, and more."}
+                </p>
+                <div className="inline-flex items-center gap-2 text-primary font-bold group-hover:translate-x-[-8px] transition-transform">
+                  {locale === "ar" ? "تصفح الوظائف المتاحة" : "Browse Jobs"}
+                  <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">arrow_forward</span>
+                </div>
+              </Link>
             </div>
           </Container>
-        </section>
+        </Section>
       </main>
     </PageLayout>
   );
