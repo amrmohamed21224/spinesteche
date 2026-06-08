@@ -1,40 +1,64 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { PageLayout } from "../../components/layout/PageLayout";
 import { Container } from "../../components/layout/Container";
 import { Section } from "../../components/layout/Section";
+import { StateFeedback } from "../../components/layout/StateFeedback";
 import { seo } from "../../lib/seo";
 import { useTranslation } from "../../i18n";
 import { getSectors } from "../../lib/api/fetchers";
 import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/sectors/$slug")({
-  loader: async ({ params }) => {
-    // In a real app we'd fetch the specific sector by slug.
-    // For now, fetch all and find it.
-    const sectors = await getSectors("ar");
-    const sector = sectors.find((s) => s.slug === params.slug);
-    if (!sector) {
-      throw notFound();
-    }
-    return { sector };
-  },
-  head: ({ loaderData }) =>
+  head: () =>
     seo({
-      title: loaderData.sector.title,
-      description: loaderData.sector.description,
+      title: "تفاصيل القطاع",
+      description: "تفاصيل القطاع من SpinesTech",
     }),
   component: SectorDetailPage,
 });
 
 function SectorDetailPage() {
-  const { sector } = Route.useLoaderData();
+  const { slug } = Route.useParams();
   const { t, locale, dir } = useTranslation();
   const [visible, setVisible] = useState(false);
+
+  const { data: sector, isLoading, isError } = useQuery({
+    queryKey: ["sector", slug, locale],
+    queryFn: async () => {
+      const sectors = await getSectors(locale);
+      return sectors.find((s) => s.slug === slug) || null;
+    },
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  if (isLoading) {
+    return (
+      <PageLayout>
+        <main className="min-h-screen pt-32 pb-24 bg-background">
+          <Container clean>
+            <StateFeedback type="loading" />
+          </Container>
+        </main>
+      </PageLayout>
+    );
+  }
+
+  if (isError || !sector) {
+    return (
+      <PageLayout>
+        <main className="min-h-screen pt-32 pb-24 bg-background">
+          <Container clean>
+            <StateFeedback type="empty" message={locale === "ar" ? "لم يتم العثور على القطاع" : "Sector not found"} />
+          </Container>
+        </main>
+      </PageLayout>
+    );
+  }
 
   // Generic mock data for the detail page to look rich
   const solutions = [
