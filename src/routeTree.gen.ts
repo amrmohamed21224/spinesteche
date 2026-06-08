@@ -24,6 +24,7 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services/index'
+import { Route as SectorsIndexRouteImport } from './routes/sectors/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies/index'
 import { Route as CareersIndexRouteImport } from './routes/careers/index'
@@ -110,6 +111,11 @@ const ServicesIndexRoute = ServicesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ServicesRoute,
 } as any)
+const SectorsIndexRoute = SectorsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SectorsRoute,
+} as any)
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -186,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/careers/': typeof CareersIndexRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/sectors/': typeof SectorsIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -196,7 +203,6 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
-  '/sectors': typeof SectorsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
@@ -209,6 +215,7 @@ export interface FileRoutesByTo {
   '/careers': typeof CareersIndexRoute
   '/case-studies': typeof CaseStudiesIndexRoute
   '/products': typeof ProductsIndexRoute
+  '/sectors': typeof SectorsIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
@@ -237,6 +244,7 @@ export interface FileRoutesById {
   '/careers/': typeof CareersIndexRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/sectors/': typeof SectorsIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -266,6 +274,7 @@ export interface FileRouteTypes {
     | '/careers/'
     | '/case-studies/'
     | '/products/'
+    | '/sectors/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -276,7 +285,6 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/quote'
     | '/robots.txt'
-    | '/sectors'
     | '/sitemap.xml'
     | '/solutions'
     | '/careers/$slug'
@@ -289,6 +297,7 @@ export interface FileRouteTypes {
     | '/careers'
     | '/case-studies'
     | '/products'
+    | '/sectors'
     | '/services'
   id:
     | '__root__'
@@ -316,6 +325,7 @@ export interface FileRouteTypes {
     | '/careers/'
     | '/case-studies/'
     | '/products/'
+    | '/sectors/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
@@ -443,6 +453,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesIndexRouteImport
       parentRoute: typeof ServicesRoute
     }
+    '/sectors/': {
+      id: '/sectors/'
+      path: '/'
+      fullPath: '/sectors/'
+      preLoaderRoute: typeof SectorsIndexRouteImport
+      parentRoute: typeof SectorsRoute
+    }
     '/products/': {
       id: '/products/'
       path: '/'
@@ -563,10 +580,12 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 
 interface SectorsRouteChildren {
   SectorsSlugRoute: typeof SectorsSlugRoute
+  SectorsIndexRoute: typeof SectorsIndexRoute
 }
 
 const SectorsRouteChildren: SectorsRouteChildren = {
   SectorsSlugRoute: SectorsSlugRoute,
+  SectorsIndexRoute: SectorsIndexRoute,
 }
 
 const SectorsRouteWithChildren =

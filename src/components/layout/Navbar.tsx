@@ -55,7 +55,10 @@ export function Navbar() {
                 aria-label={t("nav.openMenu")}
                 aria-expanded={menuOpen}
               >
-                <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform" aria-hidden="true">
+                <span
+                  className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform"
+                  aria-hidden="true"
+                >
                   {menuOpen ? "close" : "menu"}
                 </span>
               </button>
@@ -75,10 +78,14 @@ export function Navbar() {
               >
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b border-outline-variant/20 bg-surface/50 backdrop-blur-md">
-                  <Link to="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-3">
-                    <img 
-                      src="/images/brand/icon.png" 
-                      alt="SpinesTech Logo" 
+                  <Link
+                    to="/"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-3"
+                  >
+                    <img
+                      src="/images/brand/icon.png"
+                      alt="SpinesTech Logo"
                       className="h-10 w-auto object-contain drop-shadow-sm"
                     />
                   </Link>
@@ -104,16 +111,32 @@ export function Navbar() {
                     <MobileNavLink to="/about" onNavigate={() => setMenuOpen(false)} icon="info">
                       {t("nav.about")}
                     </MobileNavLink>
-                    <MobileNavLink to="/services" onNavigate={() => setMenuOpen(false)} icon="design_services">
+                    <MobileNavLink
+                      to="/services"
+                      onNavigate={() => setMenuOpen(false)}
+                      icon="design_services"
+                    >
                       {t("nav.services")}
                     </MobileNavLink>
-                    <MobileNavLink to="/products" onNavigate={() => setMenuOpen(false)} icon="inventory_2">
+                    <MobileNavLink
+                      to="/products"
+                      onNavigate={() => setMenuOpen(false)}
+                      icon="inventory_2"
+                    >
                       {t("nav.products")}
                     </MobileNavLink>
-                    <MobileNavLink to="/sectors" onNavigate={() => setMenuOpen(false)} icon="domain">
+                    <MobileNavLink
+                      to="/sectors"
+                      onNavigate={() => setMenuOpen(false)}
+                      icon="domain"
+                    >
                       {t("nav.sectors")}
                     </MobileNavLink>
-                    <MobileNavLink to="/case-studies" onNavigate={() => setMenuOpen(false)} icon="cases">
+                    <MobileNavLink
+                      to="/case-studies"
+                      onNavigate={() => setMenuOpen(false)}
+                      icon="cases"
+                    >
                       {t("nav.caseStudies")}
                     </MobileNavLink>
                     <MobileNavLink to="/careers" onNavigate={() => setMenuOpen(false)} icon="work">
@@ -153,10 +176,10 @@ export function Navbar() {
             className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded-lg py-1 group"
             aria-label={t("nav.homeAria")}
           >
-            <img 
-              src="/images/brand/icon.png" 
-              alt="SpinesTech Logo" 
-              className={`w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-all duration-300 ${scrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-20'}`}
+            <img
+              src="/images/brand/icon.png"
+              alt="SpinesTech Logo"
+              className={`w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-12 lg:h-14" : "h-14 lg:h-20"}`}
             />
           </Link>
         </div>
@@ -222,10 +245,14 @@ function MobileNavLink({
       to={to}
       onClick={onNavigate}
       activeProps={{ className: "bg-secondary/10 text-secondary font-bold" }}
-      inactiveProps={{ className: "text-on-surface hover:bg-surface-container-highest hover:text-primary" }}
+      inactiveProps={{
+        className: "text-on-surface hover:bg-surface-container-highest hover:text-primary",
+      }}
       className="flex items-center gap-4 py-4 px-5 rounded-2xl font-label-lg transition-all"
     >
-      <span className="material-symbols-outlined opacity-70" aria-hidden="true">{icon}</span>
+      <span className="material-symbols-outlined opacity-70" aria-hidden="true">
+        {icon}
+      </span>
       {children}
     </Link>
   );

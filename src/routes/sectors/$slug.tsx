@@ -23,7 +23,11 @@ function SectorDetailPage() {
   const { t, locale, dir } = useTranslation();
   const [visible, setVisible] = useState(false);
 
-  const { data: sector, isLoading, isError } = useQuery({
+  const {
+    data: sector,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["sector", slug, locale],
     queryFn: async () => {
       const sectors = await getSectors(locale);
@@ -53,7 +57,10 @@ function SectorDetailPage() {
       <PageLayout>
         <main className="min-h-screen pt-32 pb-24 bg-background">
           <Container clean>
-            <StateFeedback type="empty" message={locale === "ar" ? "لم يتم العثور على القطاع" : "Sector not found"} />
+            <StateFeedback
+              type="empty"
+              message={locale === "ar" ? "لم يتم العثور على القطاع" : "Sector not found"}
+            />
           </Container>
         </main>
       </PageLayout>
@@ -65,17 +72,26 @@ function SectorDetailPage() {
     {
       icon: "insights",
       title: locale === "ar" ? "تحليلات متقدمة" : "Advanced Analytics",
-      desc: locale === "ar" ? "قرارات مبنية على البيانات لتعزيز الأداء والنمو." : "Data-driven decisions to boost performance.",
+      desc:
+        locale === "ar"
+          ? "قرارات مبنية على البيانات لتعزيز الأداء والنمو."
+          : "Data-driven decisions to boost performance.",
     },
     {
       icon: "cloud_sync",
       title: locale === "ar" ? "بنية سحابية موثوقة" : "Reliable Cloud",
-      desc: locale === "ar" ? "أنظمة تعمل بكفاءة عالية على مدار الساعة بلا توقف." : "High-availability systems running 24/7.",
+      desc:
+        locale === "ar"
+          ? "أنظمة تعمل بكفاءة عالية على مدار الساعة بلا توقف."
+          : "High-availability systems running 24/7.",
     },
     {
       icon: "security",
       title: locale === "ar" ? "أمان سيبراني متكامل" : "Integrated Security",
-      desc: locale === "ar" ? "حماية تامة لبياناتك وعملائك من التهديدات الحديثة." : "Total protection for your data and customers.",
+      desc:
+        locale === "ar"
+          ? "حماية تامة لبياناتك وعملائك من التهديدات الحديثة."
+          : "Total protection for your data and customers.",
     },
   ];
 
@@ -85,10 +101,14 @@ function SectorDetailPage() {
         {/* ───── GRAND HERO SECTION ───── */}
         <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden bg-surface-container-lowest border-b border-outline-variant/30">
           <div className="absolute inset-0 pattern-bg opacity-5" aria-hidden="true" />
-          
+
           {sector.image && (
             <div className="absolute inset-0 z-0">
-              <img src={sector.image} alt="" className="w-full h-full object-cover opacity-[0.03] scale-105" />
+              <img
+                src={sector.image}
+                alt=""
+                className="w-full h-full object-cover opacity-[0.03] scale-105"
+              />
               <div className="absolute inset-0 bg-gradient-to-b from-surface-container-lowest via-surface-container-lowest/80 to-surface-container-lowest" />
             </div>
           )}
@@ -118,11 +138,11 @@ function SectorDetailPage() {
                 <div className="inline-flex items-center justify-center size-20 rounded-2xl bg-secondary/10 text-secondary mb-8 shadow-sm border border-secondary/20">
                   <span className="material-symbols-outlined text-[40px]">{sector.icon}</span>
                 </div>
-                
+
                 <h1 className="font-display-xl text-[3rem] lg:text-[4rem] font-bold leading-tight text-primary mb-6">
                   {sector.title}
                 </h1>
-                
+
                 <p className="font-body-xl text-2xl text-on-surface-variant leading-relaxed mb-10 max-w-2xl">
                   {sector.description}
                 </p>
@@ -130,7 +150,10 @@ function SectorDetailPage() {
                 {sector.tags && sector.tags.length > 0 && (
                   <div className="flex flex-wrap gap-3 mb-10">
                     {sector.tags.map((tag, idx) => (
-                      <span key={idx} className="px-4 py-2 rounded-full bg-surface text-primary border border-outline-variant/30 font-label-md shadow-sm">
+                      <span
+                        key={idx}
+                        className="px-4 py-2 rounded-full bg-surface text-primary border border-outline-variant/30 font-label-md shadow-sm"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -139,7 +162,7 @@ function SectorDetailPage() {
               </div>
 
               {sector.image && (
-                <div 
+                <div
                   className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-white/20"
                   style={{
                     opacity: visible ? 1 : 0,
@@ -147,7 +170,11 @@ function SectorDetailPage() {
                     transition: "all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
                   }}
                 >
-                  <img src={sector.image} alt={sector.title} className="w-full h-full object-cover" />
+                  <img
+                    src={sector.image}
+                    alt={sector.title}
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent mix-blend-overlay" />
                 </div>
               )}
@@ -163,17 +190,24 @@ function SectorDetailPage() {
                 {locale === "ar" ? "كيف نحدث فرقاً في هذا القطاع؟" : "How we make a difference"}
               </h2>
               <p className="font-body-lg text-lg text-on-surface-variant">
-                {locale === "ar" ? "نقدم مجموعة من الحلول المتكاملة التي تضمن تفوقك التقني وتلبية طموحات رؤية 2030." : "We offer integrated solutions ensuring your technical superiority."}
+                {locale === "ar"
+                  ? "نقدم مجموعة من الحلول المتكاملة التي تضمن تفوقك التقني وتلبية طموحات رؤية 2030."
+                  : "We offer integrated solutions ensuring your technical superiority."}
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {solutions.map((sol, i) => (
-                <div key={i} className="group p-10 rounded-3xl bg-surface-container-lowest border border-outline-variant/40 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                <div
+                  key={i}
+                  className="group p-10 rounded-3xl bg-surface-container-lowest border border-outline-variant/40 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                >
                   <div className="size-16 rounded-2xl bg-primary/5 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <span className="material-symbols-outlined text-[32px]">{sol.icon}</span>
                   </div>
-                  <h3 className="font-headline-md text-xl font-bold text-primary mb-4">{sol.title}</h3>
+                  <h3 className="font-headline-md text-xl font-bold text-primary mb-4">
+                    {sol.title}
+                  </h3>
                   <p className="font-body-md text-on-surface-variant leading-relaxed">{sol.desc}</p>
                 </div>
               ))}
@@ -185,16 +219,20 @@ function SectorDetailPage() {
         <section className="py-24 px-margin-desktop bg-primary text-white text-center relative overflow-hidden">
           <div className="absolute inset-0 islamic-pattern opacity-10" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary/95" />
-          
+
           <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
             <div className="inline-flex size-20 rounded-full bg-white/10 items-center justify-center mb-8 backdrop-blur-md border border-white/20">
-              <span className="material-symbols-outlined text-[40px] text-white">rocket_launch</span>
+              <span className="material-symbols-outlined text-[40px] text-white">
+                rocket_launch
+              </span>
             </div>
             <h2 className="font-display-md text-4xl lg:text-5xl font-bold mb-6">
               {locale === "ar" ? "جاهز للارتقاء بأعمالك؟" : "Ready to elevate your business?"}
             </h2>
             <p className="font-body-lg text-xl text-white/80 mb-10 max-w-xl leading-relaxed">
-              {locale === "ar" ? "تواصل معنا اليوم لتصميم حلول تقنية مخصصة تناسب احتياجات قطاعك بدقة." : "Contact us today for custom tech solutions."}
+              {locale === "ar"
+                ? "تواصل معنا اليوم لتصميم حلول تقنية مخصصة تناسب احتياجات قطاعك بدقة."
+                : "Contact us today for custom tech solutions."}
             </p>
             <Link
               to="/consultation"
