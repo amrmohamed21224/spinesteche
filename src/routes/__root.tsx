@@ -17,6 +17,7 @@ import { validateEnv } from "../config/env";
 import { monitoringClient } from "../lib/monitoring/client";
 import { LocaleProvider, LocaleHtmlSync, useTranslation } from "../i18n";
 import { ConsultationProvider } from "../contexts/ConsultationContext";
+import { ChatBot } from "../components/chatbot/ChatBot";
 
 function NotFoundComponent() {
   const { t, dir } = useTranslation();
@@ -155,6 +156,7 @@ function RootComponent() {
       <QueryClientProvider client={queryClient}>
         <ConsultationProvider>
           <Outlet />
+          <ChatBot />
         </ConsultationProvider>
       </QueryClientProvider>
     </LocaleProvider>
