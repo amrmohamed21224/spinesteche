@@ -60,7 +60,20 @@ export function Navbar() {
                 ].join(" ")}
               >
                 <div className="flex items-center justify-between px-5 py-4 border-b border-outline-variant/30">
-                  <span className="text-lg font-bold text-primary tracking-tight">SpinesTech</span>
+                  <div className="flex items-center gap-2">
+                    <img 
+                      src="/images/brand/logo.png" 
+                      alt="SpinesTech Logo" 
+                      className="h-8 w-auto object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        document.getElementById('drawer-brand-text')?.classList.remove('hidden');
+                      }}
+                    />
+                    <span id="drawer-brand-text" className="hidden text-lg font-bold text-primary tracking-tight">
+                      <span className="text-secondary">Spines</span>Tech
+                    </span>
+                  </div>
                   <Dialog.Close asChild>
                     <button
                       type="button"
@@ -125,11 +138,22 @@ export function Navbar() {
 
           <Link
             to="/"
-            className="font-bold text-primary tracking-tight truncate max-w-[10rem] sm:max-w-none text-base sm:text-lg lg:text-headline-lg leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded py-1"
+            className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded py-1"
             aria-label={t("nav.homeAria")}
           >
-            <span className="text-secondary">Spines</span>
-            <span className="text-primary">Tech</span>
+            <img 
+              src="/images/brand/logo.png" 
+              alt="SpinesTech Logo" 
+              className="h-8 lg:h-10 w-auto object-contain"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                document.getElementById('nav-brand-text')?.classList.remove('hidden');
+              }}
+            />
+            <span id="nav-brand-text" className="hidden font-bold text-primary tracking-tight truncate max-w-[10rem] sm:max-w-none text-base sm:text-lg lg:text-headline-lg leading-none">
+              <span className="text-secondary">Spines</span>
+              <span className="text-primary">Tech</span>
+            </span>
           </Link>
         </div>
 

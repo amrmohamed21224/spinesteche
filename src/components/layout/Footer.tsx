@@ -13,14 +13,23 @@ export function Footer() {
     >
       <div className="max-w-container-max w-full grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 text-start">
         <div className="md:col-span-1">
-          <span className="font-headline-xl text-headline-xl font-bold text-on-primary mb-6 block">
-            <Link
-              to="/"
-              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
-            >
+          <Link
+            to="/"
+            className="flex items-center gap-2 mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded"
+          >
+            <img 
+              src="/images/brand/logo-light.png" 
+              alt="SpinesTech Logo" 
+              className="h-10 w-auto object-contain"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                document.getElementById('footer-brand-text')?.classList.remove('hidden');
+              }}
+            />
+            <span id="footer-brand-text" className="hidden font-headline-xl text-headline-xl font-bold text-on-primary">
               SpinesTech
-            </Link>
-          </span>
+            </span>
+          </Link>
           <p className="font-body-md text-on-surface-variant opacity-80 leading-relaxed">
             {t("footer.tagline")}
           </p>
