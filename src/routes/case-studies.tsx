@@ -22,13 +22,6 @@ export const Route = createFileRoute("/case-studies")({
 
 type FilterKey = "all" | "retail" | "real-estate" | "ai";
 
-const filterConfig: Record<FilterKey, { label: string; icon: string }> = {
-  all: { label: "جميع الدراسات", icon: "grid_view" },
-  retail: { label: "التجزئة", icon: "shopping_bag" },
-  "real-estate": { label: "العقارات", icon: "domain" },
-  ai: { label: "الذكاء الاصطناعي", icon: "psychology" },
-};
-
 function Page() {
   const { t, locale, dir } = useTranslation();
   const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
@@ -78,19 +71,26 @@ function Page() {
       : caseStudies.filter((study) => getCategoryKey(study.sector) === activeFilter)
     : [];
 
+  const filters: { key: FilterKey; label: string; icon: string }[] = [
+    { key: "all",        label: t("caseStudies.filtersAll"),        icon: "grid_view"     },
+    { key: "retail",     label: t("caseStudies.filtersRetail"),     icon: "shopping_bag"  },
+    { key: "real-estate",label: t("caseStudies.filtersRealEstate"), icon: "domain"        },
+    { key: "ai",         label: t("caseStudies.filtersAi"),         icon: "psychology"    },
+  ];
+
   return (
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
 
-        {/* ───── HERO SECTION ───── */}
+        {/* ───── HERO ───── */}
         <section className="relative overflow-hidden bg-primary-container pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/15 blur-3xl" aria-hidden="true" />
-          <div className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
+          <div className="pointer-events-none absolute -top-32 end-0 w-[480px] h-[480px] rounded-full bg-secondary/15 blur-3xl" aria-hidden="true" />
+          <div className="pointer-events-none absolute bottom-0 start-0 w-[280px] h-[280px] rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
 
           <Container clean>
             <div
-              className="max-w-3xl mx-auto"
+              className="max-w-3xl"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "none" : "translateY(18px)",
@@ -98,10 +98,8 @@ function Page() {
               }}
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/30 bg-secondary/15 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
-                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
-                  case_studies
-                </span>
-                {t("caseStudies.heroTagline") || "دراسات الحالة"}
+                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">workspace_premium</span>
+                {locale === "ar" ? "قصص نجاح حقيقية" : "Real success stories"}
               </span>
 
               <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-on-primary mb-5">
@@ -112,147 +110,122 @@ function Page() {
                 {t("caseStudies.heroSubtitle")}
               </p>
 
-              {/* Privacy Notice */}
-              <div className="rounded-2xl border border-white/12 bg-white/6 backdrop-blur-sm p-5 flex items-start gap-4">
-                <span
-                  className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary/20 text-secondary-fixed"
-                  aria-hidden="true"
-                >
-                  <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                    lock
-                  </span>
+              {/* Privacy notice */}
+              <div className="inline-flex items-start gap-3 rounded-2xl border border-white/12 bg-white/6 backdrop-blur-sm p-4 max-w-xl">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary/20 text-secondary-fixed mt-0.5">
+                  <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">lock</span>
                 </span>
-                <p className="font-body-md text-on-primary/80">
-                  {t("caseStudies.privacyText") || "تفاصيل معينة قد تكون محمية بسبب الخصوصية والسرية."}
+                <p className="font-body-sm text-on-primary/80 leading-relaxed">
+                  {t("caseStudies.privacyText")}
                 </p>
               </div>
             </div>
           </Container>
         </section>
 
-        {/* ───── FILTERS SECTION ───── */}
-        <section className="sticky top-20 z-40 bg-background/95 backdrop-blur-md border-b border-outline-variant/20 py-6 px-margin-mobile md:px-margin-desktop">
+        {/* ───── FILTERS BAR ───── */}
+        <div className="bg-background/95 backdrop-blur-md border-b border-outline-variant/20 py-5 px-margin-mobile md:px-margin-desktop">
           <Container clean>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-              {/* Filter Buttons */}
-              <div className="flex flex-wrap gap-3">
-                {(["all", "retail", "real-estate", "ai"] as FilterKey[]).map((filter, i) => (
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex flex-wrap gap-2">
+                {filters.map((f) => (
                   <button
-                    key={filter}
-                    onClick={() => setActiveFilter(filter)}
-                    style={{
-                      transitionDelay: visible ? `${i * 50}ms` : "0ms",
-                    }}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-label-md text-label-md font-bold transition-all duration-250 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 ${
-                      activeFilter === filter
-                        ? "bg-secondary text-on-secondary shadow-lg shadow-secondary/25 -translate-y-0.5"
-                        : "bg-surface-container text-on-surface hover:bg-surface-container-high hover:-translate-y-0.5"
+                    key={f.key}
+                    onClick={() => setActiveFilter(f.key)}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-label-md transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 ${
+                      activeFilter === f.key
+                        ? "bg-secondary text-on-secondary shadow-md shadow-secondary/25 -translate-y-0.5"
+                        : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
                     }`}
                   >
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
-                      {filterConfig[filter].icon}
-                    </span>
-                    <span>{filterConfig[filter].label}</span>
+                    <span className="material-symbols-outlined text-[17px]" aria-hidden="true">{f.icon}</span>
+                    {f.label}
                   </button>
                 ))}
               </div>
-
-              {/* Count */}
-              <div className="text-on-surface-variant font-label-md font-medium">
+              <span className="text-on-surface-variant font-label-md shrink-0">
                 {locale === "ar"
                   ? `${filteredStudies.length} ${filteredStudies.length === 1 ? "دراسة" : "دراسات"}`
-                  : `${filteredStudies.length} case ${filteredStudies.length === 1 ? "study" : "studies"}`}
-              </div>
+                  : `${filteredStudies.length} ${filteredStudies.length === 1 ? "study" : "studies"}`}
+              </span>
             </div>
           </Container>
-        </section>
+        </div>
 
-        {/* ───── CASE STUDIES GRID ───── */}
+        {/* ───── CARDS GRID ───── */}
         <Section bg="none" noContainer>
-          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-20 md:py-28">
+          <Container clean className="px-margin-mobile md:px-margin-desktop py-14 md:py-20">
             {isLoading && <StateFeedback type="loading" />}
-            {isError && (
-              <StateFeedback type="error" message={t("caseStudies.loadError")} onRetry={refetch} />
-            )}
+            {isError && <StateFeedback type="error" message={t("caseStudies.loadError")} onRetry={refetch} />}
             {!isLoading && !isError && filteredStudies.length === 0 && (
               <StateFeedback type="empty" message={t("caseStudies.emptyMessage")} />
             )}
 
             {!isLoading && !isError && filteredStudies.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredStudies.map((study, index) => (
                   <article
                     key={study.id}
-                    className="group relative overflow-hidden rounded-2xl border border-outline-variant/40 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 flex flex-col h-full"
+                    className="group flex flex-col overflow-hidden rounded-2xl border border-outline-variant/40 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10"
                     style={{
                       opacity: visible ? 1 : 0,
                       transform: visible ? "none" : "translateY(20px)",
-                      transition: `opacity 0.5s ease ${index * 60}ms, transform 0.5s ease ${index * 60}ms, all 0.3s ease`,
+                      transition: `opacity 0.5s ease ${index * 55}ms, transform 0.5s ease ${index * 55}ms, box-shadow 0.3s ease, translate 0.3s ease`,
                     }}
                   >
-                    {/* Image Container */}
-                    <div className="relative h-56 overflow-hidden bg-surface-container">
+                    {/* Image */}
+                    <div className="relative h-52 overflow-hidden shrink-0 bg-surface-container">
                       <img
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         alt={study.title}
                         src={study.image}
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
-
-                      {/* Sector Badge */}
-                      <div
-                        className="absolute top-4 end-4 rounded-xl bg-secondary/90 backdrop-blur-sm text-on-secondary px-4 py-2 font-label-sm text-label-sm font-bold shadow-lg"
-                        style={{
-                          transform: "scale(0.95)",
-                          transition: "transform 0.3s ease",
-                        }}
-                      >
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" aria-hidden="true" />
+                      <span className="absolute top-4 end-4 rounded-lg bg-secondary/90 backdrop-blur-sm text-on-secondary px-3 py-1.5 text-caption font-bold shadow-md">
                         {study.sector}
-                      </div>
+                      </span>
                     </div>
 
-                    {/* Content */}
-                    <div className="flex-1 flex flex-col p-7 md:p-8">
-                      <h3 className="font-headline-sm text-headline-sm text-primary mb-5 font-bold leading-snug line-clamp-2">
+                    {/* Body */}
+                    <div className="flex flex-col flex-1 p-6 md:p-7">
+                      <h3 className="font-headline-sm text-headline-sm text-primary font-bold leading-snug mb-5 line-clamp-2">
                         {study.title}
                       </h3>
 
-                      {/* Challenge, Solution, Results */}
                       <div className="space-y-4 flex-1 mb-6">
                         <div>
-                          <p className="font-label-sm text-label-sm text-secondary font-bold mb-1.5 uppercase tracking-wide">
+                          <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1.5">
                             {t("caseStudies.challengeLabel")}
                           </p>
-                          <p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                          <p className="font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
                             {study.challenge}
                           </p>
                         </div>
 
                         <div>
-                          <p className="font-label-sm text-label-sm text-secondary font-bold mb-1.5 uppercase tracking-wide">
+                          <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1.5">
                             {t("caseStudies.solutionLabel")}
                           </p>
-                          <p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                          <p className="font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
                             {study.solution}
                           </p>
                         </div>
 
-                        <div className="rounded-xl bg-secondary/8 border border-secondary/20 p-4">
-                          <p className="font-label-sm text-label-sm text-secondary font-bold mb-1.5 uppercase tracking-wide">
+                        <div className="rounded-xl bg-secondary/8 border border-secondary/20 px-4 py-3">
+                          <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1">
                             {t("caseStudies.resultsLabel")}
                           </p>
-                          <p className="font-headline-xs text-headline-xs text-secondary font-bold">
+                          <p className="font-bold text-secondary leading-snug">
                             {study.result}
                           </p>
                         </div>
                       </div>
 
-                      {/* CTA Button */}
                       <Link
                         to="/case-studies/$slug"
                         params={{ slug: study.slug }}
-                        className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-secondary text-on-secondary font-bold text-label-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/25 group-hover:bg-secondary-fixed group-hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                        className="flex items-center justify-center gap-2 w-full rounded-xl bg-secondary py-3 font-bold text-on-secondary text-label-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                       >
                         {t("caseStudies.viewCaseStudyButton")}
                         <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
@@ -278,12 +251,10 @@ function Page() {
               <h2 className="font-display-md text-display-md-mobile md:text-display-md font-bold text-on-primary mb-6">
                 {t("caseStudies.ctaTitle")}
               </h2>
-
               <p className="font-body-lg text-body-lg text-on-primary/75 mb-10">
                 {t("caseStudies.ctaSubtitle")}
               </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/consultation"
                   className="flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-on-secondary font-bold rounded-xl transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
@@ -293,7 +264,6 @@ function Page() {
                     {locale === "ar" ? "arrow_back" : "arrow_forward"}
                   </span>
                 </Link>
-
                 <Link
                   to="/solutions"
                   className="flex items-center justify-center gap-2 px-8 py-4 border-2 border-secondary-fixed text-secondary-fixed font-bold rounded-xl transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
