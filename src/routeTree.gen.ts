@@ -23,6 +23,10 @@ import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesIndexRouteImport } from './routes/services/index'
+import { Route as ProductsIndexRouteImport } from './routes/products/index'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies/index'
+import { Route as CareersIndexRouteImport } from './routes/careers/index'
 import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
 import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies/$slug'
@@ -98,6 +102,26 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CaseStudiesRoute,
+} as any)
+const CareersIndexRoute = CareersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CareersRoute,
+} as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -138,26 +162,30 @@ export interface FileRoutesByFullPath {
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/careers/': typeof CareersIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/products/': typeof ProductsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/careers': typeof CareersRouteWithChildren
-  '/case-studies': typeof CaseStudiesRouteWithChildren
   '/consultation': typeof ConsultationRoute
   '/contact': typeof ContactRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRouteWithChildren
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sectors': typeof SectorsRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/careers': typeof CareersIndexRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
+  '/products': typeof ProductsIndexRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -179,6 +207,10 @@ export interface FileRoutesById {
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/careers/': typeof CareersIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/products/': typeof ProductsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -201,26 +233,30 @@ export interface FileRouteTypes {
     | '/case-studies/$slug'
     | '/products/$slug'
     | '/services/$slug'
+    | '/careers/'
+    | '/case-studies/'
+    | '/products/'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/careers'
-    | '/case-studies'
     | '/consultation'
     | '/contact'
     | '/pricing'
-    | '/products'
     | '/quote'
     | '/robots.txt'
     | '/sectors'
-    | '/services'
     | '/sitemap.xml'
     | '/solutions'
     | '/careers/$slug'
     | '/case-studies/$slug'
     | '/products/$slug'
     | '/services/$slug'
+    | '/careers'
+    | '/case-studies'
+    | '/products'
+    | '/services'
   id:
     | '__root__'
     | '/'
@@ -241,6 +277,10 @@ export interface FileRouteTypes {
     | '/case-studies/$slug'
     | '/products/$slug'
     | '/services/$slug'
+    | '/careers/'
+    | '/case-studies/'
+    | '/products/'
+    | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -360,6 +400,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/products/': {
+      id: '/products/'
+      path: '/'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof CaseStudiesRoute
+    }
+    '/careers/': {
+      id: '/careers/'
+      path: '/'
+      fullPath: '/careers/'
+      preLoaderRoute: typeof CareersIndexRouteImport
+      parentRoute: typeof CareersRoute
+    }
     '/services/$slug': {
       id: '/services/$slug'
       path: '/$slug'
@@ -393,10 +461,12 @@ declare module '@tanstack/react-router' {
 
 interface CareersRouteChildren {
   CareersSlugRoute: typeof CareersSlugRoute
+  CareersIndexRoute: typeof CareersIndexRoute
 }
 
 const CareersRouteChildren: CareersRouteChildren = {
   CareersSlugRoute: CareersSlugRoute,
+  CareersIndexRoute: CareersIndexRoute,
 }
 
 const CareersRouteWithChildren =
@@ -404,10 +474,12 @@ const CareersRouteWithChildren =
 
 interface CaseStudiesRouteChildren {
   CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
 }
 
 const CaseStudiesRouteChildren: CaseStudiesRouteChildren = {
   CaseStudiesSlugRoute: CaseStudiesSlugRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
 }
 
 const CaseStudiesRouteWithChildren = CaseStudiesRoute._addFileChildren(
@@ -416,10 +488,12 @@ const CaseStudiesRouteWithChildren = CaseStudiesRoute._addFileChildren(
 
 interface ProductsRouteChildren {
   ProductsSlugRoute: typeof ProductsSlugRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 const ProductsRouteChildren: ProductsRouteChildren = {
   ProductsSlugRoute: ProductsSlugRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
 }
 
 const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
@@ -428,10 +502,12 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
 
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 const ServicesRouteChildren: ServicesRouteChildren = {
   ServicesSlugRoute: ServicesSlugRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
 }
 
 const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
