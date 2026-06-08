@@ -67,28 +67,35 @@ function Page() {
 
         {/* Hero Section */}
         <section
-          className="relative py-24 px-margin-desktop overflow-hidden bg-surface"
+          className="relative py-24 px-margin-desktop overflow-hidden bg-primary-container"
           aria-label={t("sectors.introAria")}
         >
-          <div className="absolute inset-0 pattern-bg" aria-hidden="true"></div>
+          <div className="absolute inset-0 islamic-pattern opacity-[0.04]" aria-hidden="true" style={{ backgroundSize: "260px" }}></div>
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(3,109,54,0.15) 0%, transparent 65%)", transform: "translate(30%, -30%)" }} aria-hidden="true" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(3,109,54,0.08) 0%, transparent 65%)", transform: "translate(-30%, 30%)" }} aria-hidden="true" />
           <Container clean>
             <div
               ref={heroReveal.ref}
               className={`max-w-container-max mx-auto relative z-10 flex flex-col items-center text-center transition-all duration-700
                 ${heroReveal.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
             >
-              <span className="inline-flex items-center gap-2 text-secondary font-label-md mb-4 px-4 py-1.5 rounded-full bg-secondary/8 border border-secondary/20">
+              <span className="inline-flex items-center gap-2 text-secondary font-label-md mb-6 px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/25">
                 <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
                 {t("sectors.heroTagline")}
               </span>
-              <h1 className="font-display-lg text-display-lg mb-6 text-primary font-bold">
+              <h1 className="font-display-lg text-display-lg mb-6 text-on-primary font-bold">
                 {t("sectors.heroTitle")}
               </h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+              <p className="font-body-lg text-body-lg text-on-primary-container max-w-2xl opacity-80">
                 {t("sectors.heroSubtitle")}
               </p>
             </div>
           </Container>
+          <div className="absolute bottom-0 inset-x-0 h-12 overflow-hidden pointer-events-none">
+            <svg viewBox="0 0 1440 48" preserveAspectRatio="none" className="w-full h-full" fill="var(--color-background)">
+              <path d="M0,48 C480,0 960,48 1440,24 L1440,48 Z" />
+            </svg>
+          </div>
         </section>
 
         {/* Industries Bento Grid */}
@@ -209,13 +216,16 @@ function Page() {
                   return (
                     <div
                       key={sector.id}
-                      className={`${gridClass} group relative overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest
-                        transition-all duration-500 hover:shadow-xl hover:border-secondary/30 hover:-translate-y-1
+                      className={`${gridClass} group relative overflow-hidden rounded-xl border border-outline-variant/40 bg-surface-container-lowest
+                        transition-all duration-500 hover:shadow-xl hover:shadow-secondary/8 hover:border-secondary/30 hover:-translate-y-1
                         ${gridReveal.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                       style={{ transitionDelay: `${delay}ms` }}
                     >
                       {/* top accent line on hover */}
                       <div className="absolute top-0 inset-x-0 h-0.5 bg-secondary origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                      {/* subtle green glow on hover */}
+                      <div className="absolute bottom-0 right-0 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                        style={{ background: "radial-gradient(circle, rgba(3,109,54,0.08) 0%, transparent 70%)" }} />
                       <div className="p-8 h-full flex flex-col">
                         <span
                           className="material-symbols-outlined text-secondary mb-4 text-left block transition-transform duration-300 group-hover:scale-110"
@@ -238,34 +248,36 @@ function Page() {
         </Section>
 
         {/* CTA Section */}
-        <section className="py-24 px-margin-desktop bg-surface-container-high relative overflow-hidden max-w-container-max mx-auto rounded-xl mb-16">
+        <section className="py-24 px-margin-desktop bg-primary-container relative overflow-hidden max-w-container-max mx-auto rounded-2xl mb-16">
+          <div className="absolute inset-0 islamic-pattern opacity-[0.04] rounded-2xl" style={{ backgroundSize: "220px" }} aria-hidden="true" />
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent" />
           <div
             ref={ctaReveal.ref}
             className={`max-w-container-max mx-auto flex flex-col items-center text-center relative z-10 transition-all duration-700
               ${ctaReveal.visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           >
-            <h2 className="font-headline-xl text-headline-xl mb-8 text-primary font-bold">
+            <h2 className="font-headline-xl text-headline-xl mb-8 text-on-primary font-bold">
               {t("sectors.ctaTitle")}
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
               <Link
                 to="/solutions"
                 search={{ source: "sectors-cta" }}
-                className="bg-primary text-on-primary px-10 py-4 rounded-lg font-label-md hover:scale-95 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                className="bg-secondary text-on-secondary px-10 py-4 rounded-lg font-label-md hover:bg-secondary/90 hover:scale-[1.02] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 shadow-lg shadow-secondary/20"
               >
                 {t("sectors.ctaPrimary")}
               </Link>
               <Link
                 to="/consultation"
                 search={{ source: "sectors-cta" }}
-                className="border border-secondary text-secondary px-10 py-4 rounded-lg font-label-md hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                className="border border-on-primary/20 text-on-primary px-10 py-4 rounded-lg font-label-md hover:border-secondary/40 hover:text-secondary transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
               >
                 {t("sectors.ctaSecondary")}
               </Link>
             </div>
           </div>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 rounded-full -mr-32 -mt-32" aria-hidden="true"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full -ml-48 -mb-48" aria-hidden="true"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 rounded-full -mr-32 -mt-32 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(3,109,54,0.15) 0%, transparent 65%)" }} aria-hidden="true"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full -ml-48 -mb-48 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(3,109,54,0.08) 0%, transparent 65%)" }} aria-hidden="true"></div>
         </section>
 
       </main>
