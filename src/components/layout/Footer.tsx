@@ -65,7 +65,7 @@ export function Footer() {
             className="group flex items-center gap-3 mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded inline-flex"
           >
             <img
-              src="/images/brand/logo-light.png"
+              src="/images/brand/icon.png"
               alt="SpinesTech Logo"
               className="h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform"
               onError={(e) => {

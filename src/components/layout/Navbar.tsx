@@ -10,10 +10,10 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Add scroll listener for dynamic navbar styling
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initialize
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -30,35 +30,32 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-out flex justify-center ${
-        scrolled ? "pt-4 px-4 sm:px-6 lg:px-8" : "pt-0 px-0"
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-out border-b ${
+        scrolled
+          ? "bg-surface/90 backdrop-blur-xl border-outline-variant/20 shadow-lg"
+          : "bg-surface/50 backdrop-blur-md border-transparent"
       }`}
       role="banner"
     >
       <nav
-        className={`relative flex items-center justify-between gap-3 transition-all duration-500 ease-out w-full max-w-[1400px] ${
-          scrolled
-            ? "h-16 lg:h-20 bg-surface/80 backdrop-blur-xl border border-outline-variant/40 shadow-xl shadow-surface/5 rounded-2xl px-4 sm:px-6 lg:px-8"
-            : "h-20 lg:h-24 bg-surface/95 backdrop-blur-md border-b border-outline-variant/20 px-4 sm:px-6 lg:px-margin-desktop"
+        className={`max-w-container-max w-full mx-auto px-4 sm:px-6 lg:px-margin-desktop flex items-center justify-between gap-4 transition-all duration-500 ease-out ${
+          scrolled ? "h-16 lg:h-20" : "h-20 lg:h-28"
         }`}
         role="navigation"
         aria-label={t("nav.mainNav")}
         dir={dir}
       >
         {/* Leading cluster: menu (mobile) + logo */}
-        <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1 lg:flex-none">
+        <div className="flex items-center gap-3 lg:gap-4 shrink-0">
           <Dialog.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <Dialog.Trigger asChild>
               <button
                 type="button"
-                className="lg:hidden relative group inline-flex items-center justify-center size-10 sm:size-12 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-primary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 shrink-0 transition-colors"
+                className="lg:hidden relative group inline-flex items-center justify-center size-10 rounded-xl bg-surface-container-lowest border border-outline-variant/30 text-primary cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 transition-colors hover:shadow-md"
                 aria-label={t("nav.openMenu")}
                 aria-expanded={menuOpen}
               >
-                <span
-                  className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform"
-                  aria-hidden="true"
-                >
+                <span className="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform" aria-hidden="true">
                   {menuOpen ? "close" : "menu"}
                 </span>
               </button>
@@ -78,23 +75,20 @@ export function Navbar() {
               >
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between px-6 py-5 border-b border-outline-variant/20 bg-surface/50 backdrop-blur-md">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src="/images/brand/logo.png"
-                      alt="SpinesTech Logo"
-                      className="h-9 w-auto object-contain drop-shadow-sm"
+                  <Link to="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-3">
+                    <img 
+                      src="/images/brand/icon.png" 
+                      alt="SpinesTech Logo" 
+                      className="h-10 w-auto object-contain drop-shadow-sm"
                       onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                        document.getElementById("drawer-brand-text")?.classList.remove("hidden");
+                        e.currentTarget.style.display = 'none';
+                        document.getElementById('drawer-brand-text')?.classList.remove('hidden');
                       }}
                     />
-                    <span
-                      id="drawer-brand-text"
-                      className="hidden text-xl font-bold text-primary tracking-tight"
-                    >
+                    <span id="drawer-brand-text" className="hidden text-xl font-bold text-primary tracking-tight">
                       <span className="text-secondary">Spines</span>Tech
                     </span>
-                  </div>
+                  </Link>
                   <Dialog.Close asChild>
                     <button
                       type="button"
@@ -117,32 +111,16 @@ export function Navbar() {
                     <MobileNavLink to="/about" onNavigate={() => setMenuOpen(false)} icon="info">
                       {t("nav.about")}
                     </MobileNavLink>
-                    <MobileNavLink
-                      to="/services"
-                      onNavigate={() => setMenuOpen(false)}
-                      icon="design_services"
-                    >
+                    <MobileNavLink to="/services" onNavigate={() => setMenuOpen(false)} icon="design_services">
                       {t("nav.services")}
                     </MobileNavLink>
-                    <MobileNavLink
-                      to="/products"
-                      onNavigate={() => setMenuOpen(false)}
-                      icon="inventory_2"
-                    >
+                    <MobileNavLink to="/products" onNavigate={() => setMenuOpen(false)} icon="inventory_2">
                       {t("nav.products")}
                     </MobileNavLink>
-                    <MobileNavLink
-                      to="/sectors"
-                      onNavigate={() => setMenuOpen(false)}
-                      icon="domain"
-                    >
+                    <MobileNavLink to="/sectors" onNavigate={() => setMenuOpen(false)} icon="domain">
                       {t("nav.sectors")}
                     </MobileNavLink>
-                    <MobileNavLink
-                      to="/case-studies"
-                      onNavigate={() => setMenuOpen(false)}
-                      icon="cases"
-                    >
+                    <MobileNavLink to="/case-studies" onNavigate={() => setMenuOpen(false)} icon="cases">
                       {t("nav.caseStudies")}
                     </MobileNavLink>
                     <MobileNavLink to="/careers" onNavigate={() => setMenuOpen(false)} icon="work">
@@ -182,27 +160,23 @@ export function Navbar() {
             className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded-lg py-1 group"
             aria-label={t("nav.homeAria")}
           >
-            <img
-              src="/images/brand/logo.png"
-              alt="SpinesTech Logo"
-              className="h-10 sm:h-12 lg:h-14 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform"
+            <img 
+              src="/images/brand/icon.png" 
+              alt="SpinesTech Logo" 
+              className={`w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-all duration-300 ${scrolled ? 'h-10 lg:h-12' : 'h-12 lg:h-16'}`}
               onError={(e) => {
-                e.currentTarget.style.display = "none";
-                document.getElementById("nav-brand-text")?.classList.remove("hidden");
+                e.currentTarget.style.display = 'none';
+                document.getElementById('nav-brand-text')?.classList.remove('hidden');
               }}
             />
-            <span
-              id="nav-brand-text"
-              className="hidden font-display-sm text-display-sm text-primary tracking-tight truncate max-w-[10rem] sm:max-w-none leading-none"
-            >
-              <span className="text-secondary">Spines</span>
-              <span className="text-primary">Tech</span>
+            <span id="nav-brand-text" className="hidden font-display-sm text-display-sm text-primary tracking-tight leading-none">
+              <span className="text-secondary">Spines</span>Tech
             </span>
           </Link>
         </div>
 
         {/* Desktop navigation */}
-        <div className="hidden lg:flex items-center gap-1 xl:gap-2 mx-4 bg-surface-container-lowest/50 border border-outline-variant/20 rounded-full px-2 py-1.5 shadow-inner">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-8 mx-auto flex-1 justify-center">
           <NavLink to="/">{t("nav.home")}</NavLink>
           <NavLink to="/about">{t("nav.about")}</NavLink>
           <NavLink to="/services">{t("nav.services")}</NavLink>
@@ -214,11 +188,11 @@ export function Navbar() {
         </div>
 
         {/* Desktop actions only */}
-        <div className="hidden lg:flex items-center gap-3 shrink-0">
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
           <button
             type="button"
             onClick={toggleLocale}
-            className="group flex items-center justify-center size-12 rounded-full border border-outline-variant/30 text-on-surface-variant cursor-pointer font-label-md hover:text-primary hover:bg-surface-container hover:border-primary/30 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+            className="group flex items-center justify-center size-12 rounded-full border border-outline-variant/30 text-on-surface-variant cursor-pointer font-label-md hover:text-primary hover:bg-surface-container hover:border-primary/30 hover:shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             aria-label={locale === "ar" ? t("nav.switchToEnglish") : t("nav.switchToArabic")}
             title={locale === "ar" ? t("nav.switchToEnglish") : t("nav.switchToArabic")}
           >
@@ -229,7 +203,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={openConsultation}
-            className="group relative overflow-hidden bg-primary text-on-primary font-label-lg py-3 px-8 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 whitespace-nowrap shadow-md hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-0.5 transition-all duration-300"
+            className="group relative overflow-hidden bg-primary text-on-primary font-label-lg py-3.5 px-8 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 whitespace-nowrap shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300"
             aria-label={t("nav.bookConsultation")}
           >
             <span className="relative z-10 flex items-center gap-2">
@@ -262,14 +236,10 @@ function MobileNavLink({
       to={to}
       onClick={onNavigate}
       activeProps={{ className: "bg-secondary/10 text-secondary font-bold" }}
-      inactiveProps={{
-        className: "text-on-surface hover:bg-surface-container-highest hover:text-primary",
-      }}
+      inactiveProps={{ className: "text-on-surface hover:bg-surface-container-highest hover:text-primary" }}
       className="flex items-center gap-4 py-4 px-5 rounded-2xl font-label-lg transition-all"
     >
-      <span className="material-symbols-outlined opacity-70" aria-hidden="true">
-        {icon}
-      </span>
+      <span className="material-symbols-outlined opacity-70" aria-hidden="true">{icon}</span>
       {children}
     </Link>
   );
@@ -280,12 +250,12 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
     <Link
       to={to}
       activeProps={{
-        className: "bg-primary text-on-primary font-bold shadow-md",
+        className: "text-primary font-bold after:scale-x-100",
       }}
       inactiveProps={{
-        className: "text-on-surface-variant hover:text-primary hover:bg-surface-container-low",
+        className: "text-on-surface hover:text-primary after:scale-x-0 hover:after:scale-x-100",
       }}
-      className="font-label-md text-label-md whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-full px-4 py-2 transition-all duration-300"
+      className="relative font-label-lg text-label-lg whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-md px-1 py-2 transition-colors duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-secondary after:origin-left after:transition-transform after:duration-300"
     >
       {children}
     </Link>
