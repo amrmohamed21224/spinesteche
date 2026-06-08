@@ -33,7 +33,7 @@ export function Navbar() {
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-out border-b ${
         scrolled
           ? "bg-surface/90 backdrop-blur-xl border-outline-variant/20 shadow-lg"
-          : "bg-surface/50 backdrop-blur-md border-transparent"
+          : "bg-transparent border-transparent"
       }`}
       role="banner"
     >

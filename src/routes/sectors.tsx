@@ -57,14 +57,14 @@ function Page() {
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
         {/* ───── HERO SECTION ───── */}
-        <section className="relative overflow-hidden bg-primary-container pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
-          <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-background pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
+          <div className="islamic-pattern absolute inset-0 opacity-[0.02]" aria-hidden="true" />
           <div
-            className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/15 blur-3xl"
+            className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/10 blur-3xl"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl"
+            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-primary/5 blur-3xl"
             aria-hidden="true"
           />
 
@@ -77,29 +77,29 @@ function Page() {
                 transition: "opacity 0.65s ease, transform 0.65s ease",
               }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/30 bg-secondary/15 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
                 <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
                   domain
                 </span>
                 {t("sectors.heroTagline")}
               </span>
 
-              <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-on-primary mb-5">
+              <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-primary mb-5">
                 {t("sectors.heroTitle")}
               </h1>
 
-              <p className="font-body-lg text-body-lg text-on-primary/75 max-w-2xl mb-8">
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">
                 {t("sectors.heroSubtitle")}
               </p>
 
-              <div className="flex items-center gap-3 rounded-xl border border-white/12 bg-white/6 px-4 py-3 backdrop-blur-sm w-fit">
+              <div className="flex items-center gap-3 rounded-xl border border-outline-variant/30 bg-surface-container px-4 py-3 w-fit">
                 <span
-                  className="material-symbols-outlined text-secondary-fixed text-xl"
+                  className="material-symbols-outlined text-secondary text-xl"
                   aria-hidden="true"
                 >
                   auto_awesome
                 </span>
-                <p className="text-on-primary/80 font-body-sm">
+                <p className="text-on-surface font-body-sm font-bold">
                   {locale === "ar" ? "نخدم أكثر من 50 قطاع" : "Serving 50+ sectors globally"}
                 </p>
               </div>

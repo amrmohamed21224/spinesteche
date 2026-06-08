@@ -82,14 +82,14 @@ function Page() {
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
         {/* ───── HERO ───── */}
-        <section className="relative overflow-hidden bg-primary-container pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
-          <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+        <section className="relative overflow-hidden bg-background pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
+          <div className="islamic-pattern absolute inset-0 opacity-[0.02]" aria-hidden="true" />
           <div
-            className="pointer-events-none absolute -top-32 end-0 w-[480px] h-[480px] rounded-full bg-secondary/15 blur-3xl"
+            className="pointer-events-none absolute -top-32 end-0 w-[480px] h-[480px] rounded-full bg-secondary/10 blur-3xl"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute bottom-0 start-0 w-[280px] h-[280px] rounded-full bg-on-primary/5 blur-3xl"
+            className="pointer-events-none absolute bottom-0 start-0 w-[280px] h-[280px] rounded-full bg-primary/5 blur-3xl"
             aria-hidden="true"
           />
 
@@ -102,24 +102,24 @@ function Page() {
                 transition: "opacity 0.65s ease, transform 0.65s ease",
               }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/30 bg-secondary/15 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
                 <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
                   workspace_premium
                 </span>
                 {locale === "ar" ? "قصص نجاح حقيقية" : "Real success stories"}
               </span>
 
-              <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-on-primary mb-5">
+              <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-primary mb-5">
                 {t("caseStudies.heroTitle")}
               </h1>
 
-              <p className="font-body-lg text-body-lg text-on-primary/75 max-w-2xl mb-8">
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">
                 {t("caseStudies.heroSubtitle")}
               </p>
 
               {/* Privacy notice */}
-              <div className="inline-flex items-start gap-3 rounded-2xl border border-white/12 bg-white/6 backdrop-blur-sm p-4 max-w-xl">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary/20 text-secondary-fixed mt-0.5">
+              <div className="inline-flex items-start gap-3 rounded-2xl border border-outline-variant/30 bg-surface-container p-4 max-w-xl">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary mt-0.5">
                   <span
                     className="material-symbols-outlined text-[18px]"
                     style={{ fontVariationSettings: "'FILL' 1" }}
@@ -128,7 +128,7 @@ function Page() {
                     lock
                   </span>
                 </span>
-                <p className="font-body-sm text-on-primary/80 leading-relaxed">
+                <p className="font-body-sm text-on-surface leading-relaxed">
                   {t("caseStudies.privacyText")}
                 </p>
               </div>
