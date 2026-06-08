@@ -68,17 +68,7 @@ export function Footer() {
               src="/images/brand/icon.png"
               alt="SpinesTech Logo"
               className="h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-                document.getElementById("footer-brand-text")?.classList.remove("hidden");
-              }}
             />
-            <span
-              id="footer-brand-text"
-              className="hidden font-display-sm text-display-sm font-bold text-white tracking-tight"
-            >
-              SpinesTech
-            </span>
           </Link>
           <p className="font-body-md text-white/70 leading-relaxed mb-8 max-w-sm">
             {t("footer.tagline")}

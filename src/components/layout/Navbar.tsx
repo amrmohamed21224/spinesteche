@@ -80,14 +80,7 @@ export function Navbar() {
                       src="/images/brand/icon.png" 
                       alt="SpinesTech Logo" 
                       className="h-10 w-auto object-contain drop-shadow-sm"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        document.getElementById('drawer-brand-text')?.classList.remove('hidden');
-                      }}
                     />
-                    <span id="drawer-brand-text" className="hidden text-xl font-bold text-primary tracking-tight">
-                      <span className="text-secondary">Spines</span>Tech
-                    </span>
                   </Link>
                   <Dialog.Close asChild>
                     <button
@@ -164,14 +157,7 @@ export function Navbar() {
               src="/images/brand/icon.png" 
               alt="SpinesTech Logo" 
               className={`w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-all duration-300 ${scrolled ? 'h-10 lg:h-12' : 'h-12 lg:h-16'}`}
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                document.getElementById('nav-brand-text')?.classList.remove('hidden');
-              }}
             />
-            <span id="nav-brand-text" className="hidden font-display-sm text-display-sm text-primary tracking-tight leading-none">
-              <span className="text-secondary">Spines</span>Tech
-            </span>
           </Link>
         </div>
 
