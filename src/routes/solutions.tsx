@@ -115,18 +115,31 @@ function SolutionsPage() {
 
   return (
     <PageLayout>
-      <main className="pt-20 text-start" dir={dir}>
-        <section className="bg-primary-container py-16 md:py-24 text-on-primary">
-          <Container clean className="px-margin-mobile md:px-margin-desktop">
+      <main className="text-start bg-background" dir={dir}>
+        <section className="relative overflow-hidden bg-surface-container-lowest pt-28 pb-16 md:pt-36 md:pb-24">
+          <div
+            className="islamic-pattern absolute inset-0 opacity-[0.03] pointer-events-none"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/15 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
+
+          <Container clean className="relative z-10 px-margin-mobile md:px-margin-desktop">
             <div className="max-w-4xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/40 px-4 py-2 text-secondary-fixed font-label-md text-label-md">
+              <span className="inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/10 px-4 py-2 text-secondary font-label-md text-label-md">
                 <span className="material-symbols-outlined text-[18px]">route</span>
                 {c.eyebrow}
               </span>
-              <h1 className="mt-7 font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight">
+              <h1 className="mt-7 font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-primary">
                 {c.title}
               </h1>
-              <p className="mt-6 max-w-3xl font-body-lg text-body-lg text-on-primary-container">
+              <p className="mt-6 max-w-3xl font-body-lg text-body-lg text-on-surface-variant">
                 {c.subtitle}
               </p>
             </div>
