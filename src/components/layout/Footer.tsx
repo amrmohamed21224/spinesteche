@@ -58,12 +58,12 @@ export function Footer() {
         <div className="md:col-span-12 lg:col-span-4 pr-0 lg:pr-8">
           <Link
             to="/"
-            className="group flex items-center gap-3 mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded inline-flex"
+            className="group flex items-center gap-3 mb-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded inline-flex"
           >
             <img
               src="/images/brand/icon.png"
               alt="SpinesTech Logo"
-              className="h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform"
+              className="h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform"
             />
           </Link>
           <p className="font-body-md text-white/70 leading-relaxed mb-8 max-w-sm">

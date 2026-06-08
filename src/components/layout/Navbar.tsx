@@ -156,7 +156,7 @@ export function Navbar() {
             <img 
               src="/images/brand/icon.png" 
               alt="SpinesTech Logo" 
-              className={`w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-all duration-300 ${scrolled ? 'h-10 lg:h-12' : 'h-12 lg:h-16'}`}
+              className={`w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-all duration-300 ${scrolled ? 'h-12 lg:h-14' : 'h-14 lg:h-20'}`}
             />
           </Link>
         </div>

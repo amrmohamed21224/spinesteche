@@ -28,6 +28,7 @@ import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies/index'
 import { Route as CareersIndexRouteImport } from './routes/careers/index'
 import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
+import { Route as SectorsSlugRouteImport } from './routes/sectors/$slug'
 import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies/$slug'
 import { Route as CareersWorkEnvironmentRouteImport } from './routes/careers/work-environment'
@@ -129,6 +130,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
 } as any)
+const SectorsSlugRoute = SectorsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => SectorsRoute,
+} as any)
 const ProductsSlugRoute = ProductsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -166,7 +172,7 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRouteWithChildren
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
-  '/sectors': typeof SectorsRoute
+  '/sectors': typeof SectorsRouteWithChildren
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -175,6 +181,7 @@ export interface FileRoutesByFullPath {
   '/careers/work-environment': typeof CareersWorkEnvironmentRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/sectors/$slug': typeof SectorsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/careers/': typeof CareersIndexRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
@@ -189,7 +196,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
-  '/sectors': typeof SectorsRoute
+  '/sectors': typeof SectorsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
   '/careers/$slug': typeof CareersSlugRoute
@@ -197,6 +204,7 @@ export interface FileRoutesByTo {
   '/careers/work-environment': typeof CareersWorkEnvironmentRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/sectors/$slug': typeof SectorsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/careers': typeof CareersIndexRoute
   '/case-studies': typeof CaseStudiesIndexRoute
@@ -215,7 +223,7 @@ export interface FileRoutesById {
   '/products': typeof ProductsRouteWithChildren
   '/quote': typeof QuoteRoute
   '/robots.txt': typeof RobotsDottxtRoute
-  '/sectors': typeof SectorsRoute
+  '/sectors': typeof SectorsRouteWithChildren
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -224,6 +232,7 @@ export interface FileRoutesById {
   '/careers/work-environment': typeof CareersWorkEnvironmentRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/sectors/$slug': typeof SectorsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/careers/': typeof CareersIndexRoute
   '/case-studies/': typeof CaseStudiesIndexRoute
@@ -252,6 +261,7 @@ export interface FileRouteTypes {
     | '/careers/work-environment'
     | '/case-studies/$slug'
     | '/products/$slug'
+    | '/sectors/$slug'
     | '/services/$slug'
     | '/careers/'
     | '/case-studies/'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/careers/work-environment'
     | '/case-studies/$slug'
     | '/products/$slug'
+    | '/sectors/$slug'
     | '/services/$slug'
     | '/careers'
     | '/case-studies'
@@ -300,6 +311,7 @@ export interface FileRouteTypes {
     | '/careers/work-environment'
     | '/case-studies/$slug'
     | '/products/$slug'
+    | '/sectors/$slug'
     | '/services/$slug'
     | '/careers/'
     | '/case-studies/'
@@ -318,7 +330,7 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRouteWithChildren
   QuoteRoute: typeof QuoteRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
-  SectorsRoute: typeof SectorsRoute
+  SectorsRoute: typeof SectorsRouteWithChildren
   ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolutionsRoute: typeof SolutionsRoute
@@ -459,6 +471,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
     }
+    '/sectors/$slug': {
+      id: '/sectors/$slug'
+      path: '/$slug'
+      fullPath: '/sectors/$slug'
+      preLoaderRoute: typeof SectorsSlugRouteImport
+      parentRoute: typeof SectorsRoute
+    }
     '/products/$slug': {
       id: '/products/$slug'
       path: '/$slug'
@@ -542,6 +561,17 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
   ProductsRouteChildren,
 )
 
+interface SectorsRouteChildren {
+  SectorsSlugRoute: typeof SectorsSlugRoute
+}
+
+const SectorsRouteChildren: SectorsRouteChildren = {
+  SectorsSlugRoute: SectorsSlugRoute,
+}
+
+const SectorsRouteWithChildren =
+  SectorsRoute._addFileChildren(SectorsRouteChildren)
+
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -567,7 +597,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRouteWithChildren,
   QuoteRoute: QuoteRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
-  SectorsRoute: SectorsRoute,
+  SectorsRoute: SectorsRouteWithChildren,
   ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolutionsRoute: SolutionsRoute,

@@ -68,9 +68,9 @@ function Page() {
             aria-hidden="true"
           />
 
-          <Container clean>
+          <Container clean className="max-w-container-max mx-auto px-margin-desktop relative z-10">
             <div
-              className="max-w-3xl mx-auto"
+              className="max-w-3xl text-start"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "none" : "translateY(18px)",
@@ -84,22 +84,22 @@ function Page() {
                 {t("sectors.heroTagline")}
               </span>
 
-              <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-tight text-primary mb-5">
+              <h1 className="font-display-lg text-display-lg-mobile md:text-[3.5rem] font-bold leading-[1.1] text-primary mb-6">
                 {t("sectors.heroTitle")}
               </h1>
 
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">
+              <p className="font-body-lg text-body-lg md:text-xl text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
                 {t("sectors.heroSubtitle")}
               </p>
 
-              <div className="flex items-center gap-3 rounded-xl border border-outline-variant/30 bg-surface-container px-4 py-3 w-fit">
+              <div className="flex items-center gap-3 rounded-xl border border-outline-variant/30 bg-white/50 backdrop-blur-md px-5 py-4 w-fit shadow-sm">
                 <span
-                  className="material-symbols-outlined text-secondary text-xl"
+                  className="material-symbols-outlined text-secondary text-[28px]"
                   aria-hidden="true"
                 >
                   auto_awesome
                 </span>
-                <p className="text-on-surface font-body-sm font-bold">
+                <p className="text-primary font-bold text-label-lg">
                   {locale === "ar" ? "نخدم أكثر من 50 قطاع" : "Serving 50+ sectors globally"}
                 </p>
               </div>
@@ -119,7 +119,7 @@ function Page() {
             )}
 
             {!isLoading && !isError && sectors && sectors.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
                 {sectors.map((sector, index) => {
                   const gridClass = getGridClasses(sector.layout);
                   const isAccent = sector.layout === "accent";
@@ -128,9 +128,11 @@ function Page() {
                   // ───── ACCENT LAYOUT (Dark bg) ─────
                   if (isAccent || isTallAccent) {
                     return (
-                      <div
+                      <Link
+                        to="/sectors/$slug"
+                        params={{ slug: sector.slug }}
                         key={sector.id}
-                        className={`${gridClass} group relative overflow-hidden rounded-2xl border border-white/10 bg-primary-container text-on-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50`}
+                        className={`${gridClass} group relative overflow-hidden rounded-2xl border border-white/10 bg-primary-container text-on-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/20 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50`}
                         style={{
                           opacity: visible ? 1 : 0,
                           transform: visible ? "none" : "translateY(16px)",
@@ -170,16 +172,18 @@ function Page() {
                             </div>
                           )}
                         </div>
-                      </div>
+                      </Link>
                     );
                   }
 
                   // ───── FEATURED / TALL WITH IMAGE ─────
                   if (sector.image) {
                     return (
-                      <div
+                      <Link
+                        to="/sectors/$slug"
+                        params={{ slug: sector.slug }}
                         key={sector.id}
-                        className={`${gridClass} group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50`}
+                        className={`${gridClass} group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest transition-all duration-300 hover:-translate-y-1 hover:shadow-xl block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50`}
                         style={{
                           opacity: visible ? 1 : 0,
                           transform: visible ? "none" : "translateY(16px)",
@@ -227,15 +231,17 @@ function Page() {
                             {sector.description}
                           </p>
                         </div>
-                      </div>
+                      </Link>
                     );
                   }
 
                   // ───── DEFAULT CARD (No image, light bg) ─────
                   return (
-                    <div
+                    <Link
+                      to="/sectors/$slug"
+                      params={{ slug: sector.slug }}
                       key={sector.id}
-                      className={`${gridClass} group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-secondary/10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50`}
+                      className={`${gridClass} group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-secondary/10 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50`}
                       style={{
                         opacity: visible ? 1 : 0,
                         transform: visible ? "none" : "translateY(16px)",
@@ -270,7 +276,7 @@ function Page() {
                           </span>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>

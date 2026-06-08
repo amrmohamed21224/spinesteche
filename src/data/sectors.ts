@@ -8,8 +8,7 @@ export const mockSectors: CMSSector[] = [
       "حلول نقاط البيع المتقدمة، منصات التجارة الإلكترونية، وأنظمة إدارة المخازن الذكية المدعومة بالذكاء الاصطناعي.",
     icon: "shopping_bag",
     slug: "retail-ecommerce",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuClnPIS2ndWVOS2-vMv9LKzVSxWHcSHtvyJ4pjDPLZrbuGhi8GYYc6BBdkC5TEefqMzKeGeQac9kGa2UT_C_w2E_q0LTYr3vJfVsNfiFj1E-X7OmH-hdpUfhXVDp1c8lvmaN2nGoFURM1gab_z55yWnpvBTOuLLmVO0kxnOu9QGiAQg6RSo4lA4L3nrAhzBKPtjuxtykCrfc8ijS6LgpC4rbB9UzBXUNaYLd_30TZKt8T1wDcMJ4fHSUqT0IJKuBn-91gaZKSUJgcg",
+    image: "/images/sectors/retail-ecommerce.png",
     layout: "featured",
   },
   {
@@ -37,8 +36,7 @@ export const mockSectors: CMSSector[] = [
       "منصات التعليم الإلكتروني الهجينة وأنظمة إدارة التعلم (LMS) للمؤسسات التعليمية والشركات.",
     icon: "school",
     slug: "education",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCbDCEqOqfJhw7Y_HxzUd4FtmqltrYrwgYYJ9mfzSKYWJHYljmJnY0TT8cQoLEZjju3dtgEol-mhFSWYOpz2lJkRTMaYRoOyyE6NWcSg6ZJyJVHevb1PEji1ZsB_OIQA6yRrB1lCx90Fg0faz7zeSw9gBsaJBzmJgupLMbSE4NDVII8g0YGyNOosQ10RJ08UehHedB-X0gqIu8kAyYPsuXhyOCip0svtAyL6qC2YjvBde0twsB27PqGVXiso_T30gqmuevGDxgMZ2Gk",
+    image: "/images/sectors/education.png",
     layout: "default",
   },
   {
@@ -56,8 +54,7 @@ export const mockSectors: CMSSector[] = [
     description: "تحسين سلاسل الإمداد، تتبع الشحنات بالوقت الفعلي، وأنظمة إدارة المستودعات الذكية.",
     icon: "local_shipping",
     slug: "logistics",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBVzKo-QbGllaKxi6TxR1fG1C0FZ5LumwMrCbVr3euZsI8jl30bPWwDtqFqbUUZ1oF72eC-cq3f-xwi53oUyXW7O6daRTM2wSNu_tf0dfyLKwZbp3l3NsZTmcYqqM2E1KIm2cLB2ybGGBfyLgTU_B13qyvgrXiDsYJuahyM8XPaJvRGMpvoH_A9jgh3vt-mdo70eAx0jdpZQNoBkwtwKcBqdMHbqhcnhedFsM3ViX0z6FgM6-ad5nKeJnpiKX4q2Do43XISqp0LPnkC",
+    image: "/images/sectors/logistics.png",
     layout: "tall",
   },
   {
