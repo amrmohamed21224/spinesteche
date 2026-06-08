@@ -56,12 +56,17 @@ function Page() {
   return (
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
-
         {/* ───── HERO SECTION ───── */}
         <section className="relative overflow-hidden bg-primary-container pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/15 blur-3xl" aria-hidden="true" />
-          <div className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/15 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
 
           <Container clean>
             <div
@@ -73,7 +78,9 @@ function Page() {
               }}
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/30 bg-secondary/15 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
-                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">domain</span>
+                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                  domain
+                </span>
                 {t("sectors.heroTagline")}
               </span>
 
@@ -86,7 +93,10 @@ function Page() {
               </p>
 
               <div className="flex items-center gap-3 rounded-xl border border-white/12 bg-white/6 px-4 py-3 backdrop-blur-sm w-fit">
-                <span className="material-symbols-outlined text-secondary-fixed text-xl" aria-hidden="true">
+                <span
+                  className="material-symbols-outlined text-secondary-fixed text-xl"
+                  aria-hidden="true"
+                >
                   auto_awesome
                 </span>
                 <p className="text-on-primary/80 font-body-sm">
@@ -183,7 +193,10 @@ function Page() {
                           loading="lazy"
                         />
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true" />
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+                          aria-hidden="true"
+                        />
 
                         <div className="relative z-10 p-8 md:p-10 h-full flex flex-col justify-end">
                           <span
@@ -194,19 +207,23 @@ function Page() {
                             {sector.icon}
                           </span>
 
-                          <h3 className={`${
-                            sector.layout === "featured" || sector.layout === "tall"
-                              ? "font-headline-xl text-headline-xl"
-                              : "font-headline-sm text-headline-sm"
-                          } text-white mb-3 font-bold`}>
+                          <h3
+                            className={`${
+                              sector.layout === "featured" || sector.layout === "tall"
+                                ? "font-headline-xl text-headline-xl"
+                                : "font-headline-sm text-headline-sm"
+                            } text-white mb-3 font-bold`}
+                          >
                             {sector.title}
                           </h3>
 
-                          <p className={`${
-                            sector.layout === "featured" || sector.layout === "tall"
-                              ? "font-body-md"
-                              : "font-caption"
-                          } text-white/90 max-w-lg leading-relaxed`}>
+                          <p
+                            className={`${
+                              sector.layout === "featured" || sector.layout === "tall"
+                                ? "font-body-md"
+                                : "font-caption"
+                            } text-white/90 max-w-lg leading-relaxed`}
+                          >
                             {sector.description}
                           </p>
                         </div>
@@ -242,8 +259,13 @@ function Page() {
                         </p>
 
                         <div className="mt-4 flex items-center gap-2 text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <span className="text-label-md font-bold">{locale === "ar" ? "اكتشف المزيد" : "Learn more"}</span>
-                          <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                          <span className="text-label-md font-bold">
+                            {locale === "ar" ? "اكتشف المزيد" : "Learn more"}
+                          </span>
+                          <span
+                            className="material-symbols-outlined text-[18px]"
+                            aria-hidden="true"
+                          >
                             {locale === "ar" ? "arrow_back" : "arrow_forward"}
                           </span>
                         </div>
@@ -259,8 +281,14 @@ function Page() {
         {/* ───── CTA SECTION ───── */}
         <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -top-40 end-20 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" aria-hidden="true" />
-          <div className="pointer-events-none absolute -bottom-40 start-20 w-96 h-96 rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-40 end-20 w-96 h-96 rounded-full bg-secondary/10 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute -bottom-40 start-20 w-96 h-96 rounded-full bg-on-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
 
           <Container clean>
             <div className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto">
@@ -298,7 +326,6 @@ function Page() {
             </div>
           </Container>
         </section>
-
       </main>
     </PageLayout>
   );

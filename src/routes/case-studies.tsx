@@ -72,21 +72,26 @@ function Page() {
     : [];
 
   const filters: { key: FilterKey; label: string; icon: string }[] = [
-    { key: "all",        label: t("caseStudies.filtersAll"),        icon: "grid_view"     },
-    { key: "retail",     label: t("caseStudies.filtersRetail"),     icon: "shopping_bag"  },
-    { key: "real-estate",label: t("caseStudies.filtersRealEstate"), icon: "domain"        },
-    { key: "ai",         label: t("caseStudies.filtersAi"),         icon: "psychology"    },
+    { key: "all", label: t("caseStudies.filtersAll"), icon: "grid_view" },
+    { key: "retail", label: t("caseStudies.filtersRetail"), icon: "shopping_bag" },
+    { key: "real-estate", label: t("caseStudies.filtersRealEstate"), icon: "domain" },
+    { key: "ai", label: t("caseStudies.filtersAi"), icon: "psychology" },
   ];
 
   return (
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
-
         {/* ───── HERO ───── */}
         <section className="relative overflow-hidden bg-primary-container pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -top-32 end-0 w-[480px] h-[480px] rounded-full bg-secondary/15 blur-3xl" aria-hidden="true" />
-          <div className="pointer-events-none absolute bottom-0 start-0 w-[280px] h-[280px] rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-32 end-0 w-[480px] h-[480px] rounded-full bg-secondary/15 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute bottom-0 start-0 w-[280px] h-[280px] rounded-full bg-on-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
 
           <Container clean>
             <div
@@ -98,7 +103,9 @@ function Page() {
               }}
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/30 bg-secondary/15 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
-                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">workspace_premium</span>
+                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                  workspace_premium
+                </span>
                 {locale === "ar" ? "قصص نجاح حقيقية" : "Real success stories"}
               </span>
 
@@ -113,7 +120,13 @@ function Page() {
               {/* Privacy notice */}
               <div className="inline-flex items-start gap-3 rounded-2xl border border-white/12 bg-white/6 backdrop-blur-sm p-4 max-w-xl">
                 <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary/20 text-secondary-fixed mt-0.5">
-                  <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">lock</span>
+                  <span
+                    className="material-symbols-outlined text-[18px]"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                    aria-hidden="true"
+                  >
+                    lock
+                  </span>
                 </span>
                 <p className="font-body-sm text-on-primary/80 leading-relaxed">
                   {t("caseStudies.privacyText")}
@@ -138,7 +151,9 @@ function Page() {
                         : "bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
                     }`}
                   >
-                    <span className="material-symbols-outlined text-[17px]" aria-hidden="true">{f.icon}</span>
+                    <span className="material-symbols-outlined text-[17px]" aria-hidden="true">
+                      {f.icon}
+                    </span>
                     {f.label}
                   </button>
                 ))}
@@ -156,7 +171,9 @@ function Page() {
         <Section bg="none" noContainer>
           <Container clean className="px-margin-mobile md:px-margin-desktop py-14 md:py-20">
             {isLoading && <StateFeedback type="loading" />}
-            {isError && <StateFeedback type="error" message={t("caseStudies.loadError")} onRetry={refetch} />}
+            {isError && (
+              <StateFeedback type="error" message={t("caseStudies.loadError")} onRetry={refetch} />
+            )}
             {!isLoading && !isError && filteredStudies.length === 0 && (
               <StateFeedback type="empty" message={t("caseStudies.emptyMessage")} />
             )}
@@ -181,7 +198,10 @@ function Page() {
                         src={study.image}
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" aria-hidden="true" />
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent"
+                        aria-hidden="true"
+                      />
                       <span className="absolute top-4 end-4 rounded-lg bg-secondary/90 backdrop-blur-sm text-on-secondary px-3 py-1.5 text-caption font-bold shadow-md">
                         {study.sector}
                       </span>
@@ -216,9 +236,7 @@ function Page() {
                           <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1">
                             {t("caseStudies.resultsLabel")}
                           </p>
-                          <p className="font-bold text-secondary leading-snug">
-                            {study.result}
-                          </p>
+                          <p className="font-bold text-secondary leading-snug">{study.result}</p>
                         </div>
                       </div>
 
@@ -243,8 +261,14 @@ function Page() {
         {/* ───── CTA SECTION ───── */}
         <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -top-40 end-20 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" aria-hidden="true" />
-          <div className="pointer-events-none absolute -bottom-40 start-20 w-96 h-96 rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-40 end-20 w-96 h-96 rounded-full bg-secondary/10 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute -bottom-40 start-20 w-96 h-96 rounded-full bg-on-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
 
           <Container clean>
             <div className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto">
@@ -277,7 +301,6 @@ function Page() {
             </div>
           </Container>
         </section>
-
       </main>
     </PageLayout>
   );

@@ -28,8 +28,10 @@ function useCounter(target: number, duration = 1400, started = false) {
     const step = target / (duration / 16);
     const timer = setInterval(() => {
       start += step;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else setCount(Math.floor(start));
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else setCount(Math.floor(start));
     }, 16);
     return () => clearInterval(timer);
   }, [target, duration, started]);
@@ -37,7 +39,17 @@ function useCounter(target: number, duration = 1400, started = false) {
 }
 
 // ── stat card with animated number ────────────────────────────────────────
-function StatCard({ label, value, index, started }: { label: string; value: string; index: number; started: boolean }) {
+function StatCard({
+  label,
+  value,
+  index,
+  started,
+}: {
+  label: string;
+  value: string;
+  index: number;
+  started: boolean;
+}) {
   const numericMatch = value.match(/[\d.]+/);
   const numeric = numericMatch ? parseFloat(numericMatch[0]) : 0;
   const prefix = value.replace(/[\d.]+.*/, "");
@@ -55,7 +67,9 @@ function StatCard({ label, value, index, started }: { label: string; value: stri
     >
       <div className="absolute top-0 start-0 w-1 h-full bg-secondary rounded-s-2xl" />
       <div className="font-bold text-4xl md:text-5xl text-secondary-fixed mb-2 tabular-nums">
-        {prefix}{numeric > 0 ? animated : value}{numeric > 0 ? suffix : ""}
+        {prefix}
+        {numeric > 0 ? animated : value}
+        {numeric > 0 ? suffix : ""}
       </div>
       <div className="text-on-primary/70 font-body-sm text-sm leading-relaxed">{label}</div>
     </div>
@@ -91,12 +105,28 @@ function StoryCard({
         transition: `opacity 0.55s ease ${index * 100}ms, transform 0.55s ease ${index * 100}ms, background 0.3s ease, border-color 0.3s ease, translate 0.3s ease`,
       }}
     >
-      <div className={`flex size-11 items-center justify-center rounded-xl ${accent ? "bg-secondary/20 text-secondary" : "bg-surface-container text-on-surface-variant"}`}>
-        <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">{icon}</span>
+      <div
+        className={`flex size-11 items-center justify-center rounded-xl ${accent ? "bg-secondary/20 text-secondary" : "bg-surface-container text-on-surface-variant"}`}
+      >
+        <span
+          className="material-symbols-outlined text-[22px]"
+          style={{ fontVariationSettings: "'FILL' 1" }}
+          aria-hidden="true"
+        >
+          {icon}
+        </span>
       </div>
       <div>
-        <p className={`text-caption font-bold uppercase tracking-wider mb-2 ${accent ? "text-secondary" : "text-on-surface-variant/60"}`}>{label}</p>
-        <p className={`font-body-md leading-relaxed ${accent ? "text-secondary font-semibold" : "text-on-surface-variant"}`}>{body}</p>
+        <p
+          className={`text-caption font-bold uppercase tracking-wider mb-2 ${accent ? "text-secondary" : "text-on-surface-variant/60"}`}
+        >
+          {label}
+        </p>
+        <p
+          className={`font-body-md leading-relaxed ${accent ? "text-secondary font-semibold" : "text-on-surface-variant"}`}
+        >
+          {body}
+        </p>
       </div>
     </div>
   );
@@ -119,8 +149,13 @@ function CaseStudyDetailPage() {
     const el = statsRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setStatsVisible(true); obs.disconnect(); } },
-      { threshold: 0.3 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStatsVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -136,7 +171,6 @@ function CaseStudyDetailPage() {
   return (
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
-
         {/* ── HERO ── */}
         <section className="relative overflow-hidden bg-primary-container min-h-[72vh] flex items-end">
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
@@ -149,16 +183,27 @@ function CaseStudyDetailPage() {
                 style={{ backgroundImage: `url(${data.image})`, opacity: 0.18 }}
                 aria-hidden="true"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/80 to-primary-container/40" aria-hidden="true" />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/80 to-primary-container/40"
+                aria-hidden="true"
+              />
             </>
           )}
 
           {/* glow orbs */}
-          <div className="pointer-events-none absolute -top-40 end-0 w-[600px] h-[600px] rounded-full bg-secondary/10 blur-3xl" aria-hidden="true" />
-          <div className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-40 end-0 w-[600px] h-[600px] rounded-full bg-secondary/10 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
 
-          <Container clean className="relative z-10 px-margin-mobile md:px-margin-desktop pt-36 pb-16 w-full">
-
+          <Container
+            clean
+            className="relative z-10 px-margin-mobile md:px-margin-desktop pt-36 pb-16 w-full"
+          >
             {/* back link */}
             <div
               style={{
@@ -179,9 +224,14 @@ function CaseStudyDetailPage() {
             </div>
 
             {isLoading && <StateFeedback type="loading" />}
-            {isError && <StateFeedback type="error" message={t("caseStudies.loadError")} onRetry={refetch} />}
+            {isError && (
+              <StateFeedback type="error" message={t("caseStudies.loadError")} onRetry={refetch} />
+            )}
             {!isLoading && !isError && !data && (
-              <StateFeedback type="empty" title={isAr ? "دراسة الحالة غير موجودة" : "Case study not found"} />
+              <StateFeedback
+                type="empty"
+                title={isAr ? "دراسة الحالة غير موجودة" : "Case study not found"}
+              />
             )}
 
             {data && (
@@ -196,11 +246,15 @@ function CaseStudyDetailPage() {
                 {/* sector badge */}
                 <div className="flex flex-wrap items-center gap-3 mb-6">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary/20 border border-secondary/30 px-4 py-1.5 text-secondary-fixed font-bold text-label-md">
-                    <span className="material-symbols-outlined text-[15px]" aria-hidden="true">category</span>
+                    <span className="material-symbols-outlined text-[15px]" aria-hidden="true">
+                      category
+                    </span>
                     {data.sector}
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/8 border border-white/15 px-4 py-1.5 text-on-primary/70 font-label-md text-label-md">
-                    <span className="material-symbols-outlined text-[15px]" aria-hidden="true">business</span>
+                    <span className="material-symbols-outlined text-[15px]" aria-hidden="true">
+                      business
+                    </span>
                     {data.client}
                   </span>
                 </div>
@@ -212,7 +266,13 @@ function CaseStudyDetailPage() {
                 {/* quick result highlight */}
                 <div className="inline-flex items-start gap-3 rounded-2xl border border-secondary/25 bg-secondary/12 backdrop-blur-sm px-5 py-4 max-w-2xl">
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary/20 text-secondary-fixed mt-0.5">
-                    <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">emoji_events</span>
+                    <span
+                      className="material-symbols-outlined text-[18px]"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                      aria-hidden="true"
+                    >
+                      emoji_events
+                    </span>
                   </span>
                   <div>
                     <p className="text-caption font-bold text-secondary-fixed/60 uppercase tracking-wider mb-1">
@@ -228,11 +288,22 @@ function CaseStudyDetailPage() {
 
         {/* ── STATS ── */}
         {data?.stats && data.stats.length > 0 && (
-          <section ref={statsRef} className="bg-primary-container border-t border-white/8 py-10 px-margin-mobile md:px-margin-desktop">
+          <section
+            ref={statsRef}
+            className="bg-primary-container border-t border-white/8 py-10 px-margin-mobile md:px-margin-desktop"
+          >
             <Container clean>
-              <div className={`grid gap-4 ${data.stats.length === 2 ? "grid-cols-2 max-w-md" : data.stats.length === 3 ? "grid-cols-3 max-w-xl" : "grid-cols-2 md:grid-cols-4"}`}>
+              <div
+                className={`grid gap-4 ${data.stats.length === 2 ? "grid-cols-2 max-w-md" : data.stats.length === 3 ? "grid-cols-3 max-w-xl" : "grid-cols-2 md:grid-cols-4"}`}
+              >
                 {data.stats.map((stat, i) => (
-                  <StatCard key={`${stat.label}-${i}`} label={stat.label} value={stat.value} index={i} started={statsVisible} />
+                  <StatCard
+                    key={`${stat.label}-${i}`}
+                    label={stat.label}
+                    value={stat.value}
+                    index={i}
+                    started={statsVisible}
+                  />
                 ))}
               </div>
             </Container>
@@ -304,7 +375,10 @@ function CaseStudyDetailPage() {
                   className="w-full object-cover aspect-[21/9] md:aspect-[21/8]"
                 />
                 {/* subtle overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none" aria-hidden="true" />
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none"
+                  aria-hidden="true"
+                />
               </div>
             </Container>
           </section>
@@ -313,8 +387,14 @@ function CaseStudyDetailPage() {
         {/* ── CTA SECTION ── */}
         <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -top-40 end-20 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" aria-hidden="true" />
-          <div className="pointer-events-none absolute -bottom-40 start-20 w-96 h-96 rounded-full bg-on-primary/5 blur-3xl" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-40 end-20 w-96 h-96 rounded-full bg-secondary/10 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute -bottom-40 start-20 w-96 h-96 rounded-full bg-on-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
 
           <Container clean>
             <div
@@ -326,7 +406,9 @@ function CaseStudyDetailPage() {
               }}
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/30 bg-secondary/15 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
-                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">handshake</span>
+                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                  handshake
+                </span>
                 {isAr ? "هل تريد نتيجة مماثلة؟" : "Want similar results?"}
               </span>
 
@@ -360,7 +442,6 @@ function CaseStudyDetailPage() {
             </div>
           </Container>
         </section>
-
       </main>
     </PageLayout>
   );

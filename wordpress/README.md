@@ -25,24 +25,24 @@ VITE_USE_MOCKS=false
 
 ## Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/health` | Status check |
-| GET | `/services?lang=ar` | Services list |
-| GET | `/products?lang=en` | Products |
-| GET | `/sectors` | Sectors |
-| GET | `/case-studies` | Case studies |
-| GET | `/pricing-plans` | Pricing |
-| GET | `/faqs` | FAQs |
-| GET | `/jobs` | Careers |
-| GET | `/testimonials` | Testimonials |
-| GET | `/team-members` | Team |
-| GET | `/about?lang=ar` | About page JSON |
-| GET | `/navigation` | Nav links |
-| GET | `/settings` | Site settings |
-| POST | `/submissions/contact` | Contact + consultation |
-| POST | `/submissions/career` | Career (multipart) |
-| POST | `/submissions/quote` | Quote request |
+| Method | Path                   | Description            |
+| ------ | ---------------------- | ---------------------- |
+| GET    | `/health`              | Status check           |
+| GET    | `/services?lang=ar`    | Services list          |
+| GET    | `/products?lang=en`    | Products               |
+| GET    | `/sectors`             | Sectors                |
+| GET    | `/case-studies`        | Case studies           |
+| GET    | `/pricing-plans`       | Pricing                |
+| GET    | `/faqs`                | FAQs                   |
+| GET    | `/jobs`                | Careers                |
+| GET    | `/testimonials`        | Testimonials           |
+| GET    | `/team-members`        | Team                   |
+| GET    | `/about?lang=ar`       | About page JSON        |
+| GET    | `/navigation`          | Nav links              |
+| GET    | `/settings`            | Site settings          |
+| POST   | `/submissions/contact` | Contact + consultation |
+| POST   | `/submissions/career`  | Career (multipart)     |
+| POST   | `/submissions/quote`   | Quote request          |
 
 ## Post meta fields (Custom Fields)
 

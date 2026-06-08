@@ -17,7 +17,8 @@ const copy = {
   ar: {
     eyebrow: "استشارة مجانية · 45 دقيقة",
     title: "جلسة مركزة تكشف أفضل مسار تقني لشركتك",
-    subtitle: "بدل مكالمة عامة، سنقودك خلال نقاط القرار: الهدف، العائق، الأولوية، ثم نجهز لك توصية واضحة.",
+    subtitle:
+      "بدل مكالمة عامة، سنقودك خلال نقاط القرار: الهدف، العائق، الأولوية، ثم نجهز لك توصية واضحة.",
     benefit1: "تحليل وضعك الحالي بدقة",
     benefit2: "توصية تقنية مخصصة لك",
     benefit3: "خارطة طريق واضحة للخطوات",
@@ -52,7 +53,8 @@ const copy = {
   en: {
     eyebrow: "Free consultation · 45 min",
     title: "A focused session to reveal the right technical path",
-    subtitle: "Instead of a generic call, we guide the decision points: goal, blocker, priority, then a clear recommendation.",
+    subtitle:
+      "Instead of a generic call, we guide the decision points: goal, blocker, priority, then a clear recommendation.",
     benefit1: "Accurate analysis of your current state",
     benefit2: "A customized technical recommendation",
     benefit3: "A clear roadmap for next steps",
@@ -88,16 +90,56 @@ const copy = {
 
 const goals = {
   ar: [
-    { id: "growth", title: "توسيع منتج قائم", desc: "تطوير ميزات جديدة أو scale المنتج الحالي", icon: "trending_up" },
-    { id: "automation", title: "أتمتة عمليات داخلية", desc: "ربط الأنظمة وتقليل العمل اليدوي", icon: "automation" },
-    { id: "ai", title: "تفعيل الذكاء الاصطناعي", desc: "دمج AI في منتجك أو عملياتك", icon: "psychology" },
-    { id: "rebuild", title: "إعادة بناء نظام قديم", desc: "ترحيل أو إعادة هيكلة legacy system", icon: "sync_alt" },
+    {
+      id: "growth",
+      title: "توسيع منتج قائم",
+      desc: "تطوير ميزات جديدة أو scale المنتج الحالي",
+      icon: "trending_up",
+    },
+    {
+      id: "automation",
+      title: "أتمتة عمليات داخلية",
+      desc: "ربط الأنظمة وتقليل العمل اليدوي",
+      icon: "automation",
+    },
+    {
+      id: "ai",
+      title: "تفعيل الذكاء الاصطناعي",
+      desc: "دمج AI في منتجك أو عملياتك",
+      icon: "psychology",
+    },
+    {
+      id: "rebuild",
+      title: "إعادة بناء نظام قديم",
+      desc: "ترحيل أو إعادة هيكلة legacy system",
+      icon: "sync_alt",
+    },
   ],
   en: [
-    { id: "growth", title: "Scale an existing product", desc: "Build new features or scale your current product", icon: "trending_up" },
-    { id: "automation", title: "Automate internal operations", desc: "Connect systems and reduce manual work", icon: "automation" },
-    { id: "ai", title: "Activate AI capabilities", desc: "Embed AI into your product or operations", icon: "psychology" },
-    { id: "rebuild", title: "Rebuild a legacy system", desc: "Migrate or re-architect an old system", icon: "sync_alt" },
+    {
+      id: "growth",
+      title: "Scale an existing product",
+      desc: "Build new features or scale your current product",
+      icon: "trending_up",
+    },
+    {
+      id: "automation",
+      title: "Automate internal operations",
+      desc: "Connect systems and reduce manual work",
+      icon: "automation",
+    },
+    {
+      id: "ai",
+      title: "Activate AI capabilities",
+      desc: "Embed AI into your product or operations",
+      icon: "psychology",
+    },
+    {
+      id: "rebuild",
+      title: "Rebuild a legacy system",
+      desc: "Migrate or re-architect an old system",
+      icon: "sync_alt",
+    },
   ],
 };
 
@@ -152,12 +194,14 @@ function ConsultationPage() {
 
   // entrance animation trigger
   const [visible, setVisible] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setVisible(true), 60); return () => clearTimeout(t); }, []);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 60);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <PageLayout>
       <main dir={dir} className="min-h-screen bg-background">
-
         {/* ───── HERO STRIP ───── */}
         <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
           {/* soft background blobs */}
@@ -178,7 +222,9 @@ function ConsultationPage() {
               {/* Left: copy */}
               <div className="text-start order-2 lg:order-1">
                 <span className="inline-flex items-center gap-2 rounded-full border border-secondary/25 bg-secondary/8 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
-                  <span className="material-symbols-outlined text-[16px]" aria-hidden="true">forum</span>
+                  <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                    forum
+                  </span>
                   {c.eyebrow}
                 </span>
 
@@ -195,10 +241,16 @@ function ConsultationPage() {
                     <li
                       key={i}
                       className="flex items-center gap-3"
-                      style={{ opacity: visible ? 1 : 0, transform: visible ? "none" : "translateX(12px)", transition: `opacity 0.55s ease ${0.15 + i * 0.1}s, transform 0.55s ease ${0.15 + i * 0.1}s` }}
+                      style={{
+                        opacity: visible ? 1 : 0,
+                        transform: visible ? "none" : "translateX(12px)",
+                        transition: `opacity 0.55s ease ${0.15 + i * 0.1}s, transform 0.55s ease ${0.15 + i * 0.1}s`,
+                      }}
                     >
                       <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary/12 text-secondary">
-                        <span className="material-symbols-outlined text-[16px]" aria-hidden="true">check</span>
+                        <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                          check
+                        </span>
                       </span>
                       <span className="font-label-md text-label-md text-on-surface">{b}</span>
                     </li>
@@ -207,17 +259,26 @@ function ConsultationPage() {
 
                 {/* response time badge */}
                 <div className="inline-flex items-center gap-3 rounded-xl border border-outline-variant/40 bg-surface-container-low px-4 py-3">
-                  <span className="material-symbols-outlined text-secondary text-xl" aria-hidden="true">schedule</span>
+                  <span
+                    className="material-symbols-outlined text-secondary text-xl"
+                    aria-hidden="true"
+                  >
+                    schedule
+                  </span>
                   <div className="text-start">
                     <p className="text-caption text-on-surface-variant">{c.responseLabel}</p>
-                    <p className="font-label-md text-label-md font-bold text-secondary">{c.responseTime}</p>
+                    <p className="font-label-md text-label-md font-bold text-secondary">
+                      {c.responseTime}
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Right: goal cards */}
               <div className="order-1 lg:order-2">
-                <p className="font-label-md text-label-md text-on-surface-variant mb-4 text-start">{c.optionTitle}</p>
+                <p className="font-label-md text-label-md text-on-surface-variant mb-4 text-start">
+                  {c.optionTitle}
+                </p>
                 <div className="grid grid-cols-2 gap-3">
                   {goals[locale].map((item, i) => {
                     const isSelected = goal === item.id;
@@ -239,16 +300,28 @@ function ConsultationPage() {
                       >
                         {isSelected && (
                           <span className="absolute top-3 end-3 flex size-5 items-center justify-center rounded-full bg-on-secondary/15">
-                            <span className="material-symbols-outlined text-[14px] text-on-secondary" aria-hidden="true">check</span>
+                            <span
+                              className="material-symbols-outlined text-[14px] text-on-secondary"
+                              aria-hidden="true"
+                            >
+                              check
+                            </span>
                           </span>
                         )}
-                        <span className={`material-symbols-outlined text-3xl mb-3 block ${isSelected ? "text-on-secondary" : "text-secondary"}`} aria-hidden="true">
+                        <span
+                          className={`material-symbols-outlined text-3xl mb-3 block ${isSelected ? "text-on-secondary" : "text-secondary"}`}
+                          aria-hidden="true"
+                        >
                           {item.icon}
                         </span>
-                        <p className={`font-bold text-[15px] leading-snug mb-1 ${isSelected ? "text-on-secondary" : "text-primary"}`}>
+                        <p
+                          className={`font-bold text-[15px] leading-snug mb-1 ${isSelected ? "text-on-secondary" : "text-primary"}`}
+                        >
                           {item.title}
                         </p>
-                        <p className={`text-caption leading-relaxed ${isSelected ? "text-on-secondary/75" : "text-on-surface-variant"}`}>
+                        <p
+                          className={`text-caption leading-relaxed ${isSelected ? "text-on-secondary/75" : "text-on-surface-variant"}`}
+                        >
                           {item.desc}
                         </p>
                       </button>
@@ -265,7 +338,12 @@ function ConsultationPage() {
                     className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-secondary px-6 py-4 font-bold text-on-secondary transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/25 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                   >
                     <span>{c.formTitle}</span>
-                    <span className={`material-symbols-outlined text-[18px] ${locale === "ar" ? "scale-x-[-1]" : ""}`} aria-hidden="true">arrow_forward</span>
+                    <span
+                      className={`material-symbols-outlined text-[18px] ${locale === "ar" ? "scale-x-[-1]" : ""}`}
+                      aria-hidden="true"
+                    >
+                      arrow_forward
+                    </span>
                   </button>
                   <Link
                     to="/quote"
@@ -276,7 +354,9 @@ function ConsultationPage() {
                   </Link>
                 </div>
                 {!goal && (
-                  <p className="mt-2 text-caption text-on-surface-variant text-start">{c.selectGoalHint}</p>
+                  <p className="mt-2 text-caption text-on-surface-variant text-start">
+                    {c.selectGoalHint}
+                  </p>
                 )}
               </div>
             </div>
@@ -291,20 +371,24 @@ function ConsultationPage() {
         >
           {/* Islamic pattern overlay */}
           <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -top-24 end-0 w-96 h-96 rounded-full bg-secondary/15 blur-3xl" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-24 end-0 w-96 h-96 rounded-full bg-secondary/15 blur-3xl"
+            aria-hidden="true"
+          />
 
           <Container clean>
             {status === "success" ? (
               <SuccessView locale={locale} c={c} />
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
-
                 {/* Left: step indicator + selected goal summary */}
                 <div className="text-on-primary">
                   {/* Steps */}
                   <div className="flex items-center gap-3 mb-10">
                     <StepPill number={1} label={c.step1} active={step === 1} done={step > 1} />
-                    <div className={`h-px flex-1 transition-colors duration-500 ${step > 1 ? "bg-secondary" : "bg-on-primary/20"}`} />
+                    <div
+                      className={`h-px flex-1 transition-colors duration-500 ${step > 1 ? "bg-secondary" : "bg-on-primary/20"}`}
+                    />
                     <StepPill number={2} label={c.step2} active={step === 2} done={false} />
                   </div>
 
@@ -317,7 +401,9 @@ function ConsultationPage() {
                         return selected ? (
                           <div className="flex items-center gap-3">
                             <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary/20 text-secondary">
-                              <span className="material-symbols-outlined" aria-hidden="true">{selected.icon}</span>
+                              <span className="material-symbols-outlined" aria-hidden="true">
+                                {selected.icon}
+                              </span>
                             </span>
                             <div>
                               <p className="font-bold text-on-primary">{selected.title}</p>
@@ -341,7 +427,12 @@ function ConsultationPage() {
                     {([c.benefit1, c.benefit2, c.benefit3] as string[]).map((b, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-secondary/20 text-secondary mt-0.5">
-                          <span className="material-symbols-outlined text-[16px]" aria-hidden="true">check</span>
+                          <span
+                            className="material-symbols-outlined text-[16px]"
+                            aria-hidden="true"
+                          >
+                            check
+                          </span>
                         </span>
                         <span className="text-on-primary/85 font-body-md">{b}</span>
                       </li>
@@ -349,7 +440,12 @@ function ConsultationPage() {
                   </ul>
 
                   <div className="mt-8 pt-6 border-t border-on-primary/15 flex items-center gap-3">
-                    <span className="material-symbols-outlined text-secondary text-2xl" aria-hidden="true">schedule</span>
+                    <span
+                      className="material-symbols-outlined text-secondary text-2xl"
+                      aria-hidden="true"
+                    >
+                      schedule
+                    </span>
                     <div>
                       <p className="text-caption text-on-primary/60">{c.responseLabel}</p>
                       <p className="font-bold text-secondary">{c.responseTime}</p>
@@ -361,13 +457,18 @@ function ConsultationPage() {
                 <div className="rounded-3xl border border-white/10 bg-surface shadow-2xl shadow-primary/30 overflow-hidden">
                   <form onSubmit={handleSubmit}>
                     <div className="px-7 py-6 border-b border-outline-variant/20">
-                      <h2 className="font-headline-xl text-headline-xl font-bold text-primary">{c.formTitle}</h2>
+                      <h2 className="font-headline-xl text-headline-xl font-bold text-primary">
+                        {c.formTitle}
+                      </h2>
                       <p className="mt-1 text-on-surface-variant">{c.formSubtitle}</p>
                     </div>
 
                     <div className="px-7 py-6 space-y-5">
                       {status === "error" && (
-                        <div role="alert" className="rounded-xl bg-error-container/15 border border-error/20 px-4 py-3 text-error font-body-md">
+                        <div
+                          role="alert"
+                          className="rounded-xl bg-error-container/15 border border-error/20 px-4 py-3 text-error font-body-md"
+                        >
                           {c.failure}
                         </div>
                       )}
@@ -443,44 +544,86 @@ function ConsultationPage() {
                       >
                         {status === "submitting" ? (
                           <>
-                            <span className="material-symbols-outlined text-[18px] animate-spin" aria-hidden="true">progress_activity</span>
+                            <span
+                              className="material-symbols-outlined text-[18px] animate-spin"
+                              aria-hidden="true"
+                            >
+                              progress_activity
+                            </span>
                             {c.submitting}
                           </>
                         ) : (
                           <>
                             {c.submit}
-                            <span className="material-symbols-outlined text-[18px]" aria-hidden="true">send</span>
+                            <span
+                              className="material-symbols-outlined text-[18px]"
+                              aria-hidden="true"
+                            >
+                              send
+                            </span>
                           </>
                         )}
                       </button>
                     </div>
                   </form>
                 </div>
-
               </div>
             )}
           </Container>
         </section>
-
       </main>
     </PageLayout>
   );
 }
 
-function StepPill({ number, label, active, done }: { number: number; label: string; active: boolean; done: boolean }) {
+function StepPill({
+  number,
+  label,
+  active,
+  done,
+}: {
+  number: number;
+  label: string;
+  active: boolean;
+  done: boolean;
+}) {
   return (
     <div className="flex items-center gap-2 shrink-0">
-      <span className={`flex size-8 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 ${
-        done ? "bg-secondary text-on-secondary" : active ? "bg-secondary/20 text-secondary ring-2 ring-secondary" : "bg-on-primary/15 text-on-primary/50"
-      }`}>
-        {done ? <span className="material-symbols-outlined text-[14px]" aria-hidden="true">check</span> : number}
+      <span
+        className={`flex size-8 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 ${
+          done
+            ? "bg-secondary text-on-secondary"
+            : active
+              ? "bg-secondary/20 text-secondary ring-2 ring-secondary"
+              : "bg-on-primary/15 text-on-primary/50"
+        }`}
+      >
+        {done ? (
+          <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
+            check
+          </span>
+        ) : (
+          number
+        )}
       </span>
-      <span className={`text-caption font-bold ${active ? "text-on-primary" : "text-on-primary/50"}`}>{label}</span>
+      <span
+        className={`text-caption font-bold ${active ? "text-on-primary" : "text-on-primary/50"}`}
+      >
+        {label}
+      </span>
     </div>
   );
 }
 
-function FormField({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
+function FormField({
+  label,
+  required,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div className="space-y-2 text-start">
       <label className="block font-label-md text-label-md text-primary font-bold">
@@ -492,19 +635,30 @@ function FormField({ label, required, children }: { label: string; required?: bo
   );
 }
 
-function SuccessView({ locale, c }: { locale: string; c: typeof copy["ar"] }) {
+function SuccessView({ locale, c }: { locale: string; c: (typeof copy)["ar"] }) {
   return (
     <div className="flex flex-col items-center justify-center text-center py-16 text-on-primary">
       <div className="relative mb-8">
-        <div className="absolute inset-0 rounded-full bg-secondary/25 animate-ping" aria-hidden="true" />
+        <div
+          className="absolute inset-0 rounded-full bg-secondary/25 animate-ping"
+          aria-hidden="true"
+        />
         <div className="relative flex size-20 items-center justify-center rounded-full bg-secondary text-on-secondary shadow-xl shadow-secondary/30">
-          <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">check_circle</span>
+          <span
+            className="material-symbols-outlined text-4xl"
+            style={{ fontVariationSettings: "'FILL' 1" }}
+            aria-hidden="true"
+          >
+            check_circle
+          </span>
         </div>
       </div>
       <h2 className="font-headline-xl text-headline-xl font-bold mb-3 text-on-primary">
         {locale === "ar" ? "تم استلام طلبك! 🎉" : "Request received! 🎉"}
       </h2>
-      <p className="font-body-lg text-body-lg text-on-primary/75 max-w-md leading-relaxed mb-8">{c.success}</p>
+      <p className="font-body-lg text-body-lg text-on-primary/75 max-w-md leading-relaxed mb-8">
+        {c.success}
+      </p>
       <Link
         to="/"
         className="rounded-xl bg-secondary px-8 py-4 font-bold text-on-secondary hover:bg-secondary/90 transition-colors"

@@ -7,7 +7,6 @@
 
 ## 2. الخدمات (Services)
 
-
 | حقل WP   | Meta key      | ملاحظة                         |
 | -------- | ------------- | ------------------------------ |
 | Title    | —             | العنوان                        |
@@ -17,11 +16,9 @@
 | Features | `st_features` | سطر لكل ميزة                   |
 | Details  | `st_details`  | سطر لكل نقطة                   |
 
-
 **Slug** = يظهر في الـ API كـ `id` (مثال: `custom-software`)
 
 ## 3. المنتجات (Products)
-
 
 | Meta key           | مثال               |
 | ------------------ | ------------------ |
@@ -31,20 +28,16 @@
 | `st_cta_primary`   | طلب نسخة تجريبية   |
 | `st_cta_secondary` | تخصيص لعملك        |
 
-
 ## 4. القطاعات (Sectors)
 
-
-| Meta key    | قيم                                        |
-| ----------- | ------------------------------------------ |
-| `st_layout` | `featured` | `tall` | `accent` | `default` |
-| `st_icon`   | Material icon                              |
-| `st_image`  | رابط صورة أو Featured Image                |
-| `st_tags`   | أسطر متعددة                                |
-
+| Meta key    | قيم                         |
+| ----------- | --------------------------- | ------ | -------- | --------- |
+| `st_layout` | `featured`                  | `tall` | `accent` | `default` |
+| `st_icon`   | Material icon               |
+| `st_image`  | رابط صورة أو Featured Image |
+| `st_tags`   | أسطر متعددة                 |
 
 ## 5. دراسات الحالة (Case Studies)
-
 
 | Meta key       |                                            |
 | -------------- | ------------------------------------------ |
@@ -55,9 +48,7 @@
 | `st_result`    | النتيجة                                    |
 | `st_stats`     | JSON: `[{"label":"+40%","value":"كفاءة"}]` |
 
-
 ## 6. الأسعار (Pricing Plans)
-
 
 | Meta key         |            |
 | ---------------- | ---------- |
@@ -66,9 +57,7 @@
 | `st_recommended` | `1` أو `0` |
 | `st_cta_text`    | نص الزر    |
 
-
 ## 7. الوظائف (Jobs)
-
 
 | Meta key          |                    |
 | ----------------- | ------------------ |
@@ -78,7 +67,6 @@
 | `st_experience`   | 5+ سنوات           |
 | `st_requirements` | أسطر               |
 | `st_benefits`     | أسطر               |
-
 
 ## 8. صفحة من نحن (About)
 

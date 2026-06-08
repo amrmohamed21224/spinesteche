@@ -7,12 +7,12 @@
 
 ## 1) المشروع في سطر
 
-| الطبقة | التقنية | الرابط / المسار |
-|--------|---------|-----------------|
+| الطبقة    | التقنية                              | الرابط / المسار                                                                |
+| --------- | ------------------------------------ | ------------------------------------------------------------------------------ |
 | **فرونت** | TanStack Start (React) + Tailwind v4 | Vercel — repo: `https://github.com/amrmohamed21224/spinesteche.git` فرع `main` |
-| **باكند** | WordPress (headless) | `https://spinesteche.great-site.net/wp/` (ملاحظة: WP داخل مجلد **`/wp/`**) |
-| **لغات** | Polylang `ar` (افتراضي) + `en` | مفعّل على WP |
-| **محتوى** | Custom Post Types + ACF | ليس صفحات WordPress عادية |
+| **باكند** | WordPress (headless)                 | `https://spinesteche.great-site.net/wp/` (ملاحظة: WP داخل مجلد **`/wp/`**)     |
+| **لغات**  | Polylang `ar` (افتراضي) + `en`       | مفعّل على WP                                                                   |
+| **محتوى** | Custom Post Types + ACF              | ليس صفحات WordPress عادية                                                      |
 
 **الفرونت لا يعرض ثيم ووردبريس.** الثيم (Twenty Twenty-Five) غير مستخدم. المحتوى يأتي من **REST API**.
 
@@ -64,12 +64,12 @@
 
 ## 4) وضع الكود (GitHub / Vercel)
 
-| Commit مهم | الوصف |
-|------------|--------|
-| `89c0442` | نافذة استشارة + ConsultationProvider |
-| `9a86ac3` | ربط API + مجلد wordpress |
-| `5f76a61` | إصلاح ESLint |
-| `546f5eb` | بلجن WP **v1.0.2** (إصلاح fatal) |
+| Commit مهم | الوصف                                |
+| ---------- | ------------------------------------ |
+| `89c0442`  | نافذة استشارة + ConsultationProvider |
+| `9a86ac3`  | ربط API + مجلد wordpress             |
+| `5f76a61`  | إصلاح ESLint                         |
+| `546f5eb`  | بلجن WP **v1.0.2** (إصلاح fatal)     |
 
 ### متغيرات Vercel (Production)
 
@@ -84,13 +84,13 @@ VITE_SITE_URL=https://spinestech.sa
 
 ### ملفات فرونت مهمة
 
-| مسار | دور |
-|------|-----|
-| `src/lib/api/fetchers.ts` | كل طلبات CMS + فورمات |
-| `src/lib/api/endpoints.ts` | مسارات API |
-| `src/contexts/ConsultationContext.tsx` | بوب أب الاستشارة |
-| `src/routes/__root.tsx` | ConsultationProvider |
-| `src/types/cms.ts` | أنواع TypeScript |
+| مسار                                   | دور                   |
+| -------------------------------------- | --------------------- |
+| `src/lib/api/fetchers.ts`              | كل طلبات CMS + فورمات |
+| `src/lib/api/endpoints.ts`             | مسارات API            |
+| `src/contexts/ConsultationContext.tsx` | بوب أب الاستشارة      |
+| `src/routes/__root.tsx`                | ConsultationProvider  |
+| `src/types/cms.ts`                     | أنواع TypeScript      |
 
 ### وثائق WP إضافية
 
@@ -105,20 +105,20 @@ VITE_SITE_URL=https://spinestech.sa
 
 ### الخيار A — الإبقاء على البلجن المخصص (الأقل تغييراً للفرونت)
 
-| مميزات | عيوب |
-|--------|------|
-| الفرونت جاهز للعقد الحالي | رفع يدوي على InfinityFree |
-| فورمات + CORS + Polylang مدمجة | صيانة منا |
+| مميزات                         | عيوب                      |
+| ------------------------------ | ------------------------- |
+| الفرونت جاهز للعقد الحالي      | رفع يدوي على InfinityFree |
+| فورمات + CORS + Polylang مدمجة | صيانة منا                 |
 
 **الخطوة التالية:** رفع **v1.0.2** فقط → Activate → `/health` → إدخال محتوى.
 
 ### الخيار B — بلجن جاهز (يتطلب إعادة ربط الفرونت)
 
-| بلجن | ملاحظة |
-|------|--------|
+| بلجن                               | ملاحظة                                                        |
+| ---------------------------------- | ------------------------------------------------------------- |
 | **WPGraphQL** (موجود عند المستخدم) | إعادة كتابة `fetchers.ts` + queries؛ Polylang له إضافة منفصلة |
-| **ACF to REST API** | لا يغطي CPTs كاملة ولا الفورمات بنفس الشكل |
-| **CPT UI** + REST افتراضي | شكل JSON مختلف؛ لا `submissions/*` |
+| **ACF to REST API**                | لا يغطي CPTs كاملة ولا الفورمات بنفس الشكل                    |
+| **CPT UI** + REST افتراضي          | شكل JSON مختلف؛ لا `submissions/*`                            |
 
 **لا يوجد بلجن واحد** يطابق `spinestech/v1` بدون تعديل الفرونت أو إعدادات كثيرة.
 
@@ -153,13 +153,13 @@ VITE_SITE_URL=https://spinestech.sa
 
 ## 7) أخطاء شائعة (لا تضيع وقت)
 
-| الخطأ | الحل |
-|-------|-----|
-| Fatal عند التفعيل | تأكد **v1.0.2** ليس 1.0.0 |
-| API 404 | نسيت `/wp/` في الرابط |
-| موقع فاضي مع WP | `VITE_USE_MOCKS` لا يزال true أو لا محتوى |
+| الخطأ                     | الحل                                       |
+| ------------------------- | ------------------------------------------ |
+| Fatal عند التفعيل         | تأكد **v1.0.2** ليس 1.0.0                  |
+| API 404                   | نسيت `/wp/` في الرابط                      |
+| موقع فاضي مع WP           | `VITE_USE_MOCKS` لا يزال true أو لا محتوى  |
 | رفع مجلد `wordpress` كامل | الصحيح: `plugins/spinestech-headless/` فقط |
-| توقع Pages في WP | غير مطلوب — CPTs فقط |
+| توقع Pages في WP          | غير مطلوب — CPTs فقط                       |
 
 ### debug
 
@@ -180,11 +180,11 @@ VITE_SITE_URL=https://spinestech.sa
 
 ## 9) سجل القرارات
 
-| التاريخ | القرار |
-|---------|--------|
-| 2026-06 | فرونت على Vercel + WP منفصل + Polylang |
-| 2026-06 | بلجن مخصص `spinestech-headless` للـ REST الموحّد |
-| 2026-06 | إصلاح fatal: v1.0.1 PHP unions، v1.0.2 REST type hints |
+| التاريخ | القرار                                                          |
+| ------- | --------------------------------------------------------------- |
+| 2026-06 | فرونت على Vercel + WP منفصل + Polylang                          |
+| 2026-06 | بلجن مخصص `spinestech-headless` للـ REST الموحّد                |
+| 2026-06 | إصلاح fatal: v1.0.1 PHP unions، v1.0.2 REST type hints          |
 | 2026-06 | **معلّق:** إلغاء البلجن المخصص لصالح بلجن جاهز — لم يُنفَّذ بعد |
 
 ---

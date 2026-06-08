@@ -64,7 +64,9 @@ function Page() {
                   <div
                     key={product.id}
                     className={`bg-surface-container-lowest border p-8 rounded-xl flex flex-col h-full hover:shadow-lg transition-all group relative overflow-hidden ${
-                      isSpecialized ? "border-secondary/30 hover:border-secondary/60" : "border-outline-variant hover:border-secondary/40"
+                      isSpecialized
+                        ? "border-secondary/30 hover:border-secondary/60"
+                        : "border-outline-variant hover:border-secondary/40"
                     }`}
                   >
                     {isSpecialized && (
@@ -130,7 +132,8 @@ function Page() {
                         params={{ slug: product.slug }}
                         className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 text-center inline-flex items-center justify-center gap-2"
                       >
-                        {product.ctaSecondary || (locale === "ar" ? "تفاصيل المنتج" : "View details")}
+                        {product.ctaSecondary ||
+                          (locale === "ar" ? "تفاصيل المنتج" : "View details")}
                         <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
                           {locale === "ar" ? "arrow_back" : "arrow_forward"}
                         </span>
