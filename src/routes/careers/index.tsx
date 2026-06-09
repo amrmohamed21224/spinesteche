@@ -75,6 +75,9 @@ function CareersLandingPage() {
                 alt="متخصصون سعوديون في مجال التقنية"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuALlnEpwMFPEX9boAFbAFv3oiBKNFMDciMEvwSad7SByzcAjvWn4d3zxBezgPYnL8lQTjN1EWKlcpr5VRP0fVLk03E8cx-OTRMxCqx_b0obKR9F5WfmGPMsWS2aBI531vQ4KxjvQBk38VbISPIXIeu06q3lW-VIzhKJhYI-wkw3i4PyANTjO4CUFFw8JqZ1dveNDS54yW220Xo3tGMfGZ2apF_C4ZawjiHa8XVT9CCkIuIk_In4op_Ey4n5sGu3BXEIii_YW7bHvDsf"
                 loading="lazy"
+                width="700"
+                height="500"
+                decoding="async"
               />
             </div>
           </Container>

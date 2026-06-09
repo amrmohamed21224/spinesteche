@@ -80,6 +80,9 @@ function Page() {
                   className="w-full h-full object-cover rounded-xl shadow-lg relative z-10 grayscale-[20%] hover:grayscale-0 transition-all duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9bE2_3UQ9T-YgReuejnvmJ3g0NZNTP2VOTh1ypFY8ApCoDK0oixY7aMf1804miQCC1XQAVFv19e0d-oqW5BFOmQoKxGPgiv8ouUztdcRUeuJof-JMPBAD12ALZjIiEDHE-1LQR55dilHQlDpNo6EZDqaQtLOAINOa7BKQK8_h-Ba8cKyiRm5uo3cjfBW3Gztkv0w9LVpdHm64PCRHlMUXIOf8aA5r9bywgqfSak-i5_4XWUnUc7UvX2prbSjljLB-1sEx0DJemZrJ"
                   loading="lazy"
+                  width="600"
+                  height="500"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -176,6 +179,9 @@ function Page() {
                     className="w-full rounded-2xl shadow-2xl object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-1000"
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfa-hlUt4JFvMr8tCqIeEHljk6AWaUSmdPa_kGAUSk1sB8R3E1CR2CRRwBqwj_6hx5xfjbtgVT4x714dJYkOsQml0rPZJhGJ1Bwh9D_Y4O7j-qFqOR_Vj84yYHkDHanMmbbMBX9pqcMrrxrhFzKcDkQvw83XV6zX3zACW7PBEUoRWyjm-26LBgyu88JSJ3kXo8shCN8_QuQwUJ0mowY4OImhFfUnHJBM7MzzK6vNvTkeFDi8ZgErX4_RN0J3OZWi236vl97iayRuWK"
                     loading="lazy"
+                    width="700"
+                    height="460"
+                    decoding="async"
                   />
                 </div>
               </div>

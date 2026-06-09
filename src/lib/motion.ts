@@ -40,10 +40,16 @@ export function setBodyScrollLocked(locked: boolean): void {
 }
 
 /**
- * Initialize Lenis smooth scroll and connect it to GSAP ScrollTrigger
+ * Initialize Lenis smooth scroll and connect it to GSAP ScrollTrigger.
+ * Disabled on mobile (saves ~25KB JS + avoids unnecessary RAF loop).
  */
 export const initSmoothScroll = (): Lenis | null => {
   if (typeof window === "undefined") return null;
+
+  // Skip smooth scroll on touch/mobile devices — native scroll is better there
+  const isMobile = window.matchMedia("(max-width: 768px)").matches ||
+    ("ontouchstart" in window && navigator.maxTouchPoints > 0);
+  if (isMobile) return null;
 
   const lenis = new Lenis({
     duration: 1.2,
