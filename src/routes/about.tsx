@@ -104,7 +104,7 @@ function Page() {
             <Section bg="surface" className="py-24">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
                 {/* Mission */}
-                <div className="bg-primary-container p-12 rounded-xl text-on-primary relative overflow-hidden group text-right">
+                <div className="bg-primary-container p-6 sm:p-8 md:p-12 rounded-xl text-on-primary relative overflow-hidden group text-right">
                   <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
                   <span
                     className="material-symbols-outlined text-tertiary-fixed text-5xl mb-6 block"
@@ -121,7 +121,7 @@ function Page() {
                   </p>
                 </div>
                 {/* Vision */}
-                <div className="bg-surface-container-high p-12 rounded-xl border border-outline-variant/30 flex flex-col justify-between group hover:border-secondary transition-colors duration-300">
+                <div className="bg-surface-container-high p-6 sm:p-8 md:p-12 rounded-xl border border-outline-variant/30 flex flex-col justify-between group hover:border-secondary transition-colors duration-300">
                   <div>
                     <span
                       className="material-symbols-outlined text-secondary text-5xl mb-6 block"
@@ -259,7 +259,7 @@ function Page() {
         {/* CTA Section */}
         <section className="py-24 geometric-pattern">
           <Container>
-            <div className="bg-white p-16 rounded-2xl shadow-xl border border-outline-variant/30 text-center relative overflow-hidden">
+            <div className="bg-white p-8 sm:p-10 md:p-16 rounded-2xl shadow-xl border border-outline-variant/30 text-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-bl-full"></div>
               <h2 className="font-display-lg text-display-lg text-primary mb-6 font-bold">
                 {t("about.ctaTitle")}
@@ -271,14 +271,14 @@ function Page() {
                 <Link
                   to="/consultation"
                   search={{ source: "about-cta" }}
-                  className="px-12 py-4 bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded hover:shadow-lg transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                  className="px-6 sm:px-10 md:px-12 py-4 bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded hover:shadow-lg transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                 >
                   {t("about.ctaPrimary")}
                 </Link>
                 <Link
                   to="/solutions"
                   search={{ source: "about-cta" }}
-                  className="px-12 py-4 border-2 border-secondary text-secondary font-headline-sm text-headline-sm rounded hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                  className="px-6 sm:px-10 md:px-12 py-4 border-2 border-secondary text-secondary font-headline-sm text-headline-sm rounded hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                 >
                   {t("about.ctaSecondary")}
                 </Link>

@@ -63,7 +63,7 @@ function JobsPage() {
   return (
     <PageLayout>
       <main className="pt-24 sm:pt-28 lg:pt-32 pb-24 text-start bg-background">
-        <Container clean className="max-w-container-max mx-auto px-margin-desktop mb-12">
+        <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-12">
           <Link
             to="/careers"
             className="inline-flex items-center gap-2 text-secondary font-bold mb-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded px-1"
@@ -85,7 +85,7 @@ function JobsPage() {
 
         {/* Jobs Grid */}
         <Section bg="none" className="py-8" noContainer>
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop" id="jobs">
+          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop" id="jobs">
             {isLoading && <StateFeedback type="loading" />}
             {isError && (
               <StateFeedback type="error" message={t("careers.loadError")} onRetry={refetch} />
@@ -250,7 +250,7 @@ function JobsPage() {
           className="py-24 bg-surface-container-low border-t border-outline-variant/20 mt-12"
           id="apply-form"
         >
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop">
+          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
             <div className="grid md:grid-cols-5 gap-16">
               <div className="md:col-span-2 text-right">
                 <h2 className="font-headline-xl text-headline-xl text-primary mb-6 font-bold">
@@ -297,7 +297,7 @@ function JobsPage() {
               <div className="md:col-span-3 text-right">
                 <form
                   onSubmit={handleFormSubmit}
-                  className="bg-white p-10 rounded-2xl border border-outline-variant/30 shadow-xl shadow-primary/5 space-y-6"
+                  className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl border border-outline-variant/30 shadow-xl shadow-primary/5 space-y-6"
                   id="career-form"
                 >
                   <input

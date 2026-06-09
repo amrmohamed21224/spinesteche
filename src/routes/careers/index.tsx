@@ -82,7 +82,7 @@ function CareersLandingPage() {
 
         {/* Quick Info Grid */}
         <Section bg="none" className="py-24">
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop">
+          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
             <div className="grid md:grid-cols-2 gap-10">
               <Link
                 to="/careers/work-environment"

@@ -67,7 +67,7 @@ function PricingPage() {
           aria-hidden="true"
         ></div>
 
-        <Container clean className="max-w-container-max mx-auto px-margin-desktop relative">
+        <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative">
           {/* Hero Header */}
           <PageHeader
             title={t("pricing.headerTitle")}
@@ -191,7 +191,7 @@ function PricingPage() {
 
           {/* Trust Section */}
           <Section bg="none" noContainer>
-            <div className="p-12 bg-white border border-outline-variant rounded-xl text-center shadow-sm">
+            <div className="p-6 sm:p-8 md:p-12 bg-white border border-outline-variant rounded-xl text-center shadow-sm">
               <h2 className="font-headline-xl text-headline-xl mb-8 font-bold text-primary">
                 {t("pricing.whyTitle")}
               </h2>

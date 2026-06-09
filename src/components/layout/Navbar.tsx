@@ -46,7 +46,7 @@ export function Navbar() {
         dir={dir}
       >
         {/* Leading cluster: menu (mobile) + logo */}
-        <div className="flex items-center gap-3 lg:gap-4 shrink-0">
+        <div className="flex items-center gap-2 lg:gap-4 shrink-0">
           <Dialog.Root open={menuOpen} onOpenChange={setMenuOpen}>
             <Dialog.Trigger asChild>
               <button
@@ -194,6 +194,26 @@ export function Navbar() {
           <NavLink to="/case-studies">{t("nav.caseStudies")}</NavLink>
           <NavLink to="/careers">{t("nav.careers")}</NavLink>
           <NavLink to="/contact">{t("nav.contact")}</NavLink>
+        </div>
+
+        {/* Mobile trailing actions (translate + CTA) */}
+        <div className="flex lg:hidden items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={toggleLocale}
+            className="inline-flex items-center justify-center size-10 rounded-xl bg-surface-container-lowest border border-outline-variant/30 text-on-surface-variant cursor-pointer hover:text-primary hover:border-primary/30 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+            aria-label={locale === "ar" ? t("nav.switchToEnglish") : t("nav.switchToArabic")}
+          >
+            <span className="material-symbols-outlined text-[20px]">translate</span>
+          </button>
+          <button
+            type="button"
+            onClick={openConsultation}
+            className="inline-flex items-center gap-1.5 bg-primary text-on-primary font-bold text-[13px] py-2 px-3 rounded-xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 whitespace-nowrap shadow-md transition-all hover:bg-primary/90"
+          >
+            <span className="material-symbols-outlined text-[16px]">rocket_launch</span>
+            <span className="hidden xs:inline">{t("nav.bookConsultation")}</span>
+          </button>
         </div>
 
         {/* Desktop actions only */}

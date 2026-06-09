@@ -24,7 +24,7 @@ function WorkEnvironmentPage() {
         {/* Header */}
         <Container
           clean
-          className="max-w-container-max mx-auto px-margin-desktop mb-20 text-center relative"
+          className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-12 md:mb-20 text-center relative"
         >
           <div
             className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-10 w-64 h-64 bg-secondary/10 rounded-full blur-[100px] -z-10"
@@ -51,7 +51,7 @@ function WorkEnvironmentPage() {
 
         {/* Culture Bento Grid */}
         <Section bg="none" className="py-12" noContainer>
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop">
+          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
               <div className="md:col-span-8 bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-10 relative overflow-hidden group hover:border-secondary/50 hover:shadow-xl transition-all duration-500">
                 <div className="absolute top-0 right-0 w-full h-2 bg-gradient-to-l from-secondary to-primary transform origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
@@ -131,7 +131,7 @@ function WorkEnvironmentPage() {
         {/* Core Values Section */}
         <section className="py-24 bg-primary-container relative overflow-hidden mt-12">
           <div className="islamic-pattern absolute inset-0 opacity-[0.03]" aria-hidden="true" />
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop relative z-10">
+          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
             <div className="text-center mb-16">
               <h2 className="font-headline-xl text-headline-xl text-on-primary mb-4 font-bold">
                 {locale === "ar" ? "قيمنا الأساسية" : "Our Core Values"}
@@ -174,7 +174,7 @@ function WorkEnvironmentPage() {
         {/* CTA to Jobs */}
         <Container
           clean
-          className="max-w-container-max mx-auto px-margin-desktop text-center mt-24"
+          className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center mt-24"
         >
           <h2 className="font-headline-lg text-headline-lg text-primary font-bold mb-6">
             {locale === "ar"
@@ -188,7 +188,7 @@ function WorkEnvironmentPage() {
           </p>
           <Link
             to="/careers/jobs"
-            className="inline-flex bg-primary text-on-primary px-10 py-4 rounded-xl font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
+            className="inline-flex bg-primary text-on-primary px-6 sm:px-8 md:px-10 py-4 rounded-xl font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
           >
             {locale === "ar" ? "تصفح الوظائف المتاحة" : "Browse Available Jobs"}
             <span className="material-symbols-outlined scale-x-[-1]" aria-hidden="true">

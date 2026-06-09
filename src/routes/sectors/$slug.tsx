@@ -116,7 +116,7 @@ function SectorDetailPage() {
           <div className="absolute -top-40 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none" />
           <div className="absolute -bottom-40 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop relative z-10">
+          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
             <Link
               to="/sectors"
               className="inline-flex items-center gap-2 text-secondary font-bold mb-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 rounded px-1 hover:text-primary transition-colors"
@@ -184,7 +184,7 @@ function SectorDetailPage() {
 
         {/* ───── FEATURES SECTION ───── */}
         <Section className="py-24 bg-white relative overflow-hidden" bg="none" noContainer>
-          <Container clean className="max-w-container-max mx-auto px-margin-desktop relative z-10">
+          <Container clean className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="font-display-md text-[2.5rem] font-bold text-primary mb-6">
                 {locale === "ar" ? "كيف نحدث فرقاً في هذا القطاع؟" : "How we make a difference"}
@@ -200,7 +200,7 @@ function SectorDetailPage() {
               {solutions.map((sol, i) => (
                 <div
                   key={i}
-                  className="group p-10 rounded-3xl bg-surface-container-lowest border border-outline-variant/40 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                  className="group p-5 sm:p-8 md:p-10 rounded-3xl bg-surface-container-lowest border border-outline-variant/40 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
                 >
                   <div className="size-16 rounded-2xl bg-primary/5 text-primary flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <span className="material-symbols-outlined text-[32px]">{sol.icon}</span>
@@ -216,7 +216,7 @@ function SectorDetailPage() {
         </Section>
 
         {/* ───── CTA SECTION ───── */}
-        <section className="py-24 px-margin-desktop bg-primary text-white text-center relative overflow-hidden">
+        <section className="py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-primary text-white text-center relative overflow-hidden">
           <div className="absolute inset-0 islamic-pattern opacity-10" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary/95" />
 
@@ -236,7 +236,7 @@ function SectorDetailPage() {
             </p>
             <Link
               to="/consultation"
-              className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-secondary text-on-secondary font-bold text-lg hover:bg-white hover:text-primary hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 sm:px-8 md:px-10 py-4 md:py-5 rounded-2xl bg-secondary text-on-secondary font-bold text-lg hover:bg-white hover:text-primary hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
             >
               {locale === "ar" ? "احجز استشارة مجانية" : "Book Free Consultation"}
               <span className="material-symbols-outlined text-[24px]">arrow_forward</span>

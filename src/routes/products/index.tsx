@@ -142,7 +142,7 @@ function Page() {
             </Grid>
           )}
 
-          <section className="mt-24 bg-primary-container p-12 rounded-xl text-center relative overflow-hidden">
+          <section className="mt-16 md:mt-24 bg-primary-container p-6 sm:p-8 md:p-12 rounded-xl text-center relative overflow-hidden">
             <div className="geometric-pattern absolute inset-0 opacity-10" aria-hidden="true" />
             <div className="relative z-10">
               <h2 className="font-headline-xl text-headline-xl text-on-primary mb-6 font-bold">
@@ -154,7 +154,7 @@ function Page() {
               <Link
                 to="/solutions"
                 search={{ source: "products-custom-cta" }}
-                className="inline-flex bg-secondary text-on-secondary px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
+                className="inline-flex bg-secondary text-on-secondary px-6 sm:px-8 md:px-10 py-4 rounded-lg font-headline-sm text-headline-sm hover:scale-105 active:scale-95 transition-all shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
               >
                 {t("products.customCtaButton")}
               </Link>
