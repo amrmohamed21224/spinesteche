@@ -8,6 +8,7 @@ import { Grid } from "../components/layout/Grid";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getAboutPageData } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
+import { StatsCounter } from "../components/ui/StatsCounter";
 import type { CMSAboutPageData } from "../types/cms";
 
 export const Route = createFileRoute("/about")({
@@ -236,21 +237,7 @@ function Page() {
                     ))}
                   </ul>
                 </div>
-                <div className="grid grid-cols-2 gap-gutter text-center">
-                  {data.stats.map((stat) => (
-                    <div
-                      key={stat.id}
-                      className="bg-surface/10 p-8 rounded border border-surface/20 flex flex-col items-center justify-center"
-                    >
-                      <div className="text-secondary font-display-lg text-display-lg mb-2">
-                        {stat.value}
-                      </div>
-                      <div className="font-label-md text-label-md text-on-primary-container">
-                        {stat.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <StatsCounter stats={data.stats} />
               </div>
             </Section>
           </>
