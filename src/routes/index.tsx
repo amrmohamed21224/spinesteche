@@ -130,11 +130,7 @@ function HeroSection() {
               alt={t("home.heroImageAlt")}
               className="rounded-3xl shadow-2xl relative z-10 w-full object-cover aspect-[1.79]"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2AZZoxIZ-GDG2uwZS83lY8yRzqHk_C73qrpsc1srV-sfitFamyjaRXBe56nqXsvQLRxz8bTp9no3vd5ap1jNdpxue2yquRm4BPjIAoCOptoZvo3ZycyRLOR-6k8_AJvR23sKbj88-h4acKRpOIItt1aBdEsU0ENAA59h2fVClgtelgbLke1V5cLZ0tiG_SiWP0HrGqRL6Flmq_UDy_T0Rc0ROi7xRfqWoU4nTK9oNIruANCybg4f8Lfu9mQTTT9EHY5E6trVoSqEd"
-              loading="eager"
-              fetchPriority="high"
-              width="716"
-              height="400"
-              decoding="async"
+              loading="lazy"
             />
           </div>
         </div>
