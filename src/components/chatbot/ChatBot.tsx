@@ -540,7 +540,7 @@ export function ChatBot() {
         style={{
           position: "fixed",
           bottom: "88px",
-          right: "20px",
+          ...(isRTL ? { right: "20px" } : { left: "20px" }),
           zIndex: 9998,
           width: "min(420px, calc(100vw - 32px))",
           opacity: open ? 1 : 0,
@@ -799,7 +799,7 @@ export function ChatBot() {
         style={{
           position: "fixed",
           bottom: "20px",
-          right: "20px",
+          ...(isRTL ? { right: "20px" } : { left: "20px" }),
           zIndex: 9999,
           opacity: visible ? 1 : 0,
           transform: visible ? "scale(1) translateY(0)" : "scale(0.5) translateY(20px)",
