@@ -1,15 +1,65 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { PageLayout } from "../components/layout/PageLayout";
-import { seo } from "../lib/seo";
-import { Section } from "../components/layout/Section";
 import { Container } from "../components/layout/Container";
-import { Grid } from "../components/layout/Grid";
+import { seo } from "../lib/seo";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getAboutPageData } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
 import { StatsCounter } from "../components/ui/StatsCounter";
 import type { CMSAboutPageData } from "../types/cms";
+
+const copy = {
+  ar: {
+    badge: "من نحن",
+    heroTitle: "نصمم مستقبل الأعمال الرقمية",
+    heroHighlight: "بأيدٍ سعودية عالمية",
+    heroSubtitle:
+      "SpinesTech شريكك الاستراتيجي في التحول الرقمي. نبني حلولاً تقنية متطورة تجمع بين الخبرة المحلية العميقة والمعايير الهندسية العالمية.",
+    trustInstitutional: "ثقة مؤسسية",
+    trustCybersecurity: "أمن سيبراني",
+    trustLocal: "سيادة تقنية",
+    trustExcellence: "تميز هندسي",
+    missionTitle: "رسالتنا",
+    visionTitle: "رؤيتنا 2030",
+    marketsTitle: "تواجدنا الجغرافي",
+    marketsSubtitle:
+      "نخدم عملاءنا من مراكزنا المتعددة، مع فهم عميق لكل سوق وثقافته التجارية.",
+    coreValuesTitle: "قيمنا الأساسية",
+    whyTitle: "لماذا SpinesTech؟",
+    loadError: "فشل تحميل بيانات الصفحة. يرجى المحاولة مرة أخرى.",
+    ctaTitle: "نبدأ المشروع القادم معاً؟",
+    ctaSubtitle:
+      "فريقنا جاهز لتحليل تحدياتك وتقديم خارطة طريق تقنية واضحة تناسب طموحاتك.",
+    ctaPrimary: "احجز استشارة مجانية",
+    ctaSecondary: "تصفح الحلول",
+  },
+  en: {
+    badge: "About Us",
+    heroTitle: "Designing the Future of Digital Business",
+    heroHighlight: "with Saudi-Global Hands",
+    heroSubtitle:
+      "SpinesTech is your strategic partner in digital transformation. We build advanced tech solutions that combine deep local expertise with world-class engineering standards.",
+    trustInstitutional: "Institutional Trust",
+    trustCybersecurity: "Cybersecurity",
+    trustLocal: "Tech Sovereignty",
+    trustExcellence: "Engineering Excellence",
+    missionTitle: "Our Mission",
+    visionTitle: "Vision 2030",
+    marketsTitle: "Our Presence",
+    marketsSubtitle:
+      "We serve our clients from multiple centers, with deep understanding of each market and its business culture.",
+    coreValuesTitle: "Our Core Values",
+    whyTitle: "Why SpinesTech?",
+    loadError: "Failed to load page data. Please try again.",
+    ctaTitle: "Shall we start your next project together?",
+    ctaSubtitle:
+      "Our team is ready to analyze your challenges and provide a clear technical roadmap that matches your ambitions.",
+    ctaPrimary: "Book a Free Consultation",
+    ctaSecondary: "Explore Solutions",
+  },
+};
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -23,62 +73,113 @@ export const Route = createFileRoute("/about")({
 });
 
 function Page() {
-  const { t, locale } = useTranslation();
+  const { locale, dir } = useTranslation();
+  const c = copy[locale];
   const { data, isLoading, isError, refetch } = useQuery<CMSAboutPageData>({
     queryKey: ["about-page", locale],
     queryFn: () => getAboutPageData(locale),
   });
 
+  // entrance animation
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 60);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <PageLayout>
-      <main className="pt-24 sm:pt-28 lg:pt-32 text-start">
-        {/* Hero Section: Who We Are */}
-        <section className="relative min-h-[716px] flex items-center overflow-hidden geometric-pattern border-b border-outline-variant/20">
-          <Container clean>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center py-20">
-              <div className="md:col-span-6 z-10">
-                <span className="inline-block bg-secondary/10 text-secondary font-label-md text-label-md px-3 py-1 rounded-full mb-6">
-                  {t("about.badge")}
+      <main dir={dir} className="min-h-screen bg-background">
+        {/* ═══════════════════════════════════════════
+            1. HERO SECTION
+            ═══════════════════════════════════════════ */}
+        <section className="relative overflow-hidden bg-background pt-28 pb-20 md:pt-36 md:pb-28 px-margin-mobile md:px-margin-desktop">
+          <div className="islamic-pattern absolute inset-0 opacity-[0.02]" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-32 end-0 w-[500px] h-[500px] rounded-full bg-secondary/10 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute bottom-0 start-0 w-[300px] h-[300px] rounded-full bg-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
+
+          <Container clean className="relative z-10">
+            <div
+              className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "none" : "translateY(18px)",
+                transition: "opacity 0.65s ease, transform 0.65s ease",
+              }}
+            >
+              {/* Left: copy */}
+              <div className="text-start order-2 lg:order-1">
+                <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
+                  <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                    diversity_3
+                  </span>
+                  {c.badge}
                 </span>
-                <h1 className="font-display-lg text-display-lg text-primary mb-8 leading-tight font-bold">
-                  {t("about.heroTitle")} <br />
-                  <span className="text-secondary">{t("about.heroHighlight")}</span>
+
+                <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg font-bold leading-[1.1] text-primary mb-6">
+                  {c.heroTitle}
+                  <br />
+                  <span className="text-secondary">{c.heroHighlight}</span>
                 </h1>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
-                  {t("about.heroSubtitle")}
+
+                <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-10 leading-relaxed">
+                  {c.heroSubtitle}
                 </p>
-                <div className="flex gap-4 justify-start">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="material-symbols-outlined text-secondary"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                      aria-hidden="true"
-                    >
-                      verified
-                    </span>
-                    <span className="font-label-md text-label-md text-on-surface">
-                      {t("about.trustInstitutional")}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="material-symbols-outlined text-secondary"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                      aria-hidden="true"
-                    >
-                      security
-                    </span>
-                    <span className="font-label-md text-label-md text-on-surface">
-                      {t("about.trustCybersecurity")}
-                    </span>
-                  </div>
+
+                {/* 4 trust badges */}
+                <div
+                  className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-8 border-t border-outline-variant/30"
+                  style={{
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? "none" : "translateY(12px)",
+                    transition: "opacity 0.55s ease 0.15s, transform 0.55s ease 0.15s",
+                  }}
+                >
+                  {[
+                    { icon: "verified", label: c.trustInstitutional },
+                    { icon: "security", label: c.trustCybersecurity },
+                    { icon: "flag", label: c.trustLocal },
+                    { icon: "workspace_premium", label: c.trustExcellence },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-2">
+                      <span
+                        className="material-symbols-outlined text-secondary text-[18px]"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                        aria-hidden="true"
+                      >
+                        {item.icon}
+                      </span>
+                      <span className="font-label-md text-label-md text-on-surface">
+                        {item.label}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="md:col-span-6 relative h-[500px]">
-                <div className="absolute inset-0 bg-secondary/5 rounded-2xl transform rotate-3 scale-105"></div>
+
+              {/* Right: image */}
+              <div
+                className="relative order-1 lg:order-2"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateY(22px)",
+                  transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/15 via-primary-container/10 to-transparent rounded-3xl rotate-2 scale-105" />
+                <div
+                  className="pointer-events-none absolute -top-10 -end-10 w-48 h-48 rounded-full bg-secondary/15 blur-3xl"
+                  aria-hidden="true"
+                />
                 <img
-                  alt={t("about.officesAlt")}
-                  className="w-full h-full object-cover rounded-xl shadow-lg relative z-10 grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                  alt="SpinesTech offices"
+                  className="rounded-3xl shadow-2xl relative z-10 w-full object-cover aspect-[16/10]"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9bE2_3UQ9T-YgReuejnvmJ3g0NZNTP2VOTh1ypFY8ApCoDK0oixY7aMf1804miQCC1XQAVFv19e0d-oqW5BFOmQoKxGPgiv8ouUztdcRUeuJof-JMPBAD12ALZjIiEDHE-1LQR55dilHQlDpNo6EZDqaQtLOAINOa7BKQK8_h-Ba8cKyiRm5uo3cjfBW3Gztkv0w9LVpdHm64PCRHlMUXIOf8aA5r9bywgqfSak-i5_4XWUnUc7UvX2prbSjljLB-1sEx0DJemZrJ"
                   loading="lazy"
                 />
@@ -87,187 +188,344 @@ function Page() {
           </Container>
         </section>
 
-        {/* Dynamic Content Sections */}
+        {/* Dynamic Content */}
         {isLoading && (
-          <Section bg="surface" className="py-24">
+          <div className="py-24 px-margin-mobile md:px-margin-desktop">
             <StateFeedback type="loading" />
-          </Section>
+          </div>
         )}
         {isError && (
-          <Section bg="surface" className="py-24">
-            <StateFeedback type="error" message={t("about.loadError")} onRetry={refetch} />
-          </Section>
+          <div className="py-24 px-margin-mobile md:px-margin-desktop">
+            <StateFeedback type="error" message={c.loadError} onRetry={refetch} />
+          </div>
         )}
 
-        {!isLoading && !isError && data ? (
+        {!isLoading && !isError && data && (
           <>
-            {/* Mission & Vision: Bento Grid */}
-            <Section bg="surface" className="py-24">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-                {/* Mission */}
-                <div className="bg-primary-container p-6 sm:p-8 md:p-12 rounded-xl text-on-primary relative overflow-hidden group text-right">
-                  <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-                  <span
-                    className="material-symbols-outlined text-tertiary-fixed text-5xl mb-6 block"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                    aria-hidden="true"
-                  >
-                    target
-                  </span>
-                  <h2 className="font-headline-xl text-headline-xl mb-6 text-on-primary font-bold">
-                    {t("about.missionTitle")}
-                  </h2>
-                  <p className="font-body-lg text-body-lg text-on-primary-container leading-relaxed">
-                    {data.mission}
-                  </p>
-                </div>
-                {/* Vision */}
-                <div className="bg-surface-container-high p-6 sm:p-8 md:p-12 rounded-xl border border-outline-variant/30 flex flex-col justify-between group hover:border-secondary transition-colors duration-300">
-                  <div>
-                    <span
-                      className="material-symbols-outlined text-secondary text-5xl mb-6 block"
-                      aria-hidden="true"
-                    >
-                      visibility
-                    </span>
-                    <h2 className="font-headline-xl text-headline-xl text-primary mb-6 font-bold">
-                      {t("about.visionTitle")}
-                    </h2>
-                    <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                      {data.vision}
-                    </p>
-                  </div>
-                  <div className="mt-12 flex justify-end">
-                    <span className="text-secondary font-bold text-headline-lg opacity-20 group-hover:opacity-100 transition-opacity">
-                      {t("about.vision2030Label")}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Section>
-
-            {/* Markets Presence */}
-            <Section bg="default" className="py-24 overflow-hidden">
-              <div className="flex flex-col md:flex-row gap-gutter items-center">
-                <div className="w-full md:w-5/12">
-                  <h2 className="font-headline-xl text-headline-xl text-primary mb-6 font-bold">
-                    {t("about.marketsTitle")}
-                  </h2>
-                  <p className="font-body-md text-body-md text-on-surface-variant mb-12">
-                    {t("about.marketsSubtitle")}
-                  </p>
-                  <div className="space-y-6">
-                    {data.markets.map((market) => (
-                      <div
-                        key={market.id}
-                        className="flex items-center gap-4 p-4 rounded-lg bg-surface hover:shadow-md transition-shadow flex-row-reverse justify-end"
-                      >
-                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/10 text-secondary font-bold">
-                          {market.code}
-                        </span>
-                        <div className="font-headline-sm text-headline-sm">{market.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="w-full md:w-7/12 relative">
-                  <div className="aspect-square bg-surface-container-highest rounded-full absolute -top-20 -left-20 w-[120%] -z-10 blur-3xl opacity-30"></div>
-                  <img
-                    alt="خريطة التواجد الجغرافي لشركة SpinesTech"
-                    className="w-full rounded-2xl shadow-2xl object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-1000"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfa-hlUt4JFvMr8tCqIeEHljk6AWaUSmdPa_kGAUSk1sB8R3E1CR2CRRwBqwj_6hx5xfjbtgVT4x714dJYkOsQml0rPZJhGJ1Bwh9D_Y4O7j-qFqOR_Vj84yYHkDHanMmbbMBX9pqcMrrxrhFzKcDkQvw83XV6zX3zACW7PBEUoRWyjm-26LBgyu88JSJ3kXo8shCN8_QuQwUJ0mowY4OImhFfUnHJBM7MzzK6vNvTkeFDi8ZgErX4_RN0J3OZWi236vl97iayRuWK"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </Section>
-
-            {/* Core Values */}
-            <Section bg="surface" className="py-24 border-t border-outline-variant/20">
-              <h2 className="font-headline-xl text-headline-xl text-primary mb-16 text-center font-bold">
-                {t("about.coreValuesTitle")}
-              </h2>
-              <Grid cols={4}>
-                {data.coreValues.map((value) => (
+            {/* ═══════════════════════════════════════════
+                2. MISSION & VISION (Bento Grid)
+                ═══════════════════════════════════════════ */}
+            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-surface-container-low overflow-hidden">
+              <div className="islamic-pattern absolute inset-0 opacity-[0.015]" aria-hidden="true" />
+              <Container clean className="relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                  {/* Mission — Dark card */}
                   <div
-                    key={value.id}
-                    className="flex flex-col items-center p-8 bg-background border border-outline-variant/10 rounded hover:border-secondary transition-all group"
+                    className="relative overflow-hidden rounded-2xl bg-primary-container p-8 md:p-12 text-on-primary"
+                    style={{
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? "none" : "translateY(18px)",
+                      transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
+                    }}
                   >
-                    <div className="w-16 h-16 rounded-full bg-secondary/5 flex items-center justify-center mb-6 group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
-                      <span className="material-symbols-outlined text-3xl" aria-hidden="true">
-                        {value.icon}
+                    <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+                    <div className="relative z-10">
+                      <span
+                        className="material-symbols-outlined text-secondary-fixed text-4xl mb-6 block"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                        aria-hidden="true"
+                      >
+                        target
+                      </span>
+                      <h2 className="font-headline-xl text-headline-xl font-bold mb-5 text-on-primary">
+                        {c.missionTitle}
+                      </h2>
+                      <p className="font-body-lg text-body-lg text-on-primary/80 leading-relaxed">
+                        {data.mission}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Vision — Light card */}
+                  <div
+                    className="relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-8 md:p-12 flex flex-col justify-between"
+                    style={{
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? "none" : "translateY(18px)",
+                      transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
+                    }}
+                  >
+                    <div>
+                      <span
+                        className="material-symbols-outlined text-secondary text-4xl mb-6 block"
+                        aria-hidden="true"
+                      >
+                        visibility
+                      </span>
+                      <h2 className="font-headline-xl text-headline-xl font-bold text-primary mb-5">
+                        {c.visionTitle}
+                      </h2>
+                      <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        {data.vision}
+                      </p>
+                    </div>
+                    <div className="mt-8 pt-6 border-t border-outline-variant/20 flex items-center gap-3">
+                      <span
+                        className="material-symbols-outlined text-secondary text-xl"
+                        aria-hidden="true"
+                      >
+                        calendar_today
+                      </span>
+                      <span className="font-label-md text-label-md text-secondary font-bold">
+                        2030
+                      </span>
+                      <span className="text-on-surface-variant text-caption">
+                        {locale === "ar" ? "الهدف الاستراتيجي" : "Strategic Goal"}
                       </span>
                     </div>
-                    <h3 className="font-headline-sm text-headline-sm mb-4 text-primary font-bold">
-                      {value.title}
-                    </h3>
-                    <p className="font-body-md text-body-md text-on-surface-variant">
-                      {value.description}
+                  </div>
+                </div>
+              </Container>
+            </section>
+
+            {/* ═══════════════════════════════════════════
+                3. MARKETS PRESENCE
+                ═══════════════════════════════════════════ */}
+            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-background overflow-hidden">
+              <div
+                className="pointer-events-none absolute -top-32 end-0 w-[300px] h-[300px] rounded-full bg-secondary/5 blur-3xl"
+                aria-hidden="true"
+              />
+              <Container clean className="relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                  {/* Left: copy */}
+                  <div
+                    className="lg:col-span-5 text-start"
+                    style={{
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? "none" : "translateY(16px)",
+                      transition: "opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s",
+                    }}
+                  >
+                    <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
+                      <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                        public
+                      </span>
+                      {c.marketsTitle}
+                    </span>
+                    <h2 className="font-headline-xl text-headline-xl font-bold text-primary mb-5">
+                      {c.marketsTitle}
+                    </h2>
+                    <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                      {c.marketsSubtitle}
                     </p>
                   </div>
-                ))}
-              </Grid>
-            </Section>
 
-            {/* Key Differentiators */}
-            <Section bg="primary-container" className="text-on-primary py-24">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                  <h2 className="font-headline-xl text-headline-xl mb-8 font-bold text-on-primary">
-                    {t("about.whyTitle")}
-                  </h2>
-                  <ul className="space-y-8">
-                    {data.differentiators.map((diff) => (
-                      <li
-                        key={diff.id}
-                        className="flex gap-6 justify-start flex-row-reverse text-right"
-                      >
-                        <span className="font-display-lg text-display-lg text-secondary opacity-50 shrink-0">
-                          {String(diff.order).padStart(2, "0")}
-                        </span>
-                        <div>
-                          <h4 className="font-headline-sm text-headline-sm mb-2 text-on-primary">
-                            {diff.title}
-                          </h4>
-                          <p className="font-body-md text-body-md text-on-primary-container">
-                            {diff.description}
-                          </p>
+                  {/* Right: markets grid */}
+                  <div className="lg:col-span-7">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {data.markets.map((market, i) => (
+                        <div
+                          key={market.id}
+                          className="flex items-center gap-4 p-5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest hover:border-secondary/30 hover:shadow-md transition-all"
+                          style={{
+                            opacity: visible ? 1 : 0,
+                            transform: visible ? "none" : "translateX(14px)",
+                            transition: `opacity 0.5s ease ${0.2 + i * 0.08}s, transform 0.5s ease ${0.2 + i * 0.08}s`,
+                          }}
+                        >
+                          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary font-bold text-sm">
+                            {market.code}
+                          </span>
+                          <span className="font-label-md text-label-md text-primary font-bold">
+                            {market.label}
+                          </span>
                         </div>
-                      </li>
-                    ))}
-                  </ul>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <StatsCounter stats={data.stats} />
-              </div>
-            </Section>
-          </>
-        ) : null}
+              </Container>
+            </section>
 
-        {/* CTA Section */}
-        <section className="py-24 geometric-pattern">
-          <Container>
-            <div className="bg-white p-8 sm:p-10 md:p-16 rounded-2xl shadow-xl border border-outline-variant/30 text-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-bl-full"></div>
-              <h2 className="font-display-lg text-display-lg text-primary mb-6 font-bold">
-                {t("about.ctaTitle")}
+            {/* ═══════════════════════════════════════════
+                4. CORE VALUES
+                ═══════════════════════════════════════════ */}
+            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-surface-container overflow-hidden">
+              <div className="islamic-pattern absolute inset-0 opacity-[0.02]" aria-hidden="true" />
+              <Container clean className="relative z-10">
+                <div
+                  className="text-center mb-14"
+                  style={{
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? "none" : "translateY(16px)",
+                    transition: "opacity 0.6s ease, transform 0.6s ease",
+                  }}
+                >
+                  <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-4">
+                    <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                      star
+                    </span>
+                    {c.coreValuesTitle}
+                  </span>
+                  <h2 className="font-headline-xl text-headline-xl font-bold text-primary">
+                    {c.coreValuesTitle}
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {data.coreValues.map((value, i) => (
+                    <div
+                      key={value.id}
+                      className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-8 text-center hover:border-secondary/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-secondary/5 transition-all duration-300"
+                      style={{
+                        opacity: visible ? 1 : 0,
+                        transform: visible ? "none" : "translateY(18px)",
+                        transition: `opacity 0.5s ease ${0.1 + i * 0.08}s, transform 0.5s ease ${0.1 + i * 0.08}s, box-shadow 0.3s ease`,
+                      }}
+                    >
+                      {/* Top accent line */}
+                      <div
+                        className="absolute top-0 start-0 end-0 h-1 bg-gradient-to-r from-secondary/60 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"
+                        aria-hidden="true"
+                      />
+                      <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-on-secondary transition-colors duration-300 text-secondary">
+                        <span
+                          className="material-symbols-outlined text-3xl"
+                          aria-hidden="true"
+                        >
+                          {value.icon}
+                        </span>
+                      </div>
+                      <h3 className="font-headline-sm text-headline-sm text-primary font-bold mb-3">
+                        {value.title}
+                      </h3>
+                      <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        {value.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </Container>
+            </section>
+
+            {/* ═══════════════════════════════════════════
+                5. WHY US — Differentiators + Stats
+                ═══════════════════════════════════════════ */}
+            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">
+              <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+              <div
+                className="pointer-events-none absolute -top-40 end-20 w-[420px] h-[420px] rounded-full bg-secondary/12 blur-3xl"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute -bottom-40 start-20 w-[360px] h-[360px] rounded-full bg-on-primary/5 blur-3xl"
+                aria-hidden="true"
+              />
+
+              <Container clean className="relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                  {/* Left: differentiators */}
+                  <div>
+                    <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/25 bg-secondary/10 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
+                      <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                        emoji_events
+                      </span>
+                      {locale === "ar" ? "مميزاتنا" : "Our Edge"}
+                    </span>
+                    <h2
+                      className="font-headline-xl text-headline-xl font-bold text-on-primary mb-10"
+                      style={{
+                        opacity: visible ? 1 : 0,
+                        transform: visible ? "none" : "translateY(16px)",
+                        transition: "opacity 0.6s ease, transform 0.6s ease",
+                      }}
+                    >
+                      {c.whyTitle}
+                    </h2>
+
+                    <ul className="space-y-8">
+                      {data.differentiators.map((diff, i) => (
+                        <li
+                          key={diff.id}
+                          className="flex gap-5 items-start"
+                          style={{
+                            opacity: visible ? 1 : 0,
+                            transform: visible ? "none" : "translateX(14px)",
+                            transition: `opacity 0.5s ease ${0.15 + i * 0.1}s, transform 0.5s ease ${0.15 + i * 0.1}s`,
+                          }}
+                        >
+                          <span className="font-display-lg text-display-lg text-secondary font-bold shrink-0 leading-none mt-0.5">
+                            {String(diff.order).padStart(2, "0")}
+                          </span>
+                          <div>
+                            <h4 className="font-headline-sm text-headline-sm text-on-primary font-bold mb-2">
+                              {diff.title}
+                            </h4>
+                            <p className="font-body-md text-body-md text-on-primary/70 leading-relaxed">
+                              {diff.description}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Right: stats */}
+                  <div
+                    className="lg:sticky lg:top-28"
+                    style={{
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? "none" : "translateY(20px)",
+                      transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
+                    }}
+                  >
+                    <StatsCounter stats={data.stats} />
+                  </div>
+                </div>
+              </Container>
+            </section>
+          </>
+        )}
+
+        {/* ═══════════════════════════════════════════
+            6. CTA SECTION
+            ═══════════════════════════════════════════ */}
+        <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">
+          <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -top-32 end-0 w-[400px] h-[400px] rounded-full bg-secondary/10 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute -bottom-20 start-1/4 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
+
+          <Container clean>
+            <div
+              className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "none" : "translateY(18px)",
+                transition: "opacity 0.65s ease 0.3s, transform 0.65s ease 0.3s",
+              }}
+            >
+              <h2 className="font-display-md text-display-md-mobile md:text-display-md font-bold text-on-primary mb-6">
+                {c.ctaTitle}
               </h2>
-              <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto">
-                {t("about.ctaSubtitle")}
+              <p className="font-body-lg text-body-lg text-on-primary/75 mb-10 leading-relaxed">
+                {c.ctaSubtitle}
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
                 <Link
                   to="/consultation"
                   search={{ source: "about-cta" }}
-                  className="px-6 sm:px-10 md:px-12 py-4 bg-secondary text-on-secondary font-headline-sm text-headline-sm rounded hover:shadow-lg transition-all active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-secondary px-8 py-4 font-bold text-on-secondary transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
                 >
-                  {t("about.ctaPrimary")}
+                  {c.ctaPrimary}
+                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                    {locale === "ar" ? "arrow_back" : "arrow_forward"}
+                  </span>
                 </Link>
                 <Link
                   to="/solutions"
-                  search={{ source: "about-cta" }}
-                  className="px-6 sm:px-10 md:px-12 py-4 border-2 border-secondary text-secondary font-headline-sm text-headline-sm rounded hover:bg-secondary/5 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                  className="flex items-center justify-center gap-2 rounded-xl border-2 border-secondary-fixed/60 px-8 py-4 font-bold text-secondary-fixed transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
                 >
-                  {t("about.ctaSecondary")}
+                  {c.ctaSecondary}
+                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                    {locale === "ar" ? "arrow_back" : "arrow_forward"}
+                  </span>
                 </Link>
               </div>
             </div>
