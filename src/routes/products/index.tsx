@@ -8,6 +8,7 @@ import { PageHeader } from "../../components/layout/PageHeader";
 import { StateFeedback } from "../../components/layout/StateFeedback";
 import { getProducts } from "../../lib/api/fetchers";
 import { useTranslation } from "../../i18n";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
 
 export const Route = createFileRoute("/products/")({
   head: () =>
@@ -31,6 +32,8 @@ function Page() {
     queryKey: ["products", locale],
     queryFn: () => getProducts(locale),
   });
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal(0.08);
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollReveal();
 
   return (
     <PageLayout>
@@ -53,98 +56,115 @@ function Page() {
           )}
 
           {!isLoading && !isError && products && products.length > 0 && (
-            <Grid cols={3}>
-              {products.map((product) => {
-                const isSpecialized = product.badge === "حلول قطاعية";
-                return (
-                  <div
-                    key={product.id}
-                    className={`bg-surface-container-lowest border p-8 rounded-xl flex flex-col h-full hover:shadow-lg transition-all group relative overflow-hidden ${
-                      isSpecialized
-                        ? "border-secondary/30 hover:border-secondary/60"
-                        : "border-outline-variant hover:border-secondary/40"
-                    }`}
-                  >
-                    {isSpecialized && (
-                      <div
-                        className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full -translate-y-16 translate-x-16"
-                        aria-hidden="true"
-                      />
-                    )}
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right" />
-
-                    <div className="flex justify-between items-start mb-6">
-                      <span
-                        className="material-symbols-outlined text-4xl text-secondary"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                        aria-hidden="true"
-                      >
-                        {product.icon}
-                      </span>
-                      {product.badge && (
-                        <span
-                          className={`px-3 py-1 rounded-full font-label-md text-label-md ${isSpecialized ? "bg-tertiary-fixed text-on-tertiary-fixed" : "bg-secondary-container text-on-secondary-container"}`}
-                        >
-                          {product.badge}
-                        </span>
-                      )}
-                    </div>
-
-                    <Link to="/products/$slug" params={{ slug: product.slug }} className="block">
-                      <h3 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold group-hover:text-secondary transition-colors">
-                        {product.title}
-                      </h3>
-                    </Link>
-
-                    <p className="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
-                      {product.description}
-                    </p>
-
-                    <div className="space-y-3 mb-8">
-                      {product.features.map((feature, fIdx) => (
+            <div ref={revealRef}>
+              <Grid cols={3}>
+                {products.map((product, index) => {
+                  const isSpecialized = product.badge === "حلول قطاعية";
+                  return (
+                    <div
+                      key={product.id}
+                      className={`bg-surface-container-lowest border p-8 rounded-xl flex flex-col h-full hover:shadow-xl hover:-translate-y-1 transition-all group relative overflow-hidden ${
+                        isSpecialized
+                          ? "border-secondary/30 hover:border-secondary/60"
+                          : "border-outline-variant hover:border-secondary/40"
+                      }`}
+                      style={{
+                        opacity: revealed ? 1 : 0,
+                        transform: revealed ? "none" : "translateY(24px)",
+                        transition: `opacity 0.55s ease ${index * 80}ms, transform 0.55s ease ${index * 80}ms, box-shadow 0.3s ease, translate 0.3s ease`,
+                      }}
+                    >
+                      {isSpecialized && (
                         <div
-                          key={fIdx}
-                          className="flex items-center gap-2 text-secondary justify-start"
-                        >
-                          <span className="material-symbols-outlined text-sm" aria-hidden="true">
-                            check_circle
-                          </span>
-                          <span className="font-label-md text-label-md text-on-surface">
-                            {feature}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                          className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full -translate-y-16 translate-x-16"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right" />
 
-                    <div className="flex flex-col gap-3">
-                      <Link
-                        to="/quote"
-                        search={{ product: product.slug, source: "products-listing" }}
-                        className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                      >
-                        {product.ctaPrimary}
-                      </Link>
-                      <Link
-                        to="/consultation"
-                        search={{ source: "products-listing" }}
-                        className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors text-center inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                      >
-                        {product.ctaSecondary ||
-                          (locale === "ar" ? "تخصيص لعملك" : "Customize for you")}
-                        <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
-                          {locale === "ar" ? "arrow_back" : "arrow_forward"}
+                      <div className="flex justify-between items-start mb-6">
+                        <span
+                          className="material-symbols-outlined text-4xl text-secondary"
+                          style={{ fontVariationSettings: "'FILL' 1" }}
+                          aria-hidden="true"
+                        >
+                          {product.icon}
                         </span>
+                        {product.badge && (
+                          <span
+                            className={`px-3 py-1 rounded-full font-label-md text-label-md ${isSpecialized ? "bg-tertiary-fixed text-on-tertiary-fixed" : "bg-secondary-container text-on-secondary-container"}`}
+                          >
+                            {product.badge}
+                          </span>
+                        )}
+                      </div>
+
+                      <Link to="/products/$slug" params={{ slug: product.slug }} className="block">
+                        <h3 className="font-headline-xl text-headline-xl text-primary mb-4 font-bold group-hover:text-secondary transition-colors">
+                          {product.title}
+                        </h3>
                       </Link>
+
+                      <p className="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
+                        {product.description}
+                      </p>
+
+                      <div className="space-y-3 mb-8">
+                        {product.features.map((feature, fIdx) => (
+                          <div
+                            key={fIdx}
+                            className="flex items-center gap-2 text-secondary justify-start"
+                          >
+                            <span className="material-symbols-outlined text-sm" aria-hidden="true">
+                              check_circle
+                            </span>
+                            <span className="font-label-md text-label-md text-on-surface">
+                              {feature}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-col gap-3">
+                        <Link
+                          to="/quote"
+                          search={{ product: product.slug, source: "products-listing" }}
+                          className="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                        >
+                          {product.ctaPrimary}
+                        </Link>
+                        <Link
+                          to="/consultation"
+                          search={{ source: "products-listing" }}
+                          className="w-full border border-secondary text-secondary py-3 rounded-lg font-label-md text-label-md hover:bg-secondary/5 transition-colors text-center inline-flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+                        >
+                          {product.ctaSecondary ||
+                            (locale === "ar" ? "تخصيص لعملك" : "Customize for you")}
+                          <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
+                            {locale === "ar" ? "arrow_back" : "arrow_forward"}
+                          </span>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </Grid>
+                  );
+                })}
+              </Grid>
+            </div>
           )}
 
-          <section className="mt-16 md:mt-24 bg-primary-container p-6 sm:p-8 md:p-12 rounded-xl text-center relative overflow-hidden">
+          <section
+            ref={ctaRef}
+            className="mt-16 md:mt-24 bg-primary-container p-6 sm:p-8 md:p-12 rounded-xl text-center relative overflow-hidden"
+          >
             <div className="geometric-pattern absolute inset-0 opacity-10" aria-hidden="true" />
-            <div className="relative z-10">
+            <div
+              className="relative z-10"
+              style={{
+                opacity: ctaVisible ? 1 : 0,
+                transform: ctaVisible ? "none" : "translateY(18px)",
+                transition: "opacity 0.65s ease, transform 0.65s ease",
+              }}
+            >
               <h2 className="font-headline-xl text-headline-xl text-on-primary mb-6 font-bold">
                 {t("products.customCtaTitle")}
               </h2>

@@ -9,6 +9,8 @@ import { Grid } from "../components/layout/Grid";
 import { StateFeedback } from "../components/layout/StateFeedback";
 import { getServices, getPricingPlans, getFaqs } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useCountUp } from "../hooks/useCountUp";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -233,53 +235,68 @@ function HeroSection() {
    ═══════════════════════════════════════════ */
 function StatsBar() {
   const { locale } = useTranslation();
-  const visible = useEntrance(200);
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal(0.2);
 
   const stats = [
-    { value: "+150", label: locale === "ar" ? "مشروع ناجح" : "Successful projects", icon: "deployed_code" },
-    { value: "50+", label: locale === "ar" ? "خبير تقني" : "Tech experts", icon: "groups" },
-    { value: "8+", label: locale === "ar" ? "سنوات خبرة" : "Years of experience", icon: "calendar_month" },
-    { value: "99.9%", label: locale === "ar" ? "ضمان استمرارية" : "Uptime guarantee", icon: "verified" },
+    { num: 150, prefix: "+", label: locale === "ar" ? "مشروع ناجح" : "Successful projects", icon: "deployed_code" },
+    { num: 50, prefix: "", suffix: "+", label: locale === "ar" ? "خبير تقني" : "Tech experts", icon: "groups" },
+    { num: 8, prefix: "", suffix: "+", label: locale === "ar" ? "سنوات خبرة" : "Years of experience", icon: "calendar_month" },
+    { num: 99, prefix: "", suffix: ".9%", label: locale === "ar" ? "ضمان استمرارية" : "Uptime guarantee", icon: "verified" },
   ];
 
   return (
-    <section className="relative bg-primary-container overflow-hidden">
+    <section ref={revealRef} className="relative bg-primary-container overflow-hidden">
       <div className="islamic-pattern absolute inset-0 opacity-[0.03]" aria-hidden="true" />
 
       <Container clean className="px-margin-mobile md:px-margin-desktop py-10 md:py-14 relative z-10">
         <div
           className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "none" : "translateY(14px)",
+            opacity: revealed ? 1 : 0,
+            transform: revealed ? "none" : "translateY(14px)",
             transition: "opacity 0.6s ease, transform 0.6s ease",
           }}
         >
           {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-4 text-on-primary"
-              style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "none" : "translateY(10px)",
-                transition: `opacity 0.5s ease ${0.1 + i * 0.08}s, transform 0.5s ease ${0.1 + i * 0.08}s`,
-              }}
-            >
-              <span
-                className="material-symbols-outlined text-secondary-fixed text-3xl"
-                aria-hidden="true"
-              >
-                {stat.icon}
-              </span>
-              <div>
-                <p className="font-bold text-2xl md:text-3xl leading-none mb-1">{stat.value}</p>
-                <p className="text-on-primary/70 text-caption">{stat.label}</p>
-              </div>
-            </div>
+            <StatCounter key={i} stat={stat} index={i} revealed={revealed} />
           ))}
         </div>
       </Container>
     </section>
+  );
+}
+
+function StatCounter({
+  stat,
+  index,
+  revealed,
+}: {
+  stat: { num: number; prefix: string; suffix?: string; label: string; icon: string };
+  index: number;
+  revealed: boolean;
+}) {
+  const animated = useCountUp(stat.num, 1400, revealed);
+  return (
+    <div
+      className="flex items-center gap-4 text-on-primary"
+      style={{
+        opacity: revealed ? 1 : 0,
+        transform: revealed ? "none" : "translateY(10px)",
+        transition: `opacity 0.5s ease ${100 + index * 80}ms, transform 0.5s ease ${100 + index * 80}ms`,
+      }}
+    >
+      <span className="material-symbols-outlined text-secondary-fixed text-3xl" aria-hidden="true">
+        {stat.icon}
+      </span>
+      <div>
+        <p className="font-bold text-2xl md:text-3xl leading-none mb-1 tabular-nums">
+          {stat.prefix}
+          {animated}
+          {stat.suffix}
+        </p>
+        <p className="text-on-primary/70 text-caption">{stat.label}</p>
+      </div>
+    </div>
   );
 }
 
@@ -288,18 +305,18 @@ function StatsBar() {
    ═══════════════════════════════════════════ */
 function AboutSection() {
   const { t, locale } = useTranslation();
-  const visible = useEntrance();
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal();
 
   return (
-    <Section bg="surface-container-low" className="text-start overflow-hidden">
+    <Section ref={revealRef} bg="surface-container-low" className="text-start overflow-hidden">
       {/* Subtle pattern */}
       <div className="islamic-pattern absolute inset-0 opacity-[0.015]" aria-hidden="true" />
 
       <div
         className="text-center mb-14 relative z-10"
         style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "none" : "translateY(16px)",
+          opacity: revealed ? 1 : 0,
+          transform: revealed ? "none" : "translateY(16px)",
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
@@ -317,9 +334,9 @@ function AboutSection() {
         <div
           className="md:col-span-2 p-8 md:p-10 bg-white rounded-2xl border border-outline-variant/20 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow"
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "none" : "translateY(18px)",
-            transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
+            opacity: revealed ? 1 : 0,
+            transform: revealed ? "none" : "translateY(18px)",
+            transition: "opacity 0.6s ease 100ms, transform 0.6s ease 100ms",
           }}
         >
           <div>
@@ -348,11 +365,11 @@ function AboutSection() {
 
         {/* Sovereignty card */}
         <div
-          className="p-8 md:p-10 bg-primary-container text-on-primary rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden shadow-sm"
+          className="p-8 md:p-10 bg-primary-container text-on-primary rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden shadow-sm hover:shadow-lg hover:shadow-primary/20 transition-shadow"
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "none" : "translateY(18px)",
-            transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
+            opacity: revealed ? 1 : 0,
+            transform: revealed ? "none" : "translateY(18px)",
+            transition: "opacity 0.6s ease 200ms, transform 0.6s ease 200ms",
           }}
         >
           <div className="islamic-pattern absolute inset-0 opacity-5" aria-hidden="true" />
@@ -388,12 +405,12 @@ function ServicesSection() {
     queryKey: ["services-summary", locale],
     queryFn: () => getServices(locale),
   });
-  const visible = useEntrance();
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal();
 
   const displayServices = services ? services.slice(0, 3) : [];
 
   return (
-    <Section bg="none" className="overflow-hidden text-start">
+    <Section ref={revealRef} bg="none" className="overflow-hidden text-start">
       {/* Subtle blur */}
       <div
         className="pointer-events-none absolute -top-32 start-0 w-[300px] h-[300px] rounded-full bg-secondary/5 blur-3xl"
@@ -403,8 +420,8 @@ function ServicesSection() {
       <div
         className="flex flex-col md:flex-row justify-between items-end mb-14 gap-6 relative z-10"
         style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "none" : "translateY(16px)",
+          opacity: revealed ? 1 : 0,
+          transform: revealed ? "none" : "translateY(16px)",
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
@@ -451,11 +468,11 @@ function ServicesSection() {
               key={service.id}
               to="/services/$slug"
               params={{ slug: service.slug }}
-              className="group p-8 bg-white border border-outline-variant/30 rounded-2xl hover:border-secondary/40 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-secondary/5 relative overflow-hidden block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+              className="group p-8 bg-white border border-outline-variant/30 rounded-2xl hover:border-secondary/40 transition-all hover:-translate-y-1.5 hover:shadow-xl hover:shadow-secondary/5 relative overflow-hidden block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
               style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "none" : "translateY(20px)",
-                transition: `opacity 0.5s ease ${0.1 + i * 0.08}s, transform 0.5s ease ${0.1 + i * 0.08}s, box-shadow 0.3s ease`,
+                opacity: revealed ? 1 : 0,
+                transform: revealed ? "none" : "translateY(22px)",
+                transition: `opacity 0.55s ease ${100 + i * 80}ms, transform 0.55s ease ${100 + i * 80}ms, box-shadow 0.3s ease`,
               }}
             >
               {/* Subtle gradient accent */}
@@ -511,7 +528,7 @@ function ServicesSection() {
    ═══════════════════════════════════════════ */
 function SectorsSection() {
   const { t, locale, dir } = useTranslation();
-  const visible = useEntrance();
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal();
 
   const sectors = [
     {
@@ -538,6 +555,7 @@ function SectorsSection() {
 
   return (
     <section
+      ref={revealRef}
       dir={dir}
       className="relative overflow-hidden bg-primary-container px-margin-mobile md:px-margin-desktop py-24 md:py-32"
     >
@@ -560,8 +578,8 @@ function SectorsSection() {
           <div
             className="text-start"
             style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "none" : "translateY(18px)",
+              opacity: revealed ? 1 : 0,
+              transform: revealed ? "none" : "translateY(18px)",
               transition: "opacity 0.65s ease, transform 0.65s ease",
             }}
           >
@@ -586,9 +604,9 @@ function SectorsSection() {
                   key={s.key}
                   className="flex items-start gap-4 p-4 rounded-xl border border-on-primary/10 bg-on-primary/[0.03] hover:bg-on-primary/[0.06] transition-colors"
                   style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? "none" : "translateX(14px)",
-                    transition: `opacity 0.5s ease ${0.15 + i * 0.08}s, transform 0.5s ease ${0.15 + i * 0.08}s`,
+                    opacity: revealed ? 1 : 0,
+                    transform: revealed ? "none" : "translateX(14px)",
+                    transition: `opacity 0.5s ease ${150 + i * 80}ms, transform 0.5s ease ${150 + i * 80}ms`,
                   }}
                 >
                   <span
@@ -611,8 +629,8 @@ function SectorsSection() {
             <div
               className="mt-8 flex flex-wrap gap-3"
               style={{
-                opacity: visible ? 1 : 0,
-                transition: `opacity 0.5s ease 0.5s`,
+                opacity: revealed ? 1 : 0,
+                transition: `opacity 0.5s ease 500ms`,
               }}
             >
               <Link
@@ -638,9 +656,9 @@ function SectorsSection() {
           <div
             className="relative"
             style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "none" : "translateY(20px)",
-              transition: "opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s",
+              opacity: revealed ? 1 : 0,
+              transform: revealed ? "none" : "translateY(20px)",
+              transition: "opacity 0.7s ease 150ms, transform 0.7s ease 150ms",
             }}
           >
             {/* Glow orb */}
@@ -697,7 +715,7 @@ function SectorsSection() {
    ═══════════════════════════════════════════ */
 function ProcessSection() {
   const { t, locale } = useTranslation();
-  const visible = useEntrance();
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal();
 
   const steps = [
     { num: "01", title: t("home.step1Title"), desc: t("home.step1Desc") },
@@ -707,7 +725,7 @@ function ProcessSection() {
   ];
 
   return (
-    <Section bg="default" className="text-start overflow-hidden">
+    <Section ref={revealRef} bg="default" className="text-start overflow-hidden">
       {/* Subtle blur */}
       <div
         className="pointer-events-none absolute -bottom-32 end-0 w-[300px] h-[300px] rounded-full bg-secondary/5 blur-3xl"
@@ -717,8 +735,8 @@ function ProcessSection() {
       <div
         className="text-center mb-14 relative z-10"
         style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "none" : "translateY(16px)",
+          opacity: revealed ? 1 : 0,
+          transform: revealed ? "none" : "translateY(16px)",
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
@@ -746,9 +764,9 @@ function ProcessSection() {
             key={step.num}
             className="group relative"
             style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "none" : "translateY(18px)",
-              transition: `opacity 0.5s ease ${0.1 + i * 0.1}s, transform 0.5s ease ${0.1 + i * 0.1}s`,
+              opacity: revealed ? 1 : 0,
+              transform: revealed ? "none" : "translateY(18px)",
+              transition: `opacity 0.5s ease ${100 + i * 100}ms, transform 0.5s ease ${100 + i * 100}ms`,
             }}
           >
             <div className="relative inline-flex mb-6">
@@ -785,15 +803,15 @@ function PricingSection() {
     queryKey: ["pricing-summary", locale],
     queryFn: () => getPricingPlans(locale),
   });
-  const visible = useEntrance();
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal();
 
   return (
-    <Section bg="surface-container" className="text-start overflow-hidden">
+    <Section ref={revealRef} bg="surface-container" className="text-start overflow-hidden">
       <div
         className="text-center mb-12 relative z-10"
         style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "none" : "translateY(16px)",
+          opacity: revealed ? 1 : 0,
+          transform: revealed ? "none" : "translateY(16px)",
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
@@ -825,19 +843,19 @@ function PricingSection() {
               return (
                 <div
                   key={plan.id}
-                  className={`relative p-8 rounded-2xl flex flex-col items-start text-right transition-all duration-300 hover:-translate-y-1 ${
+                  className={`relative p-8 rounded-2xl flex flex-col items-start text-right transition-all duration-300 hover:-translate-y-1.5 ${
                     isRecommended
                       ? "bg-primary-container border-2 border-secondary scale-105 shadow-2xl z-10 text-on-primary hover:shadow-primary/30"
                       : "bg-white border border-outline-variant/30 text-on-surface hover:shadow-xl"
                   }`}
                   style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible
+                    opacity: revealed ? 1 : 0,
+                    transform: revealed
                       ? isRecommended
                         ? "scale(1.05)"
                         : "none"
-                      : "translateY(20px)",
-                    transition: `opacity 0.5s ease ${0.08 + i * 0.08}s, transform 0.5s ease ${0.08 + i * 0.08}s, box-shadow 0.3s ease`,
+                      : "translateY(22px)",
+                    transition: `opacity 0.55s ease ${80 + i * 80}ms, transform 0.55s ease ${80 + i * 80}ms, box-shadow 0.3s ease`,
                   }}
                 >
                   {isRecommended && (
@@ -921,6 +939,7 @@ function PricingSection() {
 function FaqSection() {
   const { t, locale } = useTranslation();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal();
 
   const {
     data: faqs,
@@ -931,12 +950,11 @@ function FaqSection() {
     queryKey: ["faq-summary", locale],
     queryFn: () => getFaqs(locale),
   });
-  const visible = useEntrance();
 
   const displayFaqs = faqs ? faqs.slice(0, 3) : [];
 
   return (
-    <Section bg="default" className="text-start overflow-hidden">
+    <Section ref={revealRef} bg="default" className="text-start overflow-hidden">
       {/* Subtle blur */}
       <div
         className="pointer-events-none absolute -top-32 start-0 w-[260px] h-[260px] rounded-full bg-secondary/5 blur-3xl"
@@ -947,8 +965,8 @@ function FaqSection() {
         <div
           className="text-center mb-12"
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "none" : "translateY(16px)",
+            opacity: revealed ? 1 : 0,
+            transform: revealed ? "none" : "translateY(16px)",
             transition: "opacity 0.6s ease, transform 0.6s ease",
           }}
         >
@@ -980,9 +998,9 @@ function FaqSection() {
                   key={faq.id}
                   className="bg-white border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                   style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? "none" : "translateY(14px)",
-                    transition: `opacity 0.45s ease ${0.08 + index * 0.06}s, transform 0.45s ease ${0.08 + index * 0.06}s`,
+                    opacity: revealed ? 1 : 0,
+                    transform: revealed ? "none" : "translateY(14px)",
+                    transition: `opacity 0.45s ease ${80 + index * 60}ms, transform 0.45s ease ${80 + index * 60}ms`,
                   }}
                 >
                   <button
@@ -1022,10 +1040,11 @@ function FaqSection() {
    ═══════════════════════════════════════════ */
 function CtaSection() {
   const { locale, dir } = useTranslation();
-  const visible = useEntrance();
+  const { ref: revealRef, isVisible: revealed } = useScrollReveal();
 
   return (
     <section
+      ref={revealRef}
       dir={dir}
       className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden"
     >
@@ -1046,8 +1065,8 @@ function CtaSection() {
         <div
           className="flex flex-col items-center text-center max-w-2xl mx-auto"
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "none" : "translateY(18px)",
+            opacity: revealed ? 1 : 0,
+            transform: revealed ? "none" : "translateY(18px)",
             transition: "opacity 0.65s ease, transform 0.65s ease",
           }}
         >

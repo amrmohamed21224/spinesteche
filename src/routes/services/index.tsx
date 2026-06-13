@@ -7,6 +7,7 @@ import { Container } from "../../components/layout/Container";
 import { StateFeedback } from "../../components/layout/StateFeedback";
 import { getServices } from "../../lib/api/fetchers";
 import { useTranslation } from "../../i18n";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
 
 export const Route = createFileRoute("/services/")({
   head: () =>
@@ -30,26 +31,50 @@ function Page() {
     queryKey: ["services", locale],
     queryFn: () => getServices(locale),
   });
+  const { ref: heroRef, isVisible: heroVisible } = useScrollReveal();
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollReveal();
 
   return (
     <PageLayout>
       <main className="pt-24 sm:pt-28 lg:pt-32 pb-20 text-start">
         {/* ── Hero Section ── */}
         <section
+          ref={heroRef}
           className="px-margin-mobile md:px-margin-desktop mb-16 md:mb-24 relative"
           aria-label={t("services.introAria")}
         >
           <Container clean>
             <div className="max-w-4xl mx-auto">
-              <span className="text-secondary font-label-md text-label-md tracking-wider mb-4 block">
+              <span
+                className="text-secondary font-label-md text-label-md tracking-wider mb-4 block"
+                style={{
+                  opacity: heroVisible ? 1 : 0,
+                  transform: heroVisible ? "none" : "translateY(12px)",
+                  transition: "opacity 0.55s ease, transform 0.55s ease",
+                }}
+              >
                 {t("services.badge")}
               </span>
-              <h1 className="text-3xl sm:text-4xl lg:text-display-lg mb-4 md:mb-6 leading-tight text-primary font-bold">
+              <h1
+                className="text-3xl sm:text-4xl lg:text-display-lg mb-4 md:mb-6 leading-tight text-primary font-bold"
+                style={{
+                  opacity: heroVisible ? 1 : 0,
+                  transform: heroVisible ? "none" : "translateY(18px)",
+                  transition: "opacity 0.65s ease 60ms, transform 0.65s ease 60ms",
+                }}
+              >
                 {t("services.heroTitle")} <br />
                 <span className="text-secondary">{t("services.heroHighlight")}</span>{" "}
                 {t("services.heroGrowth")}
               </h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+              <p
+                className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed"
+                style={{
+                  opacity: heroVisible ? 1 : 0,
+                  transform: heroVisible ? "none" : "translateY(16px)",
+                  transition: "opacity 0.6s ease 120ms, transform 0.6s ease 120ms",
+                }}
+              >
                 {t("services.heroSubtitle")}
               </p>
             </div>
@@ -77,6 +102,11 @@ function Page() {
                       <div
                         key={service.id}
                         className="md:col-span-8 bg-primary-container rounded-2xl p-0 flex flex-col md:flex-row items-stretch overflow-hidden relative group border border-outline-variant/20 shadow-lg hover:shadow-xl hover:shadow-secondary/5 transition-all duration-500"
+                        style={{
+                          opacity: heroVisible ? 1 : 0,
+                          transform: heroVisible ? "none" : "translateY(24px)",
+                          transition: "opacity 0.65s ease 80ms, transform 0.65s ease 80ms",
+                        }}
                       >
                         <div className="flex-1 z-10 p-6 sm:p-8 md:p-12 flex flex-col justify-center">
                           <span className="bg-secondary/15 text-secondary-fixed border border-secondary/20 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-caption mb-4 md:mb-6 w-fit font-bold tracking-wide">
@@ -118,7 +148,12 @@ function Page() {
                       to="/services/$slug"
                       params={{ slug: service.slug }}
                       key={service.id}
-                      className="md:col-span-4 bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-outline-variant/40 flex flex-col hover:border-secondary/30 hover:shadow-xl hover:shadow-secondary/5 hover:-translate-y-1 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 cursor-pointer"
+                      className="md:col-span-4 bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-outline-variant/40 flex flex-col hover:border-secondary/30 hover:shadow-xl hover:shadow-secondary/5 hover:-translate-y-1.5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 cursor-pointer"
+                      style={{
+                        opacity: heroVisible ? 1 : 0,
+                        transform: heroVisible ? "none" : "translateY(22px)",
+                        transition: `opacity 0.55s ease ${100 + index * 80}ms, transform 0.55s ease ${100 + index * 80}ms, box-shadow 0.3s ease, border-color 0.3s ease, translate 0.3s ease`,
+                      }}
                     >
                       <div className="w-12 h-12 sm:w-14 sm:h-14 bg-secondary/10 rounded-2xl flex items-center justify-center mb-5 md:mb-8 group-hover:bg-secondary group-hover:text-on-secondary transition-colors duration-300">
                         <span
@@ -153,8 +188,15 @@ function Page() {
         </Section>
 
         {/* ── CTA Section ── */}
-        <section className="mt-16 md:mt-24 px-margin-mobile md:px-margin-desktop">
-          <div className="bg-secondary rounded-xl p-6 sm:p-8 md:p-12 text-center relative overflow-hidden max-w-container-max mx-auto">
+        <section ref={ctaRef} className="mt-16 md:mt-24 px-margin-mobile md:px-margin-desktop">
+          <div
+            className="bg-secondary rounded-xl p-6 sm:p-8 md:p-12 text-center relative overflow-hidden max-w-container-max mx-auto"
+            style={{
+              opacity: ctaVisible ? 1 : 0,
+              transform: ctaVisible ? "none" : "translateY(20px)",
+              transition: "opacity 0.65s ease, transform 0.65s ease",
+            }}
+          >
             <div className="relative z-10">
               <h2 className="text-xl sm:text-2xl md:font-headline-xl md:text-headline-xl text-on-secondary mb-4 md:mb-6 font-bold">
                 {t("services.ctaTitle")}

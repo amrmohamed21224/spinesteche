@@ -1,28 +1,44 @@
-import type { ElementType } from "react";
-import { useReveal } from "../../hooks/useReveal";
-import { cn } from "../../lib/utils";
+import { useScrollReveal } from "../../hooks/useScrollReveal";
 
-type RevealProps = {
+interface RevealProps {
   children: React.ReactNode;
+  delay?: number;
   className?: string;
-  variant?: "fadeInUp" | "fadeInDown" | "fadeInLeft" | "fadeInRight" | "scaleReveal" | "stagger";
-  as?: ElementType;
-};
+  threshold?: number;
+  direction?: "up" | "down" | "left" | "right";
+}
 
 /**
- * Optional explicit reveal wrapper. PageLayout also auto-animates [data-reveal] sections.
+ * Wrapper component that reveals its children on scroll.
+ * Uses IntersectionObserver for performance.
  */
 export function Reveal({
   children,
-  className,
-  variant = "fadeInUp",
-  as: Tag = "div",
+  delay = 0,
+  className = "",
+  threshold = 0.12,
+  direction = "up",
 }: RevealProps) {
-  const ref = useReveal<HTMLDivElement>({ variant });
+  const { ref, isVisible } = useScrollReveal(threshold);
+
+  const transforms = {
+    up: "translateY(24px)",
+    down: "translateY(-24px)",
+    left: direction === "left" ? "translateX(24px)" : "translateX(-24px)",
+    right: direction === "right" ? "translateX(-24px)" : "translateX(24px)",
+  };
 
   return (
-    <Tag ref={ref as never} className={cn(className)}>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "none" : transforms[direction],
+        transition: `opacity 0.65s ease ${delay}ms, transform 0.65s ease ${delay}ms`,
+      }}
+    >
       {children}
-    </Tag>
+    </div>
   );
 }

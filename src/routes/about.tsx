@@ -8,6 +8,7 @@ import { StateFeedback } from "../components/layout/StateFeedback";
 import { getAboutPageData } from "../lib/api/fetchers";
 import { useTranslation } from "../i18n";
 import { StatsCounter } from "../components/ui/StatsCounter";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import type { CMSAboutPageData } from "../types/cms";
 
 const copy = {
@@ -80,10 +81,10 @@ function Page() {
     queryFn: () => getAboutPageData(locale),
   });
 
-  // entrance animation
-  const [visible, setVisible] = useState(false);
+  // entrance animation for hero
+  const [heroVisible, setHeroVisible] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 60);
+    const t = setTimeout(() => setHeroVisible(true), 60);
     return () => clearTimeout(t);
   }, []);
 
@@ -108,8 +109,8 @@ function Page() {
             <div
               className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center"
               style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "none" : "translateY(18px)",
+                opacity: heroVisible ? 1 : 0,
+                transform: heroVisible ? "none" : "translateY(18px)",
                 transition: "opacity 0.65s ease, transform 0.65s ease",
               }}
             >
@@ -136,9 +137,9 @@ function Page() {
                 <div
                   className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-8 border-t border-outline-variant/30"
                   style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? "none" : "translateY(12px)",
-                    transition: "opacity 0.55s ease 0.15s, transform 0.55s ease 0.15s",
+                    opacity: heroVisible ? 1 : 0,
+                    transform: heroVisible ? "none" : "translateY(12px)",
+                    transition: "opacity 0.55s ease 150ms, transform 0.55s ease 150ms",
                   }}
                 >
                   {[
@@ -167,9 +168,9 @@ function Page() {
               <div
                 className="relative order-1 lg:order-2"
                 style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "none" : "translateY(22px)",
-                  transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
+                  opacity: heroVisible ? 1 : 0,
+                  transform: heroVisible ? "none" : "translateY(22px)",
+                  transition: "opacity 0.7s ease 100ms, transform 0.7s ease 100ms",
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-secondary/15 via-primary-container/10 to-transparent rounded-3xl rotate-2 scale-105" />
@@ -202,336 +203,375 @@ function Page() {
 
         {!isLoading && !isError && data && (
           <>
-            {/* ═══════════════════════════════════════════
-                2. MISSION & VISION (Bento Grid)
-                ═══════════════════════════════════════════ */}
-            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-surface-container-low overflow-hidden">
-              <div className="islamic-pattern absolute inset-0 opacity-[0.015]" aria-hidden="true" />
-              <Container clean className="relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                  {/* Mission — Dark card */}
-                  <div
-                    className="relative overflow-hidden rounded-2xl bg-primary-container p-8 md:p-12 text-on-primary"
-                    style={{
-                      opacity: visible ? 1 : 0,
-                      transform: visible ? "none" : "translateY(18px)",
-                      transition: "opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s",
-                    }}
-                  >
-                    <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-                    <div className="relative z-10">
-                      <span
-                        className="material-symbols-outlined text-secondary-fixed text-4xl mb-6 block"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                        aria-hidden="true"
-                      >
-                        target
-                      </span>
-                      <h2 className="font-headline-xl text-headline-xl font-bold mb-5 text-on-primary">
-                        {c.missionTitle}
-                      </h2>
-                      <p className="font-body-lg text-body-lg text-on-primary/80 leading-relaxed">
-                        {data.mission}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Vision — Light card */}
-                  <div
-                    className="relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-8 md:p-12 flex flex-col justify-between"
-                    style={{
-                      opacity: visible ? 1 : 0,
-                      transform: visible ? "none" : "translateY(18px)",
-                      transition: "opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s",
-                    }}
-                  >
-                    <div>
-                      <span
-                        className="material-symbols-outlined text-secondary text-4xl mb-6 block"
-                        aria-hidden="true"
-                      >
-                        visibility
-                      </span>
-                      <h2 className="font-headline-xl text-headline-xl font-bold text-primary mb-5">
-                        {c.visionTitle}
-                      </h2>
-                      <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                        {data.vision}
-                      </p>
-                    </div>
-                    <div className="mt-8 pt-6 border-t border-outline-variant/20 flex items-center gap-3">
-                      <span
-                        className="material-symbols-outlined text-secondary text-xl"
-                        aria-hidden="true"
-                      >
-                        calendar_today
-                      </span>
-                      <span className="font-label-md text-label-md text-secondary font-bold">
-                        2030
-                      </span>
-                      <span className="text-on-surface-variant text-caption">
-                        {locale === "ar" ? "الهدف الاستراتيجي" : "Strategic Goal"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Container>
-            </section>
-
-            {/* ═══════════════════════════════════════════
-                3. MARKETS PRESENCE
-                ═══════════════════════════════════════════ */}
-            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-background overflow-hidden">
-              <div
-                className="pointer-events-none absolute -top-32 end-0 w-[300px] h-[300px] rounded-full bg-secondary/5 blur-3xl"
-                aria-hidden="true"
-              />
-              <Container clean className="relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                  {/* Left: copy */}
-                  <div
-                    className="lg:col-span-5 text-start"
-                    style={{
-                      opacity: visible ? 1 : 0,
-                      transform: visible ? "none" : "translateY(16px)",
-                      transition: "opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s",
-                    }}
-                  >
-                    <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
-                      <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
-                        public
-                      </span>
-                      {c.marketsTitle}
-                    </span>
-                    <h2 className="font-headline-xl text-headline-xl font-bold text-primary mb-5">
-                      {c.marketsTitle}
-                    </h2>
-                    <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                      {c.marketsSubtitle}
-                    </p>
-                  </div>
-
-                  {/* Right: markets grid */}
-                  <div className="lg:col-span-7">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {data.markets.map((market, i) => (
-                        <div
-                          key={market.id}
-                          className="flex items-center gap-4 p-5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest hover:border-secondary/30 hover:shadow-md transition-all"
-                          style={{
-                            opacity: visible ? 1 : 0,
-                            transform: visible ? "none" : "translateX(14px)",
-                            transition: `opacity 0.5s ease ${0.2 + i * 0.08}s, transform 0.5s ease ${0.2 + i * 0.08}s`,
-                          }}
-                        >
-                          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary font-bold text-sm">
-                            {market.code}
-                          </span>
-                          <span className="font-label-md text-label-md text-primary font-bold">
-                            {market.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Container>
-            </section>
-
-            {/* ═══════════════════════════════════════════
-                4. CORE VALUES
-                ═══════════════════════════════════════════ */}
-            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-surface-container overflow-hidden">
-              <div className="islamic-pattern absolute inset-0 opacity-[0.02]" aria-hidden="true" />
-              <Container clean className="relative z-10">
-                <div
-                  className="text-center mb-14"
-                  style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? "none" : "translateY(16px)",
-                    transition: "opacity 0.6s ease, transform 0.6s ease",
-                  }}
-                >
-                  <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-4">
-                    <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
-                      star
-                    </span>
-                    {c.coreValuesTitle}
-                  </span>
-                  <h2 className="font-headline-xl text-headline-xl font-bold text-primary">
-                    {c.coreValuesTitle}
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {data.coreValues.map((value, i) => (
-                    <div
-                      key={value.id}
-                      className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-8 text-center hover:border-secondary/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-secondary/5 transition-all duration-300"
-                      style={{
-                        opacity: visible ? 1 : 0,
-                        transform: visible ? "none" : "translateY(18px)",
-                        transition: `opacity 0.5s ease ${0.1 + i * 0.08}s, transform 0.5s ease ${0.1 + i * 0.08}s, box-shadow 0.3s ease`,
-                      }}
-                    >
-                      {/* Top accent line */}
-                      <div
-                        className="absolute top-0 start-0 end-0 h-1 bg-gradient-to-r from-secondary/60 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"
-                        aria-hidden="true"
-                      />
-                      <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-on-secondary transition-colors duration-300 text-secondary">
-                        <span
-                          className="material-symbols-outlined text-3xl"
-                          aria-hidden="true"
-                        >
-                          {value.icon}
-                        </span>
-                      </div>
-                      <h3 className="font-headline-sm text-headline-sm text-primary font-bold mb-3">
-                        {value.title}
-                      </h3>
-                      <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                        {value.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </Container>
-            </section>
-
-            {/* ═══════════════════════════════════════════
-                5. WHY US — Differentiators + Stats
-                ═══════════════════════════════════════════ */}
-            <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">
-              <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-              <div
-                className="pointer-events-none absolute -top-40 end-20 w-[420px] h-[420px] rounded-full bg-secondary/12 blur-3xl"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute -bottom-40 start-20 w-[360px] h-[360px] rounded-full bg-on-primary/5 blur-3xl"
-                aria-hidden="true"
-              />
-
-              <Container clean className="relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                  {/* Left: differentiators */}
-                  <div>
-                    <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/25 bg-secondary/10 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
-                      <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
-                        emoji_events
-                      </span>
-                      {locale === "ar" ? "مميزاتنا" : "Our Edge"}
-                    </span>
-                    <h2
-                      className="font-headline-xl text-headline-xl font-bold text-on-primary mb-10"
-                      style={{
-                        opacity: visible ? 1 : 0,
-                        transform: visible ? "none" : "translateY(16px)",
-                        transition: "opacity 0.6s ease, transform 0.6s ease",
-                      }}
-                    >
-                      {c.whyTitle}
-                    </h2>
-
-                    <ul className="space-y-8">
-                      {data.differentiators.map((diff, i) => (
-                        <li
-                          key={diff.id}
-                          className="flex gap-5 items-start"
-                          style={{
-                            opacity: visible ? 1 : 0,
-                            transform: visible ? "none" : "translateX(14px)",
-                            transition: `opacity 0.5s ease ${0.15 + i * 0.1}s, transform 0.5s ease ${0.15 + i * 0.1}s`,
-                          }}
-                        >
-                          <span className="font-display-lg text-display-lg text-secondary font-bold shrink-0 leading-none mt-0.5">
-                            {String(diff.order).padStart(2, "0")}
-                          </span>
-                          <div>
-                            <h4 className="font-headline-sm text-headline-sm text-on-primary font-bold mb-2">
-                              {diff.title}
-                            </h4>
-                            <p className="font-body-md text-body-md text-on-primary/70 leading-relaxed">
-                              {diff.description}
-                            </p>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Right: stats */}
-                  <div
-                    className="lg:sticky lg:top-28"
-                    style={{
-                      opacity: visible ? 1 : 0,
-                      transform: visible ? "none" : "translateY(20px)",
-                      transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
-                    }}
-                  >
-                    <StatsCounter stats={data.stats} />
-                  </div>
-                </div>
-              </Container>
-            </section>
+            <MissionVisionSection data={data} c={c} />
+            <MarketsSection data={data} c={c} />
+            <CoreValuesSection data={data} c={c} />
+            <WhyUsSection data={data} c={c} />
           </>
         )}
 
-        {/* ═══════════════════════════════════════════
-            6. CTA SECTION
-            ═══════════════════════════════════════════ */}
-        <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">
-          <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
-          <div
-            className="pointer-events-none absolute -top-32 end-0 w-[400px] h-[400px] rounded-full bg-secondary/10 blur-3xl"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute -bottom-20 start-1/4 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl"
-            aria-hidden="true"
-          />
-
-          <Container clean>
-            <div
-              className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto"
-              style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "none" : "translateY(18px)",
-                transition: "opacity 0.65s ease 0.3s, transform 0.65s ease 0.3s",
-              }}
-            >
-              <h2 className="font-display-md text-display-md-mobile md:text-display-md font-bold text-on-primary mb-6">
-                {c.ctaTitle}
-              </h2>
-              <p className="font-body-lg text-body-lg text-on-primary/75 mb-10 leading-relaxed">
-                {c.ctaSubtitle}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-                <Link
-                  to="/consultation"
-                  search={{ source: "about-cta" }}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-secondary px-8 py-4 font-bold text-on-secondary transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                >
-                  {c.ctaPrimary}
-                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
-                    {locale === "ar" ? "arrow_back" : "arrow_forward"}
-                  </span>
-                </Link>
-                <Link
-                  to="/solutions"
-                  className="flex items-center justify-center gap-2 rounded-xl border-2 border-secondary-fixed/60 px-8 py-4 font-bold text-secondary-fixed transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
-                >
-                  {c.ctaSecondary}
-                  <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
-                    {locale === "ar" ? "arrow_back" : "arrow_forward"}
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </Container>
-        </section>
+        <CtaSection c={c} />
       </main>
     </PageLayout>
+  );
+}
+
+/* ═══════════════════════════════════════════
+    2. MISSION & VISION (Bento Grid)
+    ═══════════════════════════════════════════ */
+function MissionVisionSection({ data, c }: { data: CMSAboutPageData; c: (typeof copy)["ar"] }) {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <section
+      ref={ref}
+      className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-surface-container-low overflow-hidden"
+    >
+      <div className="islamic-pattern absolute inset-0 opacity-[0.015]" aria-hidden="true" />
+      <Container clean className="relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {/* Mission — Dark card */}
+          <div
+            className="relative overflow-hidden rounded-2xl bg-primary-container p-8 md:p-12 text-on-primary"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "none" : "translateY(18px)",
+              transition: "opacity 0.6s ease 100ms, transform 0.6s ease 100ms",
+            }}
+          >
+            <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+            <div className="relative z-10">
+              <span
+                className="material-symbols-outlined text-secondary-fixed text-4xl mb-6 block"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+                aria-hidden="true"
+              >
+                target
+              </span>
+              <h2 className="font-headline-xl text-headline-xl font-bold mb-5 text-on-primary">
+                {c.missionTitle}
+              </h2>
+              <p className="font-body-lg text-body-lg text-on-primary/80 leading-relaxed">
+                {data.mission}
+              </p>
+            </div>
+          </div>
+
+          {/* Vision — Light card */}
+          <div
+            className="relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-8 md:p-12 flex flex-col justify-between"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "none" : "translateY(18px)",
+              transition: "opacity 0.6s ease 200ms, transform 0.6s ease 200ms",
+            }}
+          >
+            <div>
+              <span
+                className="material-symbols-outlined text-secondary text-4xl mb-6 block"
+                aria-hidden="true"
+              >
+                visibility
+              </span>
+              <h2 className="font-headline-xl text-headline-xl font-bold text-primary mb-5">
+                {c.visionTitle}
+              </h2>
+              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                {data.vision}
+              </p>
+            </div>
+            <div className="mt-8 pt-6 border-t border-outline-variant/20 flex items-center gap-3">
+              <span className="material-symbols-outlined text-secondary text-xl" aria-hidden="true">
+                calendar_today
+              </span>
+              <span className="font-label-md text-label-md text-secondary font-bold">2030</span>
+              <span className="text-on-surface-variant text-caption">{c.visionTitle.includes("2030") ? "الهدف الاستراتيجي" : "Strategic Goal"}</span>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════
+    3. MARKETS PRESENCE
+    ═══════════════════════════════════════════ */
+function MarketsSection({ data, c }: { data: CMSAboutPageData; c: (typeof copy)["ar"] }) {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <section
+      ref={ref}
+      className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-background overflow-hidden"
+    >
+      <div
+        className="pointer-events-none absolute -top-32 end-0 w-[300px] h-[300px] rounded-full bg-secondary/5 blur-3xl"
+        aria-hidden="true"
+      />
+      <Container clean className="relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left: copy */}
+          <div
+            className="lg:col-span-5 text-start"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "none" : "translateY(16px)",
+              transition: "opacity 0.6s ease 100ms, transform 0.6s ease 100ms",
+            }}
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-6">
+              <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                public
+              </span>
+              {c.marketsTitle}
+            </span>
+            <h2 className="font-headline-xl text-headline-xl font-bold text-primary mb-5">
+              {c.marketsTitle}
+            </h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+              {c.marketsSubtitle}
+            </p>
+          </div>
+
+          {/* Right: markets grid */}
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {data.markets.map((market, i) => (
+                <div
+                  key={market.id}
+                  className="flex items-center gap-4 p-5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest hover:border-secondary/30 hover:shadow-md transition-all"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? "none" : "translateX(14px)",
+                    transition: `opacity 0.5s ease ${200 + i * 80}ms, transform 0.5s ease ${200 + i * 80}ms`,
+                  }}
+                >
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary font-bold text-sm">
+                    {market.code}
+                  </span>
+                  <span className="font-label-md text-label-md text-primary font-bold">
+                    {market.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════
+    4. CORE VALUES
+    ═══════════════════════════════════════════ */
+function CoreValuesSection({ data, c }: { data: CMSAboutPageData; c: (typeof copy)["ar"] }) {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <section
+      ref={ref}
+      className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-surface-container overflow-hidden"
+    >
+      <div className="islamic-pattern absolute inset-0 opacity-[0.02]" aria-hidden="true" />
+      <Container clean className="relative z-10">
+        <div
+          className="text-center mb-14"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "none" : "translateY(16px)",
+            transition: "opacity 0.6s ease, transform 0.6s ease",
+          }}
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-4">
+            <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+              star
+            </span>
+            {c.coreValuesTitle}
+          </span>
+          <h2 className="font-headline-xl text-headline-xl font-bold text-primary">
+            {c.coreValuesTitle}
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {data.coreValues.map((value, i) => (
+            <div
+              key={value.id}
+              className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-8 text-center hover:border-secondary/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-secondary/5 transition-all duration-300"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "none" : "translateY(18px)",
+                transition: `opacity 0.5s ease ${100 + i * 80}ms, transform 0.5s ease ${100 + i * 80}ms, box-shadow 0.3s ease`,
+              }}
+            >
+              {/* Top accent line */}
+              <div
+                className="absolute top-0 start-0 end-0 h-1 bg-gradient-to-r from-secondary/60 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity"
+                aria-hidden="true"
+              />
+              <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary group-hover:text-on-secondary transition-colors duration-300 text-secondary">
+                <span className="material-symbols-outlined text-3xl" aria-hidden="true">
+                  {value.icon}
+                </span>
+              </div>
+              <h3 className="font-headline-sm text-headline-sm text-primary font-bold mb-3">
+                {value.title}
+              </h3>
+              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                {value.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════
+    5. WHY US — Differentiators + Stats
+    ═══════════════════════════════════════════ */
+function WhyUsSection({ data, c }: { data: CMSAboutPageData; c: (typeof copy)["ar"] }) {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <section
+      ref={ref}
+      className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden"
+    >
+      <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute -top-40 end-20 w-[420px] h-[420px] rounded-full bg-secondary/12 blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -bottom-40 start-20 w-[360px] h-[360px] rounded-full bg-on-primary/5 blur-3xl"
+        aria-hidden="true"
+      />
+
+      <Container clean className="relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Left: differentiators */}
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/25 bg-secondary/10 px-4 py-1.5 text-secondary-fixed font-label-md text-label-md mb-6">
+              <span className="material-symbols-outlined text-[16px]" aria-hidden="true">
+                emoji_events
+              </span>
+              {c.whyTitle}
+            </span>
+            <h2
+              className="font-headline-xl text-headline-xl font-bold text-on-primary mb-10"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "none" : "translateY(16px)",
+                transition: "opacity 0.6s ease, transform 0.6s ease",
+              }}
+            >
+              {c.whyTitle}
+            </h2>
+
+            <ul className="space-y-8">
+              {data.differentiators.map((diff, i) => (
+                <li
+                  key={diff.id}
+                  className="flex gap-5 items-start"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? "none" : "translateX(14px)",
+                    transition: `opacity 0.5s ease ${150 + i * 100}ms, transform 0.5s ease ${150 + i * 100}ms`,
+                  }}
+                >
+                  <span className="font-display-lg text-display-lg text-secondary font-bold shrink-0 leading-none mt-0.5">
+                    {String(diff.order).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h4 className="font-headline-sm text-headline-sm text-on-primary font-bold mb-2">
+                      {diff.title}
+                    </h4>
+                    <p className="font-body-md text-body-md text-on-primary/70 leading-relaxed">
+                      {diff.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right: stats */}
+          <div
+            className="lg:sticky lg:top-28"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "none" : "translateY(20px)",
+              transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
+            }}
+          >
+            <StatsCounter stats={data.stats} />
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════
+    6. CTA SECTION
+    ═══════════════════════════════════════════ */
+function CtaSection({ c }: { c: (typeof copy)["ar"] }) {
+  const { locale, dir } = useTranslation();
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <section
+      ref={ref}
+      dir={dir}
+      className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden"
+    >
+      <div className="islamic-pattern absolute inset-0 opacity-[0.04]" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute -top-32 end-0 w-[400px] h-[400px] rounded-full bg-secondary/10 blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -bottom-20 start-1/4 w-[300px] h-[300px] rounded-full bg-on-primary/5 blur-3xl"
+        aria-hidden="true"
+      />
+
+      <Container clean>
+        <div
+          className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "none" : "translateY(18px)",
+            transition: "opacity 0.65s ease, transform 0.65s ease",
+          }}
+        >
+          <h2 className="font-display-md text-display-md-mobile md:text-display-md font-bold text-on-primary mb-6">
+            {c.ctaTitle}
+          </h2>
+          <p className="font-body-lg text-body-lg text-on-primary/75 mb-10 leading-relaxed">
+            {c.ctaSubtitle}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+            <Link
+              to="/consultation"
+              search={{ source: "about-cta" }}
+              className="flex items-center justify-center gap-2 rounded-xl bg-secondary px-8 py-4 font-bold text-on-secondary transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
+            >
+              {c.ctaPrimary}
+              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                {locale === "ar" ? "arrow_back" : "arrow_forward"}
+              </span>
+            </Link>
+            <Link
+              to="/solutions"
+              className="flex items-center justify-center gap-2 rounded-xl border-2 border-secondary-fixed/60 px-8 py-4 font-bold text-secondary-fixed transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+            >
+              {c.ctaSecondary}
+              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                {locale === "ar" ? "arrow_back" : "arrow_forward"}
+              </span>
+            </Link>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }
