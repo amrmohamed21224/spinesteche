@@ -17,6 +17,16 @@ export const mockCaseStudies: CMSCaseStudy[] = [
       { label: "دقة المخزون", value: "99.8%" },
       { label: "خفض التكاليف", value: "22%" },
     ],
+    gallery: [
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuBpxph-zdRpZ18KBB89xhbDLw7IRBuC5gRTbE3YHx-0HDjgEh31yfQEQUpHFBIRvxDRXbCh8ce4slzkZbY64k9sHxijKeVNUVbcJPez79RGeX-a49M7MaemlBYenSZWCLaBTrTrS6nlDGOIgbc5XuD69_dqCAimQS7WkXIW-VofX6xWqo0GhSj5FRcA9hKUwTwuePSSav3PY6aMcjRgamAoMuqEug24cGunya59_bKfOGdXr_3gSMzrpyjHPeM9sQpmikyy3Si5BVC9",
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuBwiY-q3hRY7OVudVpWOcooFxq3xSiMIqMK5MLrjzZn4GXTG_KW6ZXEQcBKaJz7DY4dv8VoWjsmTM93dL5XNDgs8sotFCbbVIEzYnEHTh-QlskbZliWHPZlMTH2-A1qpZXWz6smvfND7EcS8Zd8ivkSlRKPa6lzvFTZ0go-WnT0bDPIxzEHJoIXYEN4MmyfROg8yOke4HXYYUTjjlw97G3TGTv60kPZM8CN5j2hFh3TRMrjXg7FLS2qSlljAX5xc6kl8IBBawndnjfc",
+    ],
+    tags: ["ERP", "Backend", "API Integration"],
+    year: "2025",
+    duration: "16 أسبوع",
+    teamSize: "6 متخصصين",
+    tools: ["Node.js", "PostgreSQL", "React", "Redis"],
+    featured: true,
   },
   {
     id: "cs2",
@@ -35,6 +45,14 @@ export const mockCaseStudies: CMSCaseStudy[] = [
       { label: "زيادة التحويلات", value: "40%" },
       { label: "رضا فريق المبيعات", value: "95%" },
     ],
+    gallery: [
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuBwiY-q3hRY7OVudVpWOcooFxq3xSiMIqMK5MLrjzZn4GXTG_KW6ZXEQcBKaJz7DY4dv8VoWjsmTM93dL5XNDgs8sotFCbbVIEzYnEHTh-QlskbZliWHPZlMTH2-A1qpZXWz6smvfND7EcS8Zd8ivkSlRKPa6lzvFTZ0go-WnT0bDPIxzEHJoIXYEN4MmyfROg8yOke4HXYYUTjjlw97G3TGTv60kPZM8CN5j2hFh3TRMrjXg7FLS2qSlljAX5xc6kl8IBBawndnjfc",
+    ],
+    tags: ["CRM", "UI/UX", "WhatsApp API"],
+    year: "2024",
+    duration: "10 أسابيع",
+    teamSize: "4 متخصصين",
+    tools: ["React", "Node.js", "Twilio", "PostgreSQL"],
   },
   {
     id: "cs3",
@@ -52,6 +70,15 @@ export const mockCaseStudies: CMSCaseStudy[] = [
       { label: "تحسن السرعة", value: "300%" },
       { label: "نمو المبيعات", value: "55%" },
     ],
+    gallery: [
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDgtBiQK7LIwx2erOBx8kYFZPJCGJsxKozB75NqO-qMmiE2MLdX_ciK7HGWjEGDFZaNGvtHYfHrfWVR489fEQ3ljqvTD1h8BmtgBlKeT6TuWfbPLs8mQguCewgG7MYM47D1mVmfxouLpK_-8Kk-Cj2SqdXtPV-VpiOfjHJiWUN9bZ1zK5zkamKRWqycY_46irTPXyPiyMKx-Sl4rP0Pm59fHupf2A2AAjOGH1s2TOgHRdOMY1hj9CJwzChfJBuhI1Ht-KcW8hG7kHSd",
+    ],
+    tags: ["E-commerce", "Performance", "UI/UX"],
+    year: "2024",
+    duration: "12 أسبوع",
+    teamSize: "5 متخصصين",
+    tools: ["Next.js", "Stripe", "Cloudflare", "Tailwind"],
+    featured: true,
   },
   {
     id: "cs4",
@@ -70,5 +97,13 @@ export const mockCaseStudies: CMSCaseStudy[] = [
       { label: "حل تلقائي", value: "70%" },
       { label: "وقت الاستجابة", value: "< 3 ثوانٍ" },
     ],
+    gallery: [
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuB8QaFFFQNOs_wSBQ9SSe4SIw8fjhjO5ylG2FZzvW-oDDzhRQow1G7j3qayCvSvXNwVQ3gJUXHA0QNYR8-NuUclI3yrHqkKhsmbJF8UNpdQ27p0ceiZf-oaHj6UnUZ1hulELUgdsDTCt3mVFBWdao4Lh4zlH1b71EGHQ6mofrmx9tv7DF_q_w8LhC1SHJjZ5LjzU5cMoohoLbttF-ebYRWtOMfudv9p8QOzMfOeZjpD1SaJ1n0ciuiXbgIWJiXXogyMuNNykbIyaYha",
+    ],
+    tags: ["AI", "LLM", "NLP", "Automation"],
+    year: "2025",
+    duration: "14 أسبوع",
+    teamSize: "5 متخصصين",
+    tools: ["Python", "LangChain", "OpenAI API", "FastAPI"],
   },
 ];

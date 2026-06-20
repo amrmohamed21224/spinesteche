@@ -47,6 +47,14 @@ export interface CMSCaseStudy {
   solution: string;
   result: string;
   stats?: { label: string; value: string }[];
+  /** Behance-style extras (optional — falls back gracefully if absent) */
+  gallery?: string[]; // additional full-width showcase images
+  tags?: string[]; // e.g. ["UI/UX", "ERP", "Mobile"]
+  year?: string;
+  duration?: string; // e.g. "12 أسبوع"
+  teamSize?: string; // e.g. "5 متخصصين"
+  tools?: string[]; // e.g. ["React", "Node.js", "PostgreSQL"]
+  featured?: boolean; // larger card in masonry grid
 }
 
 export interface CMSPricingPlan {

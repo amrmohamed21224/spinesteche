@@ -513,6 +513,136 @@ function CaseStudyDetailPage() {
           </section>
         )}
 
+        {/* ═══════════════ META INFO BAR (year, duration, team, tools) ═══════════════ */}
+        {data && (data.year || data.duration || data.teamSize || (data.tools && data.tools.length > 0)) && (
+          <section className="px-margin-mobile md:px-margin-desktop pb-16 md:pb-24 -mt-4">
+            <Container clean>
+              <div
+                className="rounded-2xl border border-outline-variant/30 bg-white shadow-sm p-6 md:p-8"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateY(16px)",
+                  transition: "opacity 0.6s ease 250ms, transform 0.6s ease 250ms",
+                }}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {data.year && (
+                    <div className="flex items-center gap-3">
+                      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
+                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">calendar_today</span>
+                      </span>
+                      <div>
+                        <p className="text-caption text-on-surface-variant">{isAr ? "السنة" : "Year"}</p>
+                        <p className="font-bold text-primary text-[14px]">{data.year}</p>
+                      </div>
+                    </div>
+                  )}
+                  {data.duration && (
+                    <div className="flex items-center gap-3">
+                      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
+                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">schedule</span>
+                      </span>
+                      <div>
+                        <p className="text-caption text-on-surface-variant">{isAr ? "المدة" : "Duration"}</p>
+                        <p className="font-bold text-primary text-[14px]">{data.duration}</p>
+                      </div>
+                    </div>
+                  )}
+                  {data.teamSize && (
+                    <div className="flex items-center gap-3">
+                      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
+                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">group</span>
+                      </span>
+                      <div>
+                        <p className="text-caption text-on-surface-variant">{isAr ? "الفريق" : "Team"}</p>
+                        <p className="font-bold text-primary text-[14px]">{data.teamSize}</p>
+                      </div>
+                    </div>
+                  )}
+                  {data.tools && data.tools.length > 0 && (
+                    <div className="flex items-center gap-3 col-span-2 md:col-span-1">
+                      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
+                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">construction</span>
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-caption text-on-surface-variant">{isAr ? "الأدوات" : "Tools"}</p>
+                        <p className="font-bold text-primary text-[13px] truncate">{data.tools.join(" · ")}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Container>
+          </section>
+        )}
+
+        {/* ═══════════════ GALLERY — Behance-style full-width showcase ═══════════════ */}
+        {data?.gallery && data.gallery.length > 0 && (
+          <section className="py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest">
+            <Container clean>
+              <div
+                className="mb-10"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateY(16px)",
+                  transition: "opacity 0.6s ease 300ms, transform 0.6s ease 300ms",
+                }}
+              >
+                <span className="inline-flex items-center gap-2 rounded-full border border-secondary/20 bg-secondary/5 px-4 py-1.5 text-secondary font-label-md text-label-md mb-4">
+                  <span className="material-symbols-outlined text-[16px]" aria-hidden="true">photo_library</span>
+                  {c.visualOverview}
+                </span>
+                <div className="w-16 h-1 rounded-full bg-secondary" />
+              </div>
+
+              <div className="space-y-6">
+                {data.gallery.map((img, i) => (
+                  <div
+                    key={i}
+                    className="relative overflow-hidden rounded-3xl border border-outline-variant/20 shadow-lg shadow-primary/5"
+                    style={{
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? "none" : "translateY(24px)",
+                      transition: `opacity 0.6s ease ${350 + i * 120}ms, transform 0.6s ease ${350 + i * 120}ms`,
+                    }}
+                  >
+                    <img
+                      src={img}
+                      alt={`${data.title} — ${i + 1}`}
+                      className="w-full object-cover aspect-[16/9]"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </Container>
+          </section>
+        )}
+
+        {/* ═══════════════ TAGS ═══════════════ */}
+        {data?.tags && data.tags.length > 0 && (
+          <section className="px-margin-mobile md:px-margin-desktop pb-16 md:pb-20 bg-surface-container-lowest">
+            <Container clean>
+              <div
+                className="flex flex-wrap gap-2"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transition: "opacity 0.6s ease 500ms",
+                }}
+              >
+                {data.tags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="rounded-full bg-white border border-outline-variant/40 px-4 py-2 text-on-surface font-bold text-caption shadow-sm"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </Container>
+          </section>
+        )}
+
         {/* ═══════════════ RELATED CASE STUDIES ═══════════════ */}
         {related.length > 0 && (
           <section className="py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-low border-t border-outline-variant/20">
