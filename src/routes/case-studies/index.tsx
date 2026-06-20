@@ -231,113 +231,97 @@ function Page() {
             )}
 
             {!isLoading && !isError && filteredStudies.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-                {filteredStudies.map((study, index) => (
-                  <article
-                    key={study.id}
-                    className="group flex flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-primary/10"
-                    style={{
-                      opacity: visible ? 1 : 0,
-                      transform: visible ? "none" : "translateY(22px)",
-                      transition: `opacity 0.55s ease ${index * 70}ms, transform 0.55s ease ${index * 70}ms, box-shadow 0.3s ease`,
-                    }}
-                  >
-                    {/* Image */}
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                style={{ gridAutoFlow: "dense" }}
+              >
+                {filteredStudies.map((study, index) => {
+                  const isFeatured = study.featured;
+                  return (
                     <Link
+                      key={study.id}
                       to="/case-studies/$slug"
                       params={{ slug: study.slug }}
-                      className="relative h-56 overflow-hidden shrink-0 bg-surface-container block"
+                      className={`group relative block overflow-hidden rounded-2xl border border-outline-variant/30 bg-white transition-all duration-400 hover:shadow-2xl hover:shadow-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 ${
+                        isFeatured ? "sm:col-span-2 lg:row-span-2" : ""
+                      }`}
+                      style={{
+                        opacity: visible ? 1 : 0,
+                        transform: visible ? "none" : "translateY(24px)",
+                        transition: `opacity 0.55s ease ${index * 60}ms, transform 0.55s ease ${index * 60}ms, box-shadow 0.3s ease`,
+                      }}
                     >
-                      <img
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        alt={study.title}
-                        src={study.image}
-                        loading="lazy"
-                      />
-                      <div
-                        className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent"
-                        aria-hidden="true"
-                      />
-                      {/* Sector badge */}
-                      <span className="absolute top-4 end-4 rounded-lg bg-secondary/90 backdrop-blur-sm text-on-secondary px-3 py-1.5 text-caption font-bold shadow-md">
-                        {study.sector}
-                      </span>
-                      {/* Client badge */}
-                      <span className="absolute bottom-4 start-4 rounded-lg bg-black/50 backdrop-blur-sm text-white/90 px-3 py-1 text-caption font-medium flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
-                          business
-                        </span>
-                        {study.client}
-                      </span>
+                      {/* Cover image */}
+                      <div className={`relative overflow-hidden ${isFeatured ? "h-64 lg:h-[420px]" : "h-64"}`}>
+                        <img
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                          alt={study.title}
+                          src={study.image}
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent transition-opacity duration-400" aria-hidden="true" />
+
+                        {/* sector + featured badges */}
+                        <div className="absolute top-4 inset-x-4 flex items-center justify-between">
+                          <span className="rounded-lg bg-white/95 backdrop-blur-sm text-primary px-3 py-1.5 text-caption font-bold shadow-md">
+                            {study.sector}
+                          </span>
+                          {isFeatured && (
+                            <span className="flex items-center gap-1 rounded-lg bg-secondary text-on-secondary px-3 py-1.5 text-caption font-bold shadow-md">
+                              <span className="material-symbols-outlined text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
+                              {locale === "ar" ? "مميز" : "Featured"}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Bottom content over image */}
+                        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                          {study.tags && study.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 mb-3 opacity-0 group-hover:opacity-100 -translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+                              {study.tags.slice(0, 3).map((tag, ti) => (
+                                <span
+                                  key={ti}
+                                  className="rounded-full bg-white/15 backdrop-blur-sm border border-white/25 px-2.5 py-0.5 text-[10px] font-bold text-white"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          <h3 className={`font-bold text-white leading-snug mb-1 ${isFeatured ? "text-[22px] md:text-[26px]" : "text-[17px]"}`}>
+                            {study.title}
+                          </h3>
+                          <p className="text-white/70 text-caption">{study.client}</p>
+                        </div>
+
+                        {/* hover arrow */}
+                        <div className="absolute top-4 end-4 flex size-9 items-center justify-center rounded-full bg-white/0 group-hover:bg-white/95 backdrop-blur-sm text-transparent group-hover:text-primary transition-all duration-300 scale-75 group-hover:scale-100 mt-12 group-hover:mt-0">
+                          <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
+                            {dir === "rtl" ? "north_west" : "north_east"}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* result strip below image (only on featured for extra detail) */}
+                      {isFeatured && study.result && (
+                        <div className="px-6 py-4 border-t border-outline-variant/20 bg-secondary/[0.04]">
+                          <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1">
+                            {c.resultsLabel}
+                          </p>
+                          <p className="font-bold text-primary text-[14px] leading-snug line-clamp-2">
+                            {study.result}
+                          </p>
+                        </div>
+                      )}
                     </Link>
-
-                    {/* Body */}
-                    <div className="flex flex-col flex-1 p-6 md:p-7">
-                      <Link
-                        to="/case-studies/$slug"
-                        params={{ slug: study.slug }}
-                        className="block"
-                      >
-                        <h3 className="font-headline-sm text-headline-sm text-primary font-bold leading-snug mb-4 line-clamp-2 hover:text-secondary transition-colors duration-200">
-                          {study.title}
-                        </h3>
-                      </Link>
-
-                      {/* Challenge */}
-                      <div className="mb-3">
-                        <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
-                            report_problem
-                          </span>
-                          {c.challengeLabel}
-                        </p>
-                        <p className="font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
-                          {study.challenge}
-                        </p>
-                      </div>
-
-                      {/* Solution */}
-                      <div className="mb-4">
-                        <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
-                            lightbulb
-                          </span>
-                          {c.solutionLabel}
-                        </p>
-                        <p className="font-body-sm text-on-surface-variant line-clamp-2 leading-relaxed">
-                          {study.solution}
-                        </p>
-                      </div>
-
-                      {/* Result highlight */}
-                      <div className="rounded-xl bg-secondary/8 border border-secondary/15 px-4 py-3 mb-5">
-                        <p className="text-caption font-bold text-secondary uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                          <span className="material-symbols-outlined text-[14px]" aria-hidden="true">
-                            emoji_events
-                          </span>
-                          {c.resultsLabel}
-                        </p>
-                        <p className="font-bold text-secondary leading-snug text-sm">{study.result}</p>
-                      </div>
-
-                      {/* CTA button */}
-                      <Link
-                        to="/case-studies/$slug"
-                        params={{ slug: study.slug }}
-                        className="mt-auto flex items-center justify-center gap-2 w-full rounded-xl bg-secondary py-3.5 font-bold text-on-secondary text-label-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-secondary/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50"
-                      >
-                        {c.viewCaseStudyButton}
-                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
-                          {locale === "ar" ? "arrow_back" : "arrow_forward"}
-                        </span>
-                      </Link>
-                    </div>
-                  </article>
-                ))}
+                  );
+                })}
               </div>
             )}
           </Container>
         </section>
+
 
         {/* ═══════════════ CTA ═══════════════ */}
         <section className="relative py-20 md:py-28 px-margin-mobile md:px-margin-desktop bg-primary-container overflow-hidden">

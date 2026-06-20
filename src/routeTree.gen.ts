@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SolutionsRouteImport } from './routes/solutions'
+import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SectorsRouteImport } from './routes/sectors'
@@ -39,6 +40,11 @@ import { Route as CareersSlugRouteImport } from './routes/careers/$slug'
 const SolutionsRoute = SolutionsRouteImport.update({
   id: '/solutions',
   path: '/solutions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -205,6 +211,7 @@ export interface FileRoutesByTo {
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
+  '/timeline': typeof TimelineRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/careers/jobs': typeof CareersJobsRoute
   '/careers/work-environment': typeof CareersWorkEnvironmentRoute
@@ -234,6 +241,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
+  '/timeline': typeof TimelineRoute
   '/careers/$slug': typeof CareersSlugRoute
   '/careers/jobs': typeof CareersJobsRoute
   '/careers/work-environment': typeof CareersWorkEnvironmentRoute
