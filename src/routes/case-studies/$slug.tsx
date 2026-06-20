@@ -392,27 +392,29 @@ function CaseStudyDetailPage() {
           </Container>
         </section>
 
-        {/* ═══════════════ HERO IMAGE — Full-bleed Behance-style ═══════════════ */}
+        {/* ═══════════════ HERO IMAGE — Behance-style contained showcase ═══════════════ */}
         {data?.image && (
-          <section className="pb-16 md:pb-24">
-            <div
-              className="relative overflow-hidden w-full"
-              style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "none" : "translateY(20px)",
-                transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
-              }}
-            >
-              <img
-                src={data.image}
-                alt={data.title}
-                className="w-full object-cover aspect-[16/9] md:aspect-[21/9] max-h-[85vh]"
-              />
+          <section className="px-margin-mobile md:px-margin-desktop pb-16 md:pb-24">
+            <Container clean>
               <div
-                className="absolute inset-0 bg-gradient-to-t from-primary-container/30 via-transparent to-transparent pointer-events-none"
-                aria-hidden="true"
-              />
-            </div>
+                className="relative overflow-hidden rounded-3xl shadow-xl shadow-primary/10 border border-outline-variant/20"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "none" : "translateY(20px)",
+                  transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
+                }}
+              >
+                <img
+                  src={data.image}
+                  alt={data.title}
+                  className="w-full object-cover aspect-[4/3] sm:aspect-[16/10] md:aspect-[2/1] max-h-[640px]"
+                />
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-primary-container/30 via-transparent to-transparent pointer-events-none"
+                  aria-hidden="true"
+                />
+              </div>
+            </Container>
           </section>
         )}
 
@@ -579,10 +581,10 @@ function CaseStudyDetailPage() {
           </section>
         )}
 
-        {/* ═══════════════ GALLERY — Behance-style full-bleed showcase ═══════════════ */}
+        {/* ═══════════════ GALLERY — Behance-style showcase ═══════════════ */}
         {data?.gallery && data.gallery.length > 0 && (
-          <section className="py-16 md:py-24 bg-surface-container-lowest">
-            <Container clean className="px-margin-mobile md:px-margin-desktop">
+          <section className="py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest">
+            <Container clean>
               <div
                 className="mb-10"
                 style={{
@@ -597,29 +599,29 @@ function CaseStudyDetailPage() {
                 </span>
                 <div className="w-16 h-1 rounded-full bg-secondary" />
               </div>
+
+              <div className="space-y-6">
+                {data.gallery.map((img, i) => (
+                  <div
+                    key={i}
+                    className="relative overflow-hidden rounded-3xl border border-outline-variant/20 shadow-lg shadow-primary/5"
+                    style={{
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? "none" : "translateY(24px)",
+                      transition: `opacity 0.6s ease ${350 + i * 120}ms, transform 0.6s ease ${350 + i * 120}ms`,
+                    }}
+                  >
+                    <img
+                      src={img}
+                      alt={`${data.title} — ${i + 1}`}
+                      className="w-full object-cover aspect-[4/3] sm:aspect-[16/10] md:aspect-[2/1] max-h-[640px]"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+
             </Container>
-
-            <div className="space-y-3 md:space-y-4">
-              {data.gallery.map((img, i) => (
-                <div
-                  key={i}
-                  className="relative overflow-hidden w-full"
-                  style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? "none" : "translateY(24px)",
-                    transition: `opacity 0.6s ease ${350 + i * 120}ms, transform 0.6s ease ${350 + i * 120}ms`,
-                  }}
-                >
-                  <img
-                    src={img}
-                    alt={`${data.title} — ${i + 1}`}
-                    className="w-full object-cover aspect-[16/9] md:aspect-[16/8]"
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
-
           </section>
         )}
 
