@@ -271,10 +271,15 @@ function CaseStudyDetailPage() {
           obs.disconnect();
         }
       },
-      { threshold: 0.3 },
+      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" },
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    // safety fallback: reveal stats even if observer never fires (e.g. very short section, fast scroll)
+    const fallback = setTimeout(() => setStatsVisible(true), 1800);
+    return () => {
+      obs.disconnect();
+      clearTimeout(fallback);
+    };
   }, []);
 
   const { data, isLoading, isError, refetch } = useQuery({
@@ -387,29 +392,27 @@ function CaseStudyDetailPage() {
           </Container>
         </section>
 
-        {/* ═══════════════ HERO IMAGE ═══════════════ */}
+        {/* ═══════════════ HERO IMAGE — Full-bleed Behance-style ═══════════════ */}
         {data?.image && (
-          <section className="px-margin-mobile md:px-margin-desktop pb-16 md:pb-24">
-            <Container clean>
+          <section className="pb-16 md:pb-24">
+            <div
+              className="relative overflow-hidden w-full"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "none" : "translateY(20px)",
+                transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
+              }}
+            >
+              <img
+                src={data.image}
+                alt={data.title}
+                className="w-full object-cover aspect-[16/9] md:aspect-[21/9] max-h-[85vh]"
+              />
               <div
-                className="relative overflow-hidden rounded-3xl shadow-xl shadow-primary/10 border border-outline-variant/20"
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "none" : "translateY(20px)",
-                  transition: "opacity 0.7s ease 200ms, transform 0.7s ease 200ms",
-                }}
-              >
-                <img
-                  src={data.image}
-                  alt={data.title}
-                  className="w-full object-cover aspect-[21/9] md:aspect-[21/8]"
-                />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-primary-container/40 to-transparent pointer-events-none"
-                  aria-hidden="true"
-                />
-              </div>
-            </Container>
+                className="absolute inset-0 bg-gradient-to-t from-primary-container/30 via-transparent to-transparent pointer-events-none"
+                aria-hidden="true"
+              />
+            </div>
           </section>
         )}
 
@@ -417,7 +420,7 @@ function CaseStudyDetailPage() {
         {data?.stats && data.stats.length > 0 && (
           <section
             ref={statsRef}
-            className="relative bg-primary-container border-y border-white/8 py-12 md:py-16 px-margin-mobile md:px-margin-desktop overflow-hidden"
+            className="relative bg-primary-container border-y border-white/8 py-16 md:py-24 px-margin-mobile md:px-margin-desktop overflow-hidden"
           >
             <div className="islamic-pattern absolute inset-0 opacity-[0.03]" aria-hidden="true" />
             <div
@@ -427,7 +430,7 @@ function CaseStudyDetailPage() {
 
             <Container clean className="relative z-10">
               <h2
-                className="text-center font-headline-lg text-headline-lg font-bold text-on-primary mb-8"
+                className="text-center font-headline-lg text-headline-lg font-bold text-on-primary mb-10"
                 style={{
                   opacity: statsVisible ? 1 : 0,
                   transform: statsVisible ? "none" : "translateY(12px)",
@@ -576,10 +579,10 @@ function CaseStudyDetailPage() {
           </section>
         )}
 
-        {/* ═══════════════ GALLERY — Behance-style full-width showcase ═══════════════ */}
+        {/* ═══════════════ GALLERY — Behance-style full-bleed showcase ═══════════════ */}
         {data?.gallery && data.gallery.length > 0 && (
-          <section className="py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest">
-            <Container clean>
+          <section className="py-16 md:py-24 bg-surface-container-lowest">
+            <Container clean className="px-margin-mobile md:px-margin-desktop">
               <div
                 className="mb-10"
                 style={{
@@ -594,28 +597,29 @@ function CaseStudyDetailPage() {
                 </span>
                 <div className="w-16 h-1 rounded-full bg-secondary" />
               </div>
-
-              <div className="space-y-6">
-                {data.gallery.map((img, i) => (
-                  <div
-                    key={i}
-                    className="relative overflow-hidden rounded-3xl border border-outline-variant/20 shadow-lg shadow-primary/5"
-                    style={{
-                      opacity: visible ? 1 : 0,
-                      transform: visible ? "none" : "translateY(24px)",
-                      transition: `opacity 0.6s ease ${350 + i * 120}ms, transform 0.6s ease ${350 + i * 120}ms`,
-                    }}
-                  >
-                    <img
-                      src={img}
-                      alt={`${data.title} — ${i + 1}`}
-                      className="w-full object-cover aspect-[16/9]"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
-              </div>
             </Container>
+
+            <div className="space-y-3 md:space-y-4">
+              {data.gallery.map((img, i) => (
+                <div
+                  key={i}
+                  className="relative overflow-hidden w-full"
+                  style={{
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? "none" : "translateY(24px)",
+                    transition: `opacity 0.6s ease ${350 + i * 120}ms, transform 0.6s ease ${350 + i * 120}ms`,
+                  }}
+                >
+                  <img
+                    src={img}
+                    alt={`${data.title} — ${i + 1}`}
+                    className="w-full object-cover aspect-[16/9] md:aspect-[16/8]"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
           </section>
         )}
 
