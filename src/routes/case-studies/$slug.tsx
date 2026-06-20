@@ -107,7 +107,7 @@ function StatCard({
     <div
       className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm p-6 md:p-8 group hover:bg-white/10 transition-all duration-300 text-center"
       style={{
-        opacity: started ? 1 : 0,
+        opacity: started ? 1 : 0.35,
         transform: started ? "none" : "translateY(20px)",
         transition: `opacity 0.55s ease ${index * 120}ms, transform 0.55s ease ${index * 120}ms, background 0.3s ease`,
       }}
@@ -261,9 +261,22 @@ function CaseStudyDetailPage() {
     return () => clearTimeout(timer);
   }, []);
 
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ["case-study-detail", slug, locale],
+    queryFn: () => getCaseStudyBySlug(slug, locale),
+  });
+
+  // Observe the stats section once it actually exists in the DOM (after data loads).
   useEffect(() => {
+    if (!data?.stats || data.stats.length === 0) return;
+
     const el = statsRef.current;
-    if (!el) return;
+    if (!el) {
+      // section not mounted yet on this tick — reveal on a short delay as a safe default
+      const t = setTimeout(() => setStatsVisible(true), 600);
+      return () => clearTimeout(t);
+    }
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -274,18 +287,15 @@ function CaseStudyDetailPage() {
       { threshold: 0.1, rootMargin: "0px 0px -10% 0px" },
     );
     obs.observe(el);
-    // safety fallback: reveal stats even if observer never fires (e.g. very short section, fast scroll)
+
+    // safety fallback: reveal stats even if the observer never fires
     const fallback = setTimeout(() => setStatsVisible(true), 1800);
+
     return () => {
       obs.disconnect();
       clearTimeout(fallback);
     };
-  }, []);
-
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["case-study-detail", slug, locale],
-    queryFn: () => getCaseStudyBySlug(slug, locale),
-  });
+  }, [data]);
 
   /* Fetch related case studies (all except current) */
   const { data: allStudies } = useQuery({
@@ -434,7 +444,7 @@ function CaseStudyDetailPage() {
               <h2
                 className="text-center font-headline-lg text-headline-lg font-bold text-on-primary mb-10"
                 style={{
-                  opacity: statsVisible ? 1 : 0,
+                  opacity: statsVisible ? 1 : 0.35,
                   transform: statsVisible ? "none" : "translateY(12px)",
                   transition: "opacity 0.5s ease, transform 0.5s ease",
                 }}
