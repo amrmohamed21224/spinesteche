@@ -42,7 +42,7 @@ final class SpinesTech_Headless_Meta
             if (is_array($decoded)) {
                 return array_values(array_filter(array_map('strval', $decoded)));
             }
-            return array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $value) ?: []))));
+            return array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $value) ?: [])));
         }
         return [];
     }
